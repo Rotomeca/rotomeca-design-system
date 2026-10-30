@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Rotomeca Design System — Playground</title>
+    <link rel="stylesheet" href="/.build/design-system.css" />
+    <style>
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 1rem;
+      }
+      .swatch {
+        border: 1px solid #0002;
+        border-radius: 8px;
+        overflow: hidden;
+        font: 13px/1.4 sans-serif;
+      }
+      .swatch .states {
+        display: flex;
+        height: 64px;
+      }
+      .swatch .states div {
+        flex: 1;
+      }
+      .swatch p {
+        margin: 0;
+        padding: 0.5rem;
+      }
+    </style>
+  </head>
+  <body class="body">
+    <h1>Rotomeca Design System</h1>
+    <h2>Tokens (--ds-*)</h2>
+    <div class="grid" id="tokens"></div>
+    <script>
+      const tokens = [
+        'background-action-primary',
+        'background-action-secondary',
+        'text-action-primary',
+        'text-action-secondary',
+      ];
+      document.getElementById('tokens').innerHTML = tokens
+        .map(
+          (t) => `
+      <div class="swatch">
+        <div class="states">
+          <div style="background:var(--ds-${t})"></div>
+          <div style="background:var(--ds-${t}-hover)"></div>
+          <div style="background:var(--ds-${t}-active)"></div>
+        </div>
+        <p><b>${t}</b><br>défaut · hover · active</p>
+      </div>`,
+        )
+        .join('');
+      new EventSource('/esbuild').addEventListener('change', () => location.reload());
+    </script>
+  </body>
+</html>

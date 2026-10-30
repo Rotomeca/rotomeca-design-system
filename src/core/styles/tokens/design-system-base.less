@@ -1,0 +1,30 @@
+@import './tokens.less';
+
+.create-token(@token, @variable) {
+  @hover-variable: ~'@{variable}-hover';
+  @active-variable: ~'@{variable}-active';
+
+  --ds-@{token}: @@variable;
+  --ds-@{token}-hover: @@hover-variable;
+  --ds-@{token}-active: @@active-variable;
+}
+
+.create-complexe-token(@token, @variable, @active, @hover) {
+  @hover-variable: ~'@{active}-hover';
+  @active-variable: ~'@{hover}-active';
+
+  --ds-@{token}: @@variable;
+  --ds-@{token}-hover: @@hover-variable;
+  --ds-@{token}-active: @@active-variable;
+}
+
+:root {
+  .create-token(background-action-primary, marron-100);
+  .create-token(background-action-secondary, white-100);
+
+  .create-token(text-action-primary, white-100);
+  .create-token(text-action-secondary, cuivre-100);
+
+  --ds-body-background-color: @white-100;
+  --ds-body-text-color: @ink-100;
+}

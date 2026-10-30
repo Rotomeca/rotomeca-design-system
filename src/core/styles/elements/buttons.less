@@ -1,0 +1,50 @@
+@import '../tokens/design-system-base.less';
+
+@bg-base: @marron-100;
+@bg-base-hover: @marron-100-hover;
+@bg-base-active: @marron-100-active;
+
+@txt-base: @white-100;
+@txt-base-hover: @white-100-hover;
+@txt-base-active: @white-100-active;
+
+.button-header-colors() {
+  --_bg-base: var(--ds-background-action-primary, @bg-base);
+  --_bg-hover: var(--ds-background-action-primary-hover, @bg-base-hover);
+  --_bg-active: var(--ds-background-action-primary-active, @bg-base-active);
+
+  --_txt-base: var(--ds-text-action-primary, @txt-base);
+  --_txt-hover: var(--ds-text-action-primary-hover, @txt-base-hover);
+  --_txt-active: var(--ds-text-action-primary-active, @txt-base-active);
+}
+
+.button-header-params() {
+  --_radius: 5px;
+}
+
+.button-header() {
+  .button-header-colors();
+  .button-header-params();
+}
+
+.button {
+  .button-header();
+
+  --_current-bg: var(--_bg-base);
+  --_current-txt: var(--_txt-base);
+
+  background-color: var(--_current-bg);
+  color: var(--_current-txt);
+
+  border-radius: var(--_radius);
+
+  &:hover {
+    --_current-bg: var(--_bg-hover);
+    --_current-txt: var(--_txt-hover);
+  }
+
+  &:active {
+    --_current-bg: var(--_bg-active);
+    --_current-txt: var(--_txt-active);
+  }
+}

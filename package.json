@@ -1,0 +1,67 @@
+{
+  "name": "rotomeca-design-system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./css": "./dist/design-system.css",
+    "./less": "./src/core/styles/design-system.less",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src/core/styles"
+  ],
+  "sideEffects": [
+    "*.css",
+    "*.less"
+  ],
+  "scripts": {
+    "clean": "node -e \"for (const d of ['dist','out']) require('fs').rmSync(d,{recursive:true,force:true})\"",
+    "typecheck": "tsc --noEmit",
+    "build:dist": "tsc",
+    "build:out": "esbuild src/index.ts --bundle --minify --sourcemap --format=esm --target=es2022 --outfile=out/rotomeca-design-system.js",
+    "build": "pnpm clean && pnpm build:dist && pnpm build:css:dist && pnpm build:out && pnpm build:css:out",
+    "prepublishOnly": "pnpm build",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "pnpm typecheck && pnpm lint && pnpm build",
+    "build:css:dist": "lessc src/core/styles/design-system.less dist/design-system.css",
+    "build:css:out": "esbuild dist/design-system.css --minify --outfile=out/rotomeca-design-system.css",
+    "dev": "node scripts/dev.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.15.0",
+      "onFail": "download"
+    }
+  },
+  "packageManager": "pnpm@12.15.0",
+  "type": "module",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@typescript/native": "npm:typescript@^7.0.2",
+    "esbuild": "^0.28.2",
+    "eslint": "^10.13.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.13.0",
+    "less": "^4.9.1",
+    "prettier": "^3.9.10",
+    "typescript": "npm:@typescript/typescript6@^6.0.2",
+    "typescript-eslint": "^8.72.0"
+  },
+  "dependencies": {
+    "@rotomeca/utils": "^7.0.3"
+  }
+}
