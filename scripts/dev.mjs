@@ -2,6 +2,7 @@ import { mkdirSync, watch } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import less from 'less';
 import { context } from 'esbuild';
+import { lessPlugin } from './less-plugin.mjs';
 
 const entry = 'src/core/styles/design-system.less';
 const buildDir = 'playground/.build';
@@ -34,6 +35,7 @@ const ctx = await context({
   bundle: true,
   format: 'esm',
   outfile: 'playground/.build/index.js',
+  plugins: [lessPlugin()],
   logLevel: 'info',
 });
 await ctx.watch();

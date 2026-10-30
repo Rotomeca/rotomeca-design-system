@@ -1,0 +1,19 @@
+rds-flexbox {
+  display: flex;
+  flex-direction: row;
+
+  align-items: var(--_align, normal);
+  justify-content: var(--_justify, normal);
+
+  &[mode='column'] {
+    flex-direction: column;
+  }
+
+  &:state(inverted-row) {
+    flex-direction: row-reverse;
+  }
+
+  &:state(inverted-column) {
+    flex-direction: column-reverse;
+  }
+}

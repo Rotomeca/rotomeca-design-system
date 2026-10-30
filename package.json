@@ -9,6 +9,14 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
+    "./jsx-runtime": {
+      "types": "./dist/core/scripts/jsx/jsx-runtime.d.ts",
+      "default": "./dist/core/scripts/jsx/jsx-runtime.js"
+    },
+    "./jsx-dev-runtime": {
+      "types": "./dist/core/scripts/jsx/jsx-dev-runtime.d.ts",
+      "default": "./dist/core/scripts/jsx/jsx-dev-runtime.js"
+    },
     "./css": "./dist/design-system.css",
     "./less": "./src/core/styles/design-system.less",
     "./package.json": "./package.json"
@@ -25,7 +33,7 @@
     "clean": "node -e \"for (const d of ['dist','out']) require('fs').rmSync(d,{recursive:true,force:true})\"",
     "typecheck": "tsc --noEmit",
     "build:dist": "tsc",
-    "build:out": "esbuild src/index.ts --bundle --minify --sourcemap --format=esm --target=es2022 --outfile=out/rotomeca-design-system.js",
+    "build:out": "node scripts/build.mjs",
     "build": "pnpm clean && pnpm build:dist && pnpm build:css:dist && pnpm build:out && pnpm build:css:out",
     "prepublishOnly": "pnpm build",
     "lint": "eslint .",
@@ -62,6 +70,8 @@
     "typescript-eslint": "^8.72.0"
   },
   "dependencies": {
+    "@rotomeca/event": "^5.0.0",
+    "@rotomeca/rop": "^6.0.0",
     "@rotomeca/utils": "^7.0.3"
   }
 }

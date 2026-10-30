@@ -13,7 +13,13 @@
     "skipLibCheck": true,
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "@rotomeca/ds-jsx",
+    "paths": {
+      "@rotomeca/ds-jsx/jsx-runtime": ["./src/core/scripts/jsx/jsx-runtime.ts"],
+      "@rotomeca/ds-jsx/jsx-dev-runtime": ["./src/core/scripts/jsx/jsx-dev-runtime.ts"]
+    }
   },
   "include": ["src"]
 }

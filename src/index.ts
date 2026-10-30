@@ -6,3 +6,8 @@
 
 /** Version du design system. */
 export const version = '1.0.0';
+
+export * from './components/base/BaseElement';
+export * from './components/base/BaseFormElement';
+export * from './core/scripts/decorators/index';
+export * from './components/atoms/flexbox/flexbox';

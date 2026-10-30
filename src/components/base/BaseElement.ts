@@ -1,4 +1,4 @@
-import { ResourceScope, type Cleanup } from './ResourceScope.js';
+import { ResourceScope, type Cleanup } from './ResourceScope';
 
 /**
  * Changement d'un attribut observé, agrégé entre deux mises à jour.
@@ -25,11 +25,44 @@ export interface UpdateContext {
   readonly reasons: ReadonlySet<string>;
 }
 
-/** Feuilles de style construites pour un constructeur, avec les sources CSS dont elles proviennent. */
-type SheetCache = { sources: readonly string[]; sheets: CSSStyleSheet[] };
+/** Source de style : CSS déjà compilé, ou feuille déjà construite. */
+export type StyleSource = string | CSSStyleSheet;
+
+/** Hook exécuté à chaque connexion, dans la portée de ressources de celle-ci. */
+export type ConnectHook = (scope: ResourceScope) => void;
+
+/** Feuilles de style construites pour un constructeur, avec les sources dont elles proviennent. */
+type SheetCache = { sources: readonly StyleSource[]; sheets: CSSStyleSheet[] };
 
 /** Cache des feuilles de style, par document puis par constructeur. */
 const sheetCaches = new WeakMap<Document, WeakMap<object, SheetCache>>();
+
+/** Hooks de connexion enregistrés par instance (ex. par les décorateurs). */
+const connectHooks = new WeakMap<BaseElement, ConnectHook[]>();
+
+/**
+ * Enregistre un hook exécuté à chaque connexion de l'élément, après {@link BaseElement.onConnect}.
+ *
+ * @remarks
+ * À appeler pendant la construction (ex. initialiseur de décorateur) : un hook ajouté sur un
+ * élément déjà connecté n'est exécuté qu'à la connexion suivante.
+ * Les ressources acquises via la portée reçue sont libérées à la déconnexion.
+ *
+ * @param element - Élément concerné.
+ * @param hook - Fonction appelée avec la portée de la connexion courante.
+ */
+export function addConnectHook(element: BaseElement, hook: ConnectHook): void {
+  const hooks = connectHooks.get(element);
+  if (hooks) hooks.push(hook);
+  else connectHooks.set(element, [hook]);
+}
+
+/** Texte CSS d'une source de style, pour le repli en éléments `<style>`. */
+function cssText(source: StyleSource): string {
+  return typeof source === 'string'
+    ? source
+    : Array.from(source.cssRules, (rule) => rule.cssText).join('\n');
+}
 
 /**
  * Base autonome pour Chromium/Electron moderne. Aucun rendu implicite par `innerHTML`.
@@ -49,9 +82,11 @@ export abstract class BaseElement extends HTMLElement {
   /** Propriétés publiques à récupérer si assignées avant `customElements.define()`. */
   static upgradeProperties: readonly string[] = [];
   /** CSS déjà compilé ; LESS doit être compilé avant d'arriver ici. Shadow DOM seulement. */
-  static styles: readonly string[] = [];
+  static styles: readonly StyleSource[] = [];
   /** Gabarit cloné dans la racine lors de la première connexion. */
   static template: HTMLTemplateElement | null = null;
+  /** `true` si le rendu doit être reconstruit en entier à chaque mise à jour (voir `@UpdateAll`). */
+  static updateAll = false;
 
   /** Racine de rendu : le shadow root, ou l'élément lui-même en Light DOM. */
   readonly #root: ShadowRoot | this;
@@ -159,6 +194,10 @@ export abstract class BaseElement extends HTMLElement {
         });
       }
       this.onConnect();
+      for (const hook of connectHooks.get(this) ?? []) {
+        if (!this.#scope) break;
+        hook(this.#scope);
+      }
       if (this.#scope) {
         this.refreshSlots();
         this.requestUpdate('connect');
@@ -451,9 +490,10 @@ export abstract class BaseElement extends HTMLElement {
         sources.length !== entry.sources.length ||
         sources.some((s, i) => s !== entry!.sources[i])
       ) {
-        const sheets = sources.map((css) => {
+        const sheets = sources.map((source) => {
+          if (typeof source !== 'string') return source;
           const sheet = new view.CSSStyleSheet();
-          sheet.replaceSync(css);
+          sheet.replaceSync(source);
           return sheet;
         });
         entry = { sources: [...sources], sheets };
@@ -463,9 +503,9 @@ export abstract class BaseElement extends HTMLElement {
       this.#ownedSheets = entry.sheets;
     } else {
       if ('adoptedStyleSheets' in root) root.adoptedStyleSheets = external;
-      for (const css of sources) {
+      for (const source of sources) {
         const style = this.ownerDocument.createElement('style');
-        style.textContent = css;
+        style.textContent = cssText(source);
         root.append(style);
         this.#styleNodes.push(style);
       }

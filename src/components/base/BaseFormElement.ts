@@ -1,4 +1,4 @@
-import { BaseElement } from './BaseElement.js';
+import { BaseElement } from './BaseElement';
 
 /** Valeur ou état acceptés par `ElementInternals.setFormValue`. */
 export type FormValue = string | File | FormData | null;

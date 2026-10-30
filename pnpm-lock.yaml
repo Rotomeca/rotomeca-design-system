@@ -166,6 +166,12 @@ importers:
 
   .:
     dependencies:
+      '@rotomeca/event':
+        specifier: ^5.0.0
+        version: 5.0.0
+      '@rotomeca/rop':
+        specifier: ^6.0.0
+        version: 6.0.0
       '@rotomeca/utils':
         specifier: ^7.0.3
         version: 7.0.3
@@ -432,6 +438,12 @@ packages:
 
   '@keyv/serialize@1.1.1':
     resolution: {integrity: sha512-dXn3FZhPv0US+7dtJsIi2R+c7qWYiReoEh5zUntWCf4oSpMNib8FDhSoed6m3QyZdx5hK7iLFkYk3rNxwt8vTA==}
+
+  '@rotomeca/event@5.0.0':
+    resolution: {integrity: sha512-E0K3bpHcs0pjWdEjG0kopATBBzwconEhxikUReC5kal7XsRx6uWe3L9OH9Hw8fKp1F4Vc66TuGDVBrmYtjSKzg==}
+
+  '@rotomeca/rop@6.0.0':
+    resolution: {integrity: sha512-Dnk4t0wOl3qLb+1kunLrN+c05e57XBG43mR4bCybkx/ya1NeWtuLuSPbBUM45jWgd8Dr2tIIgZ+5D6jv03n2tg==}
 
   '@rotomeca/utils@7.0.3':
     resolution: {integrity: sha512-UboB44v852Syb0stIruRUrJZtFrSaO9/dC2UMKMwBIqlORKCNrgIIJ78pLQDhme1Iq61WIQ2Wb1744tL5KPPVw==}
@@ -1171,6 +1183,12 @@ snapshots:
       keyv: 5.6.0
 
   '@keyv/serialize@1.1.1': {}
+
+  '@rotomeca/event@5.0.0':
+    dependencies:
+      '@rotomeca/utils': 7.0.3
+
+  '@rotomeca/rop@6.0.0': {}
 
   '@rotomeca/utils@7.0.3': {}
 
