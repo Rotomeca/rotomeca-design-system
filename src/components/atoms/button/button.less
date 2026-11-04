@@ -1,0 +1,141 @@
+@import '../../../core/styles/tokens/tokens.less';
+
+// Variation « pleine » : les couleurs viennent des tokens --ds-*, avec repli sur les valeurs par défaut.
+.variant-filled(@name, @bg, @bg-hover, @bg-active, @txt) {
+  :host([variant='@{name}']) button {
+    --_bg: ~'var(--ds-background-action-@{name}, @{bg})';
+    --_bg-hover: ~'var(--ds-background-action-@{name}-hover, @{bg-hover})';
+    --_bg-active: ~'var(--ds-background-action-@{name}-active, @{bg-active})';
+    --_txt: ~'var(--ds-text-action-@{name}, @{txt})';
+    --_border: transparent;
+  }
+}
+
+:host {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+:host([hidden]) {
+  display: none;
+}
+
+button {
+  // primary par défaut
+  --_bg: var(--ds-background-action-primary, @marron-100);
+  --_bg-hover: var(--ds-background-action-primary-hover, @marron-100-hover);
+  --_bg-active: var(--ds-background-action-primary-active, @marron-100-active);
+  --_txt: var(--ds-text-action-primary, @white-100);
+  --_border: transparent;
+
+  --_current-bg: var(--_bg);
+
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--_gap, var(--ds-button-icon-gap, 0.5rem));
+
+  // Cible tactile ≥ 24×24 px (RGAA 13.x / WCAG 2.5.8), ici 40 px.
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  padding: 0.5rem 1rem;
+
+  font: inherit;
+  font-weight: 600;
+  line-height: 1.25;
+  white-space: nowrap;
+  text-decoration: none;
+
+  color: var(--_txt);
+  background-color: var(--_current-bg);
+  border: 2px solid var(--_border);
+  border-radius: var(--ds-button-radius, 5px);
+  cursor: pointer;
+
+  &:hover {
+    --_current-bg: var(--_bg-hover);
+  }
+
+  &:active {
+    --_current-bg: var(--_bg-active);
+  }
+
+  // Anneau de focus : visible au clavier, contraste ≥ 3:1 (RGAA 10.7).
+  &:focus-visible {
+    outline: 3px solid var(--ds-focus-ring-color, @ink-100);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  &[aria-busy='true'] {
+    --_current-bg: var(--_bg);
+
+    cursor: progress;
+  }
+
+  rds-icon {
+    --ds-icon-size: 1.25em;
+  }
+
+  #spinner {
+    animation: rds-button-spin 1s linear infinite;
+  }
+}
+
+@keyframes rds-button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Pas de rotation pour qui a demandé moins d'animations (RGAA 13.8).
+@media (prefers-reduced-motion: reduce) {
+  button #spinner {
+    animation: none;
+  }
+}
+
+.variant-filled(primary, @marron-100, @marron-100-hover, @marron-100-active, @white-100);
+.variant-filled(warning, @warning-100, @warning-100-hover, @warning-100-active, @ink-100);
+.variant-filled(danger, @danger-100, @danger-100-hover, @danger-100-active, @white-100);
+.variant-filled(success, @success-100, @success-100-hover, @success-100-active, @white-100);
+
+// Secondaire : fond clair, texte et bordure marron (bordure = repère visible du bouton).
+:host([variant='secondary']) button {
+  --_bg: var(--ds-background-action-secondary, @white-100);
+  --_bg-hover: var(--ds-background-action-secondary-hover, @white-100-active);
+  --_bg-active: var(--ds-background-action-secondary-active, @white-200);
+  --_txt: var(--ds-text-action-secondary-button, @marron-100);
+  --_border: currentColor;
+}
+
+// Tertiaire : sans fond ni bordure, texte marron.
+:host([variant='tertiary']) button {
+  --_bg: transparent;
+  --_bg-hover: var(--ds-background-action-tertiary-hover, @white-100-active);
+  --_bg-active: var(--ds-background-action-tertiary-active, @white-200);
+  --_txt: var(--ds-text-action-tertiary, @marron-100);
+  --_border: transparent;
+}
+
+// Bords arrondis : pilule (cercle pour un bouton icône seul).
+:host([rounded]) button {
+  border-radius: 999px;
+}
+
+// Icône seule : bouton carré, sans marge.
+:host(:state(icon-only)) button {
+  gap: 0;
+  padding: 0.5rem;
+}
+
+@media (forced-colors: active) {
+  button {
+    border-color: ButtonText;
+  }
+}

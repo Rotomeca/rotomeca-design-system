@@ -34,6 +34,28 @@
     <h1>Rotomeca Design System</h1>
     <h2>Tokens (--ds-*)</h2>
     <div class="grid" id="tokens"></div>
+    <h2>Boutons</h2>
+    <div id="buttons" style="display: grid; gap: 1rem"></div>
+    <script type="module">
+      import './.build/index.js';
+      const variants = ['primary', 'secondary', 'tertiary', 'warning', 'danger', 'success'];
+      const row = (title, attrs, content = (v) => v) =>
+        `<div><b>${title}</b><br>${variants
+          .map((v) => `<rds-button variant="${v}" ${attrs}>${content(v)}</rds-button>`)
+          .join(' ')}</div>`;
+      document.getElementById('buttons').innerHTML = [
+        row('Variations', ''),
+        row('Arrondi', 'rounded'),
+        row('Désactivé', 'disabled'),
+        row('Chargement', 'loading'),
+        row('Chargement icône seule', 'loading label="Envoi"', () => ''),
+        row('Icône avant', 'icon-before="house"'),
+        row('Icône après', 'icon-after="arrow-right"'),
+        row('Marge icône 1.5rem', 'icon-before="house" icon-gap="1.5rem"'),
+        row('Icône seule', 'icon-before="settings" label="Réglages"', () => ''),
+        row('Icône seule arrondie', 'icon-before="x" rounded label="Fermer"', () => ''),
+      ].join('');
+    </script>
     <script>
       const tokens = [
         'background-action-primary',
