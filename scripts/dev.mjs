@@ -34,6 +34,7 @@ const ctx = await context({
   entryPoints: ['src/index.ts'],
   bundle: true,
   format: 'esm',
+  target: 'es2022',
   outfile: 'playground/.build/index.js',
   plugins: [lessPlugin()],
   logLevel: 'info',
