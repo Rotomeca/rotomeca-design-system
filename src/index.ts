@@ -11,3 +11,4 @@ export * from './components/base/BaseElement';
 export * from './components/base/BaseFormElement';
 export * from './core/scripts/decorators/index';
 export * from './components/atoms/flexbox/flexbox';
+export * from './components/atoms/icon/icon';
