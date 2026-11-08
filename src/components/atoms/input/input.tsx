@@ -65,26 +65,49 @@ const SYNCED_ATTRIBUTES = [
   'step',
 ] as const;
 
+/** Types dont l'interface native est toujours visible : le label ne peut pas rester dans le champ. */
+const ALWAYS_FLOAT_TYPES: readonly string[] = [
+  'date',
+  'time',
+  'datetime-local',
+  'month',
+  'week',
+  'color',
+  'range',
+  'file',
+];
+
+// Angle animé de la bordure : une propriété personnalisée doit être enregistrée au niveau du
+// document (un `@property` dans un Shadow DOM est ignoré). Sans support, la bordure reste statique.
+try {
+  CSS.registerProperty({
+    name: '--rds-input-angle',
+    syntax: '<angle>',
+    inherits: false,
+    initialValue: '0deg',
+  });
+} catch {
+  // Déjà enregistrée, ou navigateur sans CSS.registerProperty.
+}
+
 const TEMPLATE = (
   <RotomecaFragment>
-    <label id="label" for="input" class="label-container">
-      <span class="label-container--label">
-        <slot id="label-slot"></slot>
-      </span>
-      <span class="label-container--hint">
-        <slot id="hint-slot" name="hint"></slot>
-      </span>
-    </label>
     <div class="container">
       <div class="addons">
         <div class="addon__inner">
           <input id="input" class="input-like" type="text" part="input" />
+          <label id="label" for="input" class="floating-label">
+            <slot id="label-slot"></slot>
+          </label>
           <RotomecaIcon id="input__icon" />
           <output id="output" for="input"></output>
         </div>
         <RotomecaButton id="input__button" variant="primary" disabled>
           <slot id="button-slot" name="button"></slot>
         </RotomecaButton>
+      </div>
+      <div id="hint" class="hint">
+        <slot id="hint-slot" name="hint"></slot>
       </div>
       <div id="state" class="state" part="state-container" aria-live="polite">
         <RotomecaIcon id="state__icon" />
@@ -314,6 +337,7 @@ class RotomecaInput extends BaseFormElement {
     const input = this.#_input;
 
     input.type = this.resolveType();
+    this.#_setState('always-float', ALWAYS_FLOAT_TYPES.includes(input.type));
     input.placeholder = this.stringAttribute('placeholder');
     input.disabled = this.effectivelyDisabled;
     input.readOnly = this.hasAttribute('readonly');
@@ -346,7 +370,7 @@ class RotomecaInput extends BaseFormElement {
 
   protected slotChanged(slot: HTMLSlotElement): void {
     if (slot.id === 'label-slot' || slot.id === 'hint-slot') {
-      this.#_setState('has-label', this.#_hasSlotted('label-slot') || this.#_hasSlotted('hint-slot'));
+      this.#_setState('has-label', this.#_hasSlotted('label-slot'));
       this.#_setState('has-hint', this.#_hasSlotted('hint-slot'));
     } else if (slot.id === 'button-slot') {
       void this.requestUpdate('button-slot');
