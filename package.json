@@ -30,7 +30,7 @@
     "*.less"
   ],
   "scripts": {
-    "clean": "node -e \"for (const d of ['dist','out']) require('fs').rmSync(d,{recursive:true,force:true})\"",
+    "clean": "node -e \"for (const d of ['dist','out','playground/.build']) require('fs').rmSync(d,{recursive:true,force:true})\"",
     "typecheck": "tsc --noEmit",
     "build:dist": "tsc",
     "build:out": "node scripts/build.mjs",
@@ -43,7 +43,7 @@
     "test": "pnpm typecheck && pnpm lint && pnpm build",
     "build:css:dist": "lessc src/core/styles/design-system.less dist/design-system.css",
     "build:css:out": "esbuild dist/design-system.css --minify --outfile=out/rotomeca-design-system.css",
-    "dev": "node scripts/dev.mjs",
+    "dev": "pnpm run clean && pnpm run test && node scripts/dev.mjs",
     "build:icons": "node scripts/copy-icons.mjs"
   },
   "keywords": [],

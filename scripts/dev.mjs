@@ -1,5 +1,5 @@
 import { mkdirSync, watch } from 'node:fs';
-import { readFile, writeFile } from 'node:fs/promises';
+import { cp, readFile, writeFile } from 'node:fs/promises';
 import less from 'less';
 import { context } from 'esbuild';
 import { lessPlugin } from './less-plugin.mjs';
@@ -20,6 +20,11 @@ async function buildCss() {
 }
 
 mkdirSync(buildDir, { recursive: true });
+// <rds-icon> charge les SVG depuis `icons/` à côté du bundle
+await cp('node_modules/lucide-static/icons', `${buildDir}/icons`, {
+  recursive: true,
+  filter: (source) => !source.endsWith('.json'),
+});
 await buildCss();
 
 let timer;
