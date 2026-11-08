@@ -1,0 +1,214 @@
+@import '../../../core/styles/tokens/tokens.less';
+
+.state-color(@state, @token, @fallback) {
+  :host(:state(@{state})) {
+    --_line: var(@token, @fallback);
+    --_state-color: var(@token, @fallback);
+  }
+}
+
+:host {
+  --_line: var(--ds-input-border, @marron-100);
+  --_state-color: var(--ds-input-text, @ink-100);
+
+  display: block;
+  color: var(--ds-input-text, @ink-100);
+}
+
+:host([hidden]) {
+  display: none;
+}
+
+// Libellé et indice : masqués tant qu'aucun contenu n'est fourni.
+.label-container {
+  display: none;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+
+  &--hint {
+    display: none;
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--ds-input-hint, @ink-100-hover);
+  }
+}
+
+:host(:state(has-label)) .label-container,
+:host(:state(has-hint)) .label-container {
+  display: flex;
+}
+
+:host(:state(has-hint)) .label-container--hint {
+  display: block;
+}
+
+.addons {
+  display: flex;
+  align-items: stretch;
+}
+
+.addon__inner {
+  position: relative;
+  display: flex;
+  flex: 1;
+  min-width: 0;
+}
+
+.input-like {
+  box-sizing: border-box;
+  flex: 1;
+  min-width: 0;
+  padding: 0.5rem 1rem;
+
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: var(--ds-input-text, @ink-100);
+
+  background-color: var(--ds-input-background, @creme-100);
+  border: none;
+  border-radius: var(--ds-input-radius, 0.25rem) var(--ds-input-radius, 0.25rem) 0 0;
+  // Trait inférieur : couleur de repère du champ (change selon l'état).
+  box-shadow: inset 0 -2px 0 0 var(--_line);
+
+  &::placeholder {
+    color: var(--ds-input-hint, @ink-100-hover);
+    opacity: 0.8;
+  }
+
+  // Anneau de focus visible, contraste ≥ 3:1 (RGAA 10.7).
+  &:focus-visible {
+    outline: 3px solid var(--ds-focus-ring-color, @ink-100);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  &[type='color'] {
+    height: 2.75rem;
+    padding: 0.25rem;
+    cursor: pointer;
+  }
+
+  &[type='range'] {
+    padding-block: 0;
+    accent-color: var(--ds-input-border, @marron-100);
+  }
+}
+
+// Icône dans le champ.
+#input__icon {
+  display: none;
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+:host(:state(have-icon)) {
+  #input__icon {
+    display: block;
+  }
+
+  .input-like {
+    padding-right: 3rem;
+  }
+}
+
+// Valeur courante (ex. curseur `range`).
+output {
+  display: none;
+  align-self: stretch;
+  min-width: 2.5rem;
+  padding: 0 0.75rem;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  background-color: var(--ds-input-background, @creme-100);
+  box-shadow: inset 0 -2px 0 0 var(--_line);
+  line-height: 2.5rem;
+}
+
+:host(:state(has-output)) output {
+  display: block;
+}
+
+// Bouton interne, collé au champ.
+#input__button {
+  display: none;
+  align-self: stretch;
+  --ds-button-radius: 0 var(--ds-input-radius, 0.25rem) 0 0;
+}
+
+:host(:state(have-button)) {
+  #input__button {
+    display: inline-flex;
+  }
+
+  .input-like {
+    border-top-right-radius: 0;
+  }
+}
+
+// Bouton « tertiary » : prolonge visuellement le champ (même fond, même trait inférieur).
+:host(:state(button-flat)) #input__button::part(button) {
+  background-color: var(--ds-input-background, @creme-100);
+  box-shadow: inset 0 -2px 0 0 var(--_line);
+  // Pas de bordure : le trait inférieur doit être aligné avec celui du champ.
+  border: 0;
+  border-radius: 0 var(--ds-input-radius, 0.25rem) 0 0;
+
+  &:hover {
+    filter: brightness(0.95);
+  }
+}
+
+:host(:state(obi)) #input__button::part(button) {
+  gap: 0;
+  padding: 0.5rem;
+}
+
+// États de validation : la couleur est doublée d'une icône et d'un texte (RGAA 3.2).
+.state-color(success, --ds-input-border-success, @success-100);
+.state-color(error, --ds-input-border-error, @danger-100);
+
+.state {
+  display: none;
+  align-items: center;
+  gap: 0.375rem;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--_state-color);
+
+  rds-icon {
+    --ds-icon-size: 1rem;
+  }
+
+  &__text {
+    display: none;
+  }
+}
+
+:host(:state(state)) .state {
+  display: flex;
+}
+
+:host(:state(success)) .state__text.success,
+:host(:state(error)) .state__text.error {
+  display: block;
+}
+
+:host(:state(disabled)) {
+  cursor: not-allowed;
+}
+
+@media (forced-colors: active) {
+  .input-like {
+    border: 1px solid FieldText;
+  }
+}

@@ -36,8 +36,48 @@
     <div class="grid" id="tokens"></div>
     <h2>Boutons</h2>
     <div id="buttons" style="display: grid; gap: 1rem"></div>
+    <h2>Champs</h2>
+    <form id="inputs" style="display: grid; gap: 1rem; max-width: 32rem">
+      <rds-input name="nom" required placeholder="Jean Dupont">
+        Nom <span slot="hint">Obligatoire</span>
+      </rds-input>
+      <rds-input name="ok" value="Valide" state="success">Succès forcé</rds-input>
+      <rds-input name="ko" value="Invalide" state="error">
+        Erreur forcée <span slot="error">Ce nom est déjà pris.</span>
+      </rds-input>
+      <rds-input name="icone" icon="user">Avec icône</rds-input>
+      <rds-input name="bouton" button="primary" button-icon="send">
+        Avec bouton <span slot="button">Envoyer</span>
+      </rds-input>
+      <rds-input name="obi" button="" button-icon="plus" button-label="Ajouter">Bouton icône seule</rds-input>
+      <rds-input name="off" disabled value="Désactivé">Désactivé</rds-input>
+      <rds-input-number name="nombre" min="0" max="10" step="1" value="3">Nombre</rds-input-number>
+      <rds-input-date name="date">Date</rds-input-date>
+      <rds-input-time name="heure">Heure</rds-input-time>
+      <rds-input-datetime name="datetime">Date et heure</rds-input-datetime>
+      <rds-input-password name="mdp" required minlength="8">Mot de passe</rds-input-password>
+      <rds-input-search name="recherche">Recherche</rds-input-search>
+      <rds-input-email name="email" required>E-mail</rds-input-email>
+      <rds-input-tel name="tel">Téléphone</rds-input-tel>
+      <rds-input-url name="url">Site web</rds-input-url>
+      <rds-input-color name="couleur" value="#6b4226">Couleur</rds-input-color>
+      <rds-input-range name="curseur" min="0" max="100" value="40">Curseur</rds-input-range>
+      <fieldset style="display: flex; gap: 0.5rem; border: 0; padding: 0">
+        <rds-button type="submit">Envoyer</rds-button>
+        <rds-button type="reset" variant="secondary">Réinitialiser</rds-button>
+      </fieldset>
+      <pre id="inputs-result"></pre>
+    </form>
     <script type="module">
       import './.build/index.js';
+      document.getElementById('inputs').addEventListener('submit', (e) => {
+        e.preventDefault();
+        document.getElementById('inputs-result').textContent = JSON.stringify(
+          Object.fromEntries(new FormData(e.target)),
+          null,
+          2,
+        );
+      });
       const variants = ['primary', 'secondary', 'tertiary', 'warning', 'danger', 'success'];
       const row = (title, attrs, content = (v) => v) =>
         `<div><b>${title}</b><br>${variants
