@@ -48,3 +48,5 @@ export * from './components/atoms/radio/radio';
 export * from './components/atoms/switch/switch';
 export * from './components/atoms/segmented-control/segmented-control';
 export * from './components/atoms/input-file/input-file';
+export * from './components/atoms/tooltip/tooltip';
+export * from './components/atoms/helper/helper';

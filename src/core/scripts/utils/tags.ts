@@ -39,3 +39,5 @@ export const TAG_RADIO = `${base}radio`;
 export const TAG_SWITCH = `${base}switch`;
 export const TAG_SEGMENTED_CONTROL = `${base}segmented-control`;
 export const TAG_INPUT_FILE = `${base}input-file`;
+export const TAG_TOOLTIP = `${base}tooltip`;
+export const TAG_HELPER = `${base}helper`;

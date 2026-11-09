@@ -246,6 +246,36 @@
       <rds-input-file name="pieces" multiple button-text="Choisir des fichiers">Pièces jointes</rds-input-file>
       <rds-input-file name="off" disabled>Désactivé</rds-input-file>
     </div>
+    <h2>Infobulle</h2>
+    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem; padding-top: 2rem">
+      <rds-tooltip text="Enregistrer le motif (Ctrl+S)">
+        <rds-icon-button icon="download" label="Enregistrer"></rds-icon-button>
+      </rds-tooltip>
+      <rds-tooltip text="Copier le lien" placement="bottom">
+        <rds-icon-button icon="copy" label="Copier"></rds-icon-button>
+      </rds-tooltip>
+      <rds-tooltip text="Infobulle sur un bouton texte">
+        <rds-secondary-button>Survolez-moi</rds-secondary-button>
+      </rds-tooltip>
+      <rds-tooltip text="Retournée si la place manque">
+        <rds-badge tone="accent">Badge</rds-badge>
+      </rds-tooltip>
+    </div>
+    <h2>Aide contextuelle</h2>
+    <div style="display: grid; gap: 1rem">
+      <div style="display: flex; align-items: center; gap: 0.5rem">
+        <span style="font-weight: 600">Identifiant fiscal</span>
+        <rds-helper title="Numéro à 13 chiffres inscrit en haut de votre dernière déclaration."></rds-helper>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem">
+        <span>Infobulle riche</span>
+        <rds-helper label="Aide sur le format" placement="right"><b>Format :</b> AAAA-MM-JJ</rds-helper>
+        <span>tailles</span>
+        <rds-helper size="sm" text="Petit"></rds-helper>
+        <rds-helper text="Moyen"></rds-helper>
+        <rds-helper size="lg" text="Grand"></rds-helper>
+      </div>
+    </div>
     <h2>Champs</h2>
     <form id="inputs" style="display: grid; gap: 1rem; max-width: 32rem">
       <rds-input name="nom" required placeholder="Jean Dupont">

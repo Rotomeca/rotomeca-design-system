@@ -1,0 +1,76 @@
+@import (reference) '../../../core/styles/mixins/base.less';
+@import (reference) '../../../core/styles/mixins/tip.less';
+
+.rds-base();
+.rds-tip();
+
+:host {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+button {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  margin: -0.125rem;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ds-text-muted);
+  cursor: help;
+  transition:
+    color var(--_d-instant) var(--_ease),
+    background-color var(--_d-instant) var(--_ease),
+    transform var(--_d-short) var(--_ease);
+  outline: 3px solid transparent;
+  outline-offset: 0;
+}
+
+// Zone tactile élargie.
+button::before {
+  content: '';
+  position: absolute;
+  inset: -0.5rem;
+  border-radius: 50%;
+}
+
+button:hover,
+:host(:state(open)) button {
+  color: var(--ds-text-action-tertiary);
+  background: var(--ds-background-action-tertiary-hover);
+}
+
+button:active {
+  transform: scale(0.92);
+}
+
+button:focus-visible {
+  outline-color: var(--ds-focus-ring-color);
+  outline-offset: 2px;
+}
+
+rds-icon {
+  --ds-icon-size: 1.125rem;
+}
+
+:host([size='sm']) button {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+:host([size='sm']) rds-icon {
+  --ds-icon-size: 1rem;
+}
+
+:host([size='lg']) button {
+  width: 2rem;
+  height: 2rem;
+}
+
+:host([size='lg']) rds-icon {
+  --ds-icon-size: 1.375rem;
+}
