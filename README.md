@@ -37,7 +37,7 @@ Bundle ESM minifié : `out/rotomeca-design-system.js`. Les icônes (SVG `lucide-
 
 ### Thème
 
-Le thème sombre s'active avec `data-theme="dark"` sur `<html>` (ou via `setTheme('dark' | 'light' | 'auto')`).
+Le thème sombre s'active avec `data-theme="dark"` sur `<html>` (ou via `setTheme('light' | 'dark' | 'system')`).
 Le thème se personnalise uniquement en redéfinissant des propriétés `--ds-*`.
 
 ## Briques (64)
