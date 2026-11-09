@@ -1,0 +1,74 @@
+@import (reference) '../../../core/styles/mixins/base.less';
+
+.rds-base();
+
+:host {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--ds-space-2);
+  vertical-align: middle;
+}
+
+:host([orientation='vertical']) {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+:host([align='end']) {
+  justify-content: flex-end;
+}
+
+:host([align='center']) {
+  justify-content: center;
+}
+
+:host([align='between']) {
+  justify-content: space-between;
+}
+
+:host([align]),
+:host([full]) {
+  display: flex;
+}
+
+:host([full]) ::slotted(*) {
+  flex: 1;
+}
+
+// Boutons accolés : seules les extrémités gardent leur rayon (`--_radius` lu par `rds-button`).
+:host([attached]) {
+  gap: 0;
+  flex-wrap: nowrap;
+}
+
+:host([attached]) ::slotted(*) {
+  --_radius: 0;
+}
+
+:host([attached]:not([orientation='vertical'])) ::slotted(:first-child) {
+  --_radius: var(--ds-button-radius) 0 0 var(--ds-button-radius);
+}
+
+:host([attached]:not([orientation='vertical'])) ::slotted(:last-child) {
+  --_radius: 0 var(--ds-button-radius) var(--ds-button-radius) 0;
+}
+
+:host([attached]:not([orientation='vertical'])) ::slotted(:not(:first-child)) {
+  margin-left: -2px;
+}
+
+:host([attached][orientation='vertical']) ::slotted(:first-child) {
+  --_radius: var(--ds-button-radius) var(--ds-button-radius) 0 0;
+}
+
+:host([attached][orientation='vertical']) ::slotted(:last-child) {
+  --_radius: 0 0 var(--ds-button-radius) var(--ds-button-radius);
+}
+
+:host([attached][orientation='vertical']) ::slotted(:not(:first-child)) {
+  margin-top: -2px;
+}
+
+::slotted(:focus-within) {
+  z-index: 1;
+}

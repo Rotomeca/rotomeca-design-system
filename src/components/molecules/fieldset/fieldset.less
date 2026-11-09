@@ -1,0 +1,57 @@
+@import (reference) '../../../core/styles/mixins/base.less';
+
+.rds-base();
+
+:host {
+  display: block;
+}
+
+.group {
+  display: grid;
+  gap: var(--ds-space-2);
+}
+
+.legend {
+  font-weight: 600;
+  line-height: 1.5rem;
+  color: var(--ds-text-default);
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.req {
+  color: var(--ds-text-danger);
+}
+
+.req[hidden] {
+  display: none;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-1);
+  padding-block: var(--ds-space-1);
+}
+
+:host([inline]) .items {
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: var(--ds-space-6);
+}
+
+:host(:state(error)) .items {
+  padding-left: var(--ds-space-3);
+  box-shadow: inset 2px 0 0 var(--ds-input-border-error);
+}
+
+:host(:state(success)) .items {
+  padding-left: var(--ds-space-3);
+  box-shadow: inset 2px 0 0 var(--ds-input-border-success);
+}
+
+.messages {
+  display: grid;
+  gap: var(--ds-space-1);
+}

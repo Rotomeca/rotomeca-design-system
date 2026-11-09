@@ -1,0 +1,75 @@
+@import (reference) '../../../core/styles/mixins/base.less';
+
+.rds-base();
+
+:host {
+  display: inline-flex;
+  position: relative;
+  vertical-align: middle;
+}
+
+.menu {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  border: 1px solid var(--ds-border-subtle);
+  min-width: 12rem;
+  max-width: min(22rem, calc(100vw - 16px));
+  max-height: min(24rem, calc(100vh - 16px));
+  overflow: auto;
+  padding: 0.375rem;
+  border-radius: var(--ds-radius-lg);
+  background: var(--ds-background-overlay);
+  color: var(--ds-text-default);
+  box-shadow: var(--ds-shadow-3);
+  opacity: 0;
+  transform: scale(0.96) translateY(-4px);
+  transition:
+    opacity var(--_d-medium) var(--_ease-in),
+    transform var(--_d-long) var(--_ease-in),
+    overlay var(--_d-medium) allow-discrete,
+    display var(--_d-medium) allow-discrete;
+}
+
+.menu[data-side='top'] {
+  transform-origin: bottom left;
+}
+
+.menu[data-side='bottom'] {
+  transform-origin: top left;
+}
+
+.menu:popover-open,
+.menu[data-open] {
+  opacity: 1;
+  transform: none;
+}
+
+@starting-style {
+  .menu:popover-open {
+    opacity: 0;
+    transform: scale(0.96) translateY(-4px);
+  }
+}
+
+// Repli sans Popover API : affichage par `data-open`.
+.menu:not([popover]) {
+  display: none;
+}
+
+.menu:not([popover])[data-open] {
+  display: block;
+  z-index: var(--ds-z-overlay);
+}
+
+::slotted(rds-divider) {
+  margin-block: 0.25rem;
+}
+
+::slotted([slot='header']) {
+  display: block;
+  padding: 0.5rem 0.75rem 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ds-text-muted);
+}

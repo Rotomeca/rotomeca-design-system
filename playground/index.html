@@ -361,6 +361,85 @@
         <rds-accordion-item label="Autre section" open>Contenu.</rds-accordion-item>
       </rds-accordion>
     </div>
+    <h2>Notification</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem">
+      <rds-secondary-button onclick="rds.toast('Enregistré')">Simple</rds-secondary-button>
+      <rds-secondary-button onclick="rds.toast({ message: 'Motif supprimé.', type: 'success', action: 'Annuler' })">Succès + action</rds-secondary-button>
+      <rds-secondary-button onclick="rds.toast({ message: 'Échec de l\'envoi.', type: 'error', duration: 0 })">Erreur persistante</rds-secondary-button>
+    </div>
+    <h2>Groupe de champs</h2>
+    <div style="display: grid; gap: 1.5rem; max-width: 32rem">
+      <rds-fieldset legend="Format d'export" inline state="error" required>
+        <rds-helper slot="helper" title="Choisissez le format du fichier exporté."></rds-helper>
+        <span slot="hint">Un seul choix possible.</span>
+        <rds-radio name="fmt" value="svg">SVG</rds-radio>
+        <rds-radio name="fmt" value="png">PNG</rds-radio>
+        <span slot="error">Choisissez un format.</span>
+      </rds-fieldset>
+      <rds-fieldset legend="Notifications" state="success">
+        <rds-checkbox name="n1" checked>Par e-mail</rds-checkbox>
+        <rds-checkbox name="n2">Par SMS</rds-checkbox>
+        <span slot="success">Préférences enregistrées.</span>
+      </rds-fieldset>
+      <rds-fieldset legend="Désactivé" disabled>
+        <rds-switch name="s1">Option A</rds-switch>
+        <rds-switch name="s2">Option B</rds-switch>
+      </rds-fieldset>
+    </div>
+    <h2>Groupe de boutons</h2>
+    <div style="display: grid; gap: 1rem; max-width: 32rem">
+      <rds-button-group align="end" label="Actions du formulaire">
+        <rds-tertiary-button>Annuler</rds-tertiary-button>
+        <rds-primary-button>Enregistrer</rds-primary-button>
+      </rds-button-group>
+      <rds-button-group attached label="Vue">
+        <rds-secondary-button>Jour</rds-secondary-button>
+        <rds-secondary-button>Semaine</rds-secondary-button>
+        <rds-secondary-button>Mois</rds-secondary-button>
+      </rds-button-group>
+      <rds-button-group attached orientation="vertical" label="Pile">
+        <rds-secondary-button>Haut</rds-secondary-button>
+        <rds-secondary-button>Bas</rds-secondary-button>
+      </rds-button-group>
+      <rds-button-group full>
+        <rds-secondary-button>Un</rds-secondary-button>
+        <rds-secondary-button>Deux</rds-secondary-button>
+      </rds-button-group>
+    </div>
+    <h2>Menu</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem; padding-bottom: 12rem">
+      <rds-menu>
+        <rds-secondary-button slot="trigger" icon-after="chevron-down">Actions</rds-secondary-button>
+        <span slot="header">Motif</span>
+        <rds-menu-item icon="pencil" shortcut="Ctrl+E">Modifier</rds-menu-item>
+        <rds-menu-item icon="copy" shortcut="Ctrl+D">Dupliquer</rds-menu-item>
+        <rds-menu-item icon="archive" disabled>Archiver</rds-menu-item>
+        <rds-divider></rds-divider>
+        <rds-menu-item checkable checked>Afficher la grille</rds-menu-item>
+        <rds-divider></rds-divider>
+        <rds-menu-item icon="trash-2" danger>Supprimer</rds-menu-item>
+      </rds-menu>
+      <rds-menu placement="bottom-end">
+        <rds-icon-button slot="trigger" icon="ellipsis" label="Plus d'actions"></rds-icon-button>
+        <rds-menu-item icon="share-2">Partager</rds-menu-item>
+        <rds-menu-item icon="download">Télécharger</rds-menu-item>
+      </rds-menu>
+    </div>
+    <h2>Indicateur d'étapes</h2>
+    <div style="display: grid; gap: 1.5rem; max-width: 32rem">
+      <rds-stepper id="stepper" current="2" steps="Informations|Teintes|Motifs|Validation"></rds-stepper>
+      <rds-button-group>
+        <rds-secondary-button onclick="const s = document.getElementById('stepper'); s.current = Math.max(1, s.current - 1)">Précédent</rds-secondary-button>
+        <rds-primary-button onclick="const s = document.getElementById('stepper'); s.current = s.current + 1">Suivant</rds-primary-button>
+      </rds-button-group>
+    </div>
+    <h2>Liens d'évitement</h2>
+    <p>Appuyez sur Tab depuis le haut de la page : la barre descend au focus.</p>
+    <rds-skip-links><a href="#stepper">Indicateur d'étapes</a><a href="#bottom">Bas de page</a></rds-skip-links>
+    <h2>Retour en haut</h2>
+    <rds-back-to-top></rds-back-to-top>
+    <rds-back-to-top floating></rds-back-to-top>
+    <div id="bottom"></div>
 <!--MOLECULES-->
     <h2>Champs</h2>
     <form id="inputs" style="display: grid; gap: 1rem; max-width: 32rem">
@@ -416,7 +495,10 @@
       <pre id="inputs-result"></pre>
     </form>
     <script type="module">
-      import './.build/index.js';
+      import * as rds from './.build/index.js';
+
+      // Exposé pour les `onclick` de démonstration (ex. `rds.toast(...)`).
+      window.rds = rds;
 
       // Bascule de thème : `data-theme` sur <html>, mémorisé si le stockage est disponible.
       const root = document.documentElement;

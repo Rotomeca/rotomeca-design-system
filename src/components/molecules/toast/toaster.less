@@ -1,0 +1,23 @@
+// Conteneur global des notifications (light DOM, feuille adoptée par le document).
+.rds-toaster {
+  position: fixed;
+  inset: auto var(--ds-space-4) var(--ds-space-4) auto;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--ds-space-2);
+  z-index: var(--ds-z-toast);
+  pointer-events: none;
+}
+
+@media (max-width: 40rem) {
+  .rds-toaster {
+    inset: auto var(--ds-space-2) var(--ds-space-2);
+    align-items: stretch;
+  }
+}
