@@ -99,3 +99,55 @@ each(@rds-undefined-fade, {
     }
   });
 }
+
+// Hauteurs réservées avant la définition : sans elles, un élément en ligne dont le contenu brut est
+// plus petit que le rendu final fait « sauter » le texte qui suit quand le JS arrive.
+@rds-undefined-buttons: rds-button, rds-primary-button, rds-secondary-button, rds-tertiary-button,
+  rds-danger-button, rds-icon-button;
+
+@rds-undefined-fields: rds-input, rds-input-text, rds-input-number, rds-input-date, rds-input-time,
+  rds-input-datetime, rds-input-password, rds-input-search, rds-input-email, rds-input-tel,
+  rds-input-url, rds-input-color, rds-select;
+
+each(@rds-undefined-buttons, {
+  @{value}:not(:defined) {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.5rem;
+  }
+
+  @{value}:not(:defined)[size='sm'] {
+    min-height: 2rem;
+  }
+
+  @{value}:not(:defined)[size='lg'] {
+    min-height: 3rem;
+  }
+});
+
+rds-tag:not(:defined) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+}
+
+rds-tag:not(:defined)[size='sm'] {
+  min-height: 1.5rem;
+}
+
+rds-badge:not(:defined) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.5rem;
+}
+
+rds-badge:not(:defined)[size='sm'] {
+  min-height: 1.25rem;
+}
+
+each(@rds-undefined-fields, {
+  @{value}:not(:defined) {
+    display: block;
+    min-height: 3rem;
+  }
+});
