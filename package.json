@@ -1,8 +1,29 @@
 {
   "name": "rotomeca-design-system",
   "version": "1.0.0",
-  "description": "",
+  "description": "Design system de Web Components (custom elements, Shadow DOM) en TypeScript + LESS, palette automnale, thèmes clair et sombre.",
+  "keywords": [
+    "design-system",
+    "web-components",
+    "custom-elements",
+    "shadow-dom",
+    "typescript",
+    "less",
+    "ui"
+  ],
+  "homepage": "https://github.com/Rotomeca/rotomeca-design-system#readme",
+  "bugs": {
+    "url": "https://github.com/Rotomeca/rotomeca-design-system/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rotomeca/rotomeca-design-system.git"
+  },
+  "license": "ISC",
+  "author": "Rotomeca",
+  "type": "module",
   "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
@@ -19,23 +40,34 @@
     },
     "./css": "./dist/design-system.css",
     "./less": "./src/core/styles/design-system.less",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./bundle": "./out/rotomeca-design-system.js",
+    "./css/min": "./out/rotomeca-design-system.css",
+    "./icons/*": "./dist/icons/*"
   },
   "files": [
     "dist",
-    "src/core/styles"
+    "out",
+    "src/core/styles",
+    "!**/*.map"
   ],
   "sideEffects": [
     "*.css",
     "*.less"
   ],
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "clean": "node -e \"for (const d of ['dist','out','playground/.build']) require('fs').rmSync(d,{recursive:true,force:true})\"",
     "typecheck": "tsc --noEmit",
     "build:dist": "tsc",
     "build:out": "node scripts/build.mjs",
     "build": "pnpm clean && pnpm build:dist && pnpm build:css:dist && pnpm build:out && pnpm build:css:out && pnpm build:icons",
-    "prepublishOnly": "pnpm build",
+    "prepublishOnly": "pnpm test",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
@@ -46,9 +78,6 @@
     "dev": "pnpm run clean && pnpm run test && node scripts/dev.mjs",
     "build:icons": "node scripts/copy-icons.mjs"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
@@ -57,7 +86,6 @@
     }
   },
   "packageManager": "pnpm@12.15.0",
-  "type": "module",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@typescript/native": "npm:typescript@^7.0.2",
