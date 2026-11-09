@@ -1,0 +1,149 @@
+@import (reference) '../../../core/styles/mixins/base.less';
+@import (reference) '../../../core/styles/mixins/field.less';
+
+.rds-base();
+.rds-field();
+
+select.input-like {
+  padding-right: 3rem;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  appearance: none;
+}
+
+.chevron {
+  --ds-icon-size: 1.25rem;
+
+  position: absolute;
+  top: 50%;
+  right: var(--ds-space-4);
+  z-index: 1;
+  translate: 0 -50%;
+  pointer-events: none;
+  color: var(--ds-input-hint);
+  transition:
+    rotate var(--_d-medium) var(--_ease),
+    color var(--_d-medium) var(--_ease);
+}
+
+.addon__inner:focus-within .chevron {
+  color: var(--ds-input-ring-1);
+}
+
+:host(:state(open)) .chevron {
+  rotate: 180deg;
+}
+
+// Libellé monté dès qu'une option est choisie, ou qu'un placeholder est affiché.
+:host(:state(has-label):state(placeholder)) .floating-label {
+  transform: translateY(-0.5rem) scale(0.75);
+  font-weight: 600;
+}
+
+:host(:state(empty-choice)) select.input-like {
+  color: var(--ds-input-hint);
+}
+
+// Select personnalisable (navigateurs récents) : liste stylée et animée.
+@supports (appearance: base-select) {
+  select.input-like,
+  select.input-like::picker(select) {
+    appearance: base-select;
+  }
+
+  select.input-like::picker-icon {
+    display: none;
+  }
+
+  select.input-like {
+    display: flex;
+    align-items: center;
+  }
+
+  :host(:state(has-label)) select.input-like {
+    align-items: flex-end;
+  }
+
+  select.input-like::picker(select) {
+    margin-block: 0.375rem;
+    padding: 0.375rem;
+    color: var(--ds-text-default);
+    background: var(--ds-background-overlay);
+    border: 1px solid var(--ds-border-subtle);
+    border-radius: var(--ds-radius-lg);
+    box-shadow: var(--ds-shadow-3);
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+    transform-origin: top center;
+    transition:
+      opacity var(--_d-medium) var(--_ease-in),
+      transform var(--_d-long) var(--_ease-in),
+      overlay var(--_d-medium) allow-discrete,
+      display var(--_d-medium) allow-discrete;
+  }
+
+  select.input-like:open::picker(select) {
+    opacity: 1;
+    transform: none;
+  }
+
+  @starting-style {
+    select.input-like:open::picker(select) {
+      opacity: 0;
+      transform: translateY(-6px) scale(0.98);
+    }
+  }
+
+  option {
+    display: flex;
+    align-items: center;
+    gap: var(--ds-space-2);
+    min-height: 2.5rem;
+    padding: var(--ds-space-2) var(--ds-space-3);
+    border-radius: var(--ds-radius-xs);
+    transition: background-color var(--_d-instant) var(--_ease);
+  }
+
+  option:hover,
+  option:focus-visible {
+    background: var(--ds-background-option-hover);
+    outline: none;
+  }
+
+  option:checked {
+    font-weight: 600;
+    background: var(--ds-background-option-selected);
+  }
+
+  option::checkmark {
+    order: 1;
+    margin-left: auto;
+    color: var(--ds-control-checked);
+  }
+
+  option:disabled {
+    opacity: var(--ds-opacity-disabled);
+  }
+
+  optgroup {
+    font-weight: 600;
+  }
+
+  optgroup legend {
+    padding: var(--ds-space-2) var(--ds-space-3) var(--ds-space-1);
+    font-size: 0.75rem;
+    color: var(--ds-text-muted);
+  }
+
+  select.input-like:open {
+    --_line: var(--ds-input-ring-1);
+  }
+
+  :host(:state(open)) .chevron {
+    rotate: none;
+  }
+
+  select.input-like:open ~ .chevron {
+    rotate: 180deg;
+  }
+}

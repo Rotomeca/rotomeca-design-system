@@ -42,3 +42,4 @@ export * from './components/atoms/picture/picture';
 export * from './components/atoms/message/message';
 export * from './components/base/BaseFieldElement';
 export * from './components/atoms/textarea/textarea';
+export * from './components/atoms/select/select';

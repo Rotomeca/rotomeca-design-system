@@ -230,6 +230,20 @@
       <rds-input-url name="url">Site web</rds-input-url>
       <rds-input-color name="couleur" value="#6b4226">Couleur</rds-input-color>
       <rds-input-range name="curseur" min="0" max="100" value="40">Curseur</rds-input-range>
+      <rds-select name="saison" label="Saison" placeholder="Choisir">
+        <span slot="hint">Choisissez une saison</span>
+        <option value="automne">Automne</option>
+        <option value="hiver">Hiver</option>
+        <optgroup label="Autres">
+          <option value="printemps">Printemps</option>
+          <option value="ete" disabled>Été (indisponible)</option>
+        </optgroup>
+      </rds-select>
+      <rds-select name="essence" label="Essence" required state="error">
+        <span slot="error">Choix obligatoire.</span>
+        <option value="chene" selected>Chêne</option>
+        <option value="hetre">Hêtre</option>
+      </rds-select>
       <rds-textarea name="description" maxlength="200" rows="3">
         Description <span slot="hint">Visible dans la galerie</span>
       </rds-textarea>

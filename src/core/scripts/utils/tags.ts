@@ -33,3 +33,4 @@ export const TAG_AVATAR = `${base}avatar`;
 export const TAG_PICTURE = `${base}picture`;
 export const TAG_MESSAGE = `${base}message`;
 export const TAG_TEXTAREA = `${base}textarea`;
+export const TAG_SELECT = `${base}select`;
