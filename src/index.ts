@@ -43,3 +43,6 @@ export * from './components/atoms/message/message';
 export * from './components/base/BaseFieldElement';
 export * from './components/atoms/textarea/textarea';
 export * from './components/atoms/select/select';
+export * from './components/atoms/checkbox/checkbox';
+export * from './components/atoms/radio/radio';
+export * from './components/atoms/switch/switch';

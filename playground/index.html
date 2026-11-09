@@ -201,6 +201,26 @@
       <rds-message state="error">Ce champ est obligatoire.</rds-message>
       <rds-message state="info" icon="leaf">Icône personnalisée.</rds-message>
     </div>
+    <h2>Case à cocher, radio, interrupteur</h2>
+    <form id="controls" style="display: grid; gap: 0.5rem; max-width: 32rem">
+      <rds-checkbox name="news" checked>
+        Recevoir la lettre <span slot="hint">Une fois par mois.</span>
+      </rds-checkbox>
+      <rds-checkbox name="tout" id="cb-mixed" indeterminate>Tout sélectionner (indéterminé)</rds-checkbox>
+      <rds-checkbox name="cgu" required>J'accepte les conditions (obligatoire)</rds-checkbox>
+      <rds-checkbox name="erreur" state="error">État d'erreur forcé</rds-checkbox>
+      <rds-checkbox name="off" disabled checked>Désactivée</rds-checkbox>
+      <div role="radiogroup" aria-label="Taille" style="display: flex; gap: 1rem; flex-wrap: wrap">
+        <rds-radio name="taille" value="s">Petit</rds-radio>
+        <rds-radio name="taille" value="m" checked>Moyen</rds-radio>
+        <rds-radio name="taille" value="l">Grand</rds-radio>
+        <rds-radio name="taille" value="xl" disabled>Très grand</rds-radio>
+      </div>
+      <rds-switch name="notifications" checked>Notifications</rds-switch>
+      <rds-switch name="icones" icons>Avec icônes</rds-switch>
+      <rds-switch name="gauche" label-position="start">Libellé à gauche</rds-switch>
+      <rds-switch name="off-switch" disabled>Désactivé</rds-switch>
+    </form>
     <h2>Champs</h2>
     <form id="inputs" style="display: grid; gap: 1rem; max-width: 32rem">
       <rds-input name="nom" required placeholder="Jean Dupont">

@@ -1,0 +1,58 @@
+// Socle des contrôles à cocher (checkbox, radio, switch) : hôte, état désactivé, halo de survol / pression.
+// Nécessite `.rds-base()`.
+
+.rds-control() {
+  :host {
+    display: inline-flex;
+    vertical-align: middle;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :host(:state(disabled)) {
+    cursor: not-allowed;
+    opacity: var(--ds-opacity-disabled);
+  }
+
+  .control {
+    position: relative;
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .halo {
+    position: absolute;
+    inset: 0;
+    background: var(--ds-control-state-layer);
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(0.6);
+    transition:
+      opacity var(--_d-short) var(--_ease),
+      transform var(--_d-medium) var(--_ease);
+  }
+
+  :host(:hover:not(:state(disabled))) .halo {
+    opacity: var(--ds-opacity-state-hover);
+    transform: scale(1);
+  }
+
+  :host(:active:not(:state(disabled))) .halo {
+    opacity: var(--ds-opacity-state-pressed);
+    transform: scale(0.9);
+  }
+
+  .label {
+    font: inherit;
+    line-height: 1.5rem;
+    color: var(--ds-text-default);
+  }
+
+  .label:empty {
+    display: none;
+  }
+}

@@ -34,3 +34,6 @@ export const TAG_PICTURE = `${base}picture`;
 export const TAG_MESSAGE = `${base}message`;
 export const TAG_TEXTAREA = `${base}textarea`;
 export const TAG_SELECT = `${base}select`;
+export const TAG_CHECKBOX = `${base}checkbox`;
+export const TAG_RADIO = `${base}radio`;
+export const TAG_SWITCH = `${base}switch`;

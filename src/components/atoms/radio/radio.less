@@ -1,0 +1,71 @@
+@import (reference) '../../../core/styles/mixins/base.less';
+@import (reference) '../../../core/styles/mixins/control.less';
+
+.rds-base();
+.rds-control();
+
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-space-2);
+  min-height: 2.5rem;
+}
+
+.control {
+  margin-inline: -0.625rem -0.375rem;
+}
+
+.ring {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid var(--ds-control-border);
+  border-radius: 50%;
+  transition: border-color var(--_d-medium) var(--_ease);
+}
+
+.dot {
+  width: 0.625rem;
+  height: 0.625rem;
+  background: var(--ds-control-checked);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0);
+  transition:
+    transform var(--_d-medium) var(--_ease-in),
+    opacity var(--_d-short) var(--_ease);
+}
+
+:host(:state(checked)) .ring {
+  border-color: var(--ds-control-checked);
+}
+
+:host(:state(checked)) .dot {
+  opacity: 1;
+  transform: scale(1);
+}
+
+:host(:state(checked):hover) .ring {
+  border-color: var(--ds-control-checked-hover);
+}
+
+:host(:focus-visible) .ring {
+  outline: 3px solid var(--ds-focus-ring-color);
+  outline-offset: 3px;
+}
+
+:host(:state(error)) .ring {
+  border-color: var(--ds-input-border-error);
+}
+
+@media (forced-colors: active) {
+  .ring {
+    border-color: CanvasText;
+  }
+
+  .dot {
+    background: CanvasText;
+  }
+}
