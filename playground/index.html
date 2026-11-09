@@ -192,6 +192,15 @@
     <rds-flexbox mode="column" inverted gap="12px" style="margin-top: 1rem">
       <span>Premier (affiché en bas)</span><span>Second (affiché en haut)</span>
     </rds-flexbox>
+    <h2>Message</h2>
+    <div style="display: grid; gap: 0.5rem; max-width: 28rem">
+      <rds-message>Indice neutre : sans icône.</rds-message>
+      <rds-message state="info">Information contextuelle.</rds-message>
+      <rds-message state="success">Enregistré avec succès.</rds-message>
+      <rds-message state="warning">Cette action est irréversible.</rds-message>
+      <rds-message state="error">Ce champ est obligatoire.</rds-message>
+      <rds-message state="info" icon="leaf">Icône personnalisée.</rds-message>
+    </div>
     <h2>Champs</h2>
     <form id="inputs" style="display: grid; gap: 1rem; max-width: 32rem">
       <rds-input name="nom" required placeholder="Jean Dupont">

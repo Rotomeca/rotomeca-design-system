@@ -39,3 +39,4 @@ export * from './components/atoms/progress/progress';
 export * from './components/atoms/placeholder/placeholder';
 export * from './components/atoms/avatar/avatar';
 export * from './components/atoms/picture/picture';
+export * from './components/atoms/message/message';

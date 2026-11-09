@@ -1,0 +1,46 @@
+@import (reference) '../../../core/styles/mixins/base.less';
+
+.rds-base();
+
+:host {
+  display: block;
+}
+
+:host(:state(empty)) {
+  display: none;
+}
+
+.message {
+  --_fg: var(--ds-text-muted);
+
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ds-space-1-5);
+  font: inherit;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--_fg);
+  transition: color var(--_d-short) var(--_ease);
+}
+
+.message[data-state='success'] {
+  --_fg: var(--ds-text-success);
+}
+
+.message[data-state='warning'] {
+  --_fg: var(--ds-text-warning);
+}
+
+.message[data-state='error'] {
+  --_fg: var(--ds-text-danger);
+}
+
+rds-icon {
+  --ds-icon-size: 1rem;
+
+  margin-top: 0.125rem;
+}
+
+.text {
+  min-width: 0;
+}
