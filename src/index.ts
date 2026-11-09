@@ -36,3 +36,6 @@ export * from './components/atoms/badge/badge';
 export * from './components/atoms/divider/divider';
 export * from './components/atoms/spinner/spinner';
 export * from './components/atoms/progress/progress';
+export * from './components/atoms/placeholder/placeholder';
+export * from './components/atoms/avatar/avatar';
+export * from './components/atoms/picture/picture';

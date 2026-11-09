@@ -27,3 +27,6 @@ export const TAG_BADGE = `${base}badge`;
 export const TAG_DIVIDER = `${base}divider`;
 export const TAG_SPINNER = `${base}spinner`;
 export const TAG_PROGRESS = `${base}progress`;
+export const TAG_PLACEHOLDER = `${base}placeholder`;
+export const TAG_AVATAR = `${base}avatar`;
+export const TAG_PICTURE = `${base}picture`;

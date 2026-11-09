@@ -1,0 +1,114 @@
+@import (reference) '../../../core/styles/mixins/base.less';
+
+.rds-base();
+
+@tones: brand, accent, success, warning, danger, neutral;
+
+:host {
+  --_s: 2.5rem;
+
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+:host([size='xs']) {
+  --_s: 1.5rem;
+}
+
+:host([size='sm']) {
+  --_s: 2rem;
+}
+
+:host([size='lg']) {
+  --_s: 3.5rem;
+}
+
+:host([size='xl']) {
+  --_s: 5rem;
+}
+
+.avatar {
+  position: relative;
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: var(--_s);
+  height: var(--_s);
+  font-size: calc(var(--_s) * 0.4);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: var(--_fg);
+  background: var(--_bg);
+  border-radius: 50%;
+  user-select: none;
+}
+
+:host([shape='square']) .avatar {
+  border-radius: calc(var(--_s) * 0.25);
+}
+
+each(@tones, {
+  .avatar[data-tone='@{value}'] {
+    --_bg: ~'var(--ds-background-tone-@{value})';
+    --_fg: ~'var(--ds-text-tone-@{value})';
+  }
+});
+
+img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity var(--_d-long) var(--_ease);
+}
+
+:host(:state(loaded)) img {
+  opacity: 1;
+}
+
+rds-icon {
+  --ds-icon-size: calc(var(--_s) * 0.55);
+}
+
+.status {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: none;
+  width: calc(var(--_s) * 0.28);
+  height: calc(var(--_s) * 0.28);
+  min-width: 0.5rem;
+  min-height: 0.5rem;
+  border: 2px solid var(--ds-body-background-color);
+  border-radius: 50%;
+}
+
+:host([status]) .status {
+  display: block;
+}
+
+:host([status='online']) .status {
+  background: var(--ds-background-action-success);
+}
+
+:host([status='away']) .status {
+  background: var(--ds-background-action-warning);
+}
+
+:host([status='busy']) .status {
+  background: var(--ds-background-action-danger);
+}
+
+:host([status='offline']) .status {
+  background: var(--ds-border-strong);
+}
+
+@media (forced-colors: active) {
+  .avatar {
+    border: 1px solid canvastext;
+  }
+}

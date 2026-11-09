@@ -125,6 +125,43 @@
       <rds-progress value="85" tone="danger" label="Quota"></rds-progress>
       <rds-progress label="Chargement">Indéterminée</rds-progress>
     </div>
+    <h2>Squelette</h2>
+    <div style="display: flex; gap: 1rem; align-items: flex-start; max-width: 28rem">
+      <rds-placeholder shape="circle" label="Chargement du profil"></rds-placeholder>
+      <rds-placeholder shape="text" lines="3"></rds-placeholder>
+    </div>
+    <div style="display: grid; gap: 0.5rem; max-width: 28rem; margin-top: 1rem">
+      <rds-placeholder shape="pill" width="8rem"></rds-placeholder>
+      <rds-placeholder shape="rect"></rds-placeholder>
+    </div>
+    <h2>Avatar</h2>
+    <div style="display: flex; gap: 1rem; align-items: center">
+      <rds-avatar name="Camille Roux" size="xs"></rds-avatar>
+      <rds-avatar name="Camille Roux" size="sm" status="online"></rds-avatar>
+      <rds-avatar name="Jean-Pierre Martin" status="away"></rds-avatar>
+      <rds-avatar name="Sam" size="lg" status="busy" tone="accent"></rds-avatar>
+      <rds-avatar size="xl" status="offline"></rds-avatar>
+      <rds-avatar name="Équipe Rotomeca" shape="square" size="lg"></rds-avatar>
+      <rds-avatar
+        name="Photo"
+        size="lg"
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Crect width='8' height='8' fill='%23b85c38'/%3E%3Ccircle cx='4' cy='4' r='2' fill='%23d6a23d'/%3E%3C/svg%3E"
+      ></rds-avatar>
+      <rds-avatar name="Erreur" size="lg" src="/introuvable.png"></rds-avatar>
+    </div>
+    <h2>Image</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr)); gap: 1rem">
+      <rds-picture
+        alt="Dégradé automnal"
+        ratio="16/9"
+        rounded
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'%3E%3Crect width='16' height='9' fill='%23b85c38'/%3E%3Ccircle cx='11' cy='4' r='3' fill='%23d6a23d'/%3E%3C/svg%3E"
+      >
+        <span slot="caption">Avec légende</span>
+      </rds-picture>
+      <rds-picture alt="Image rompue" ratio="4/3" rounded src="/introuvable.png"></rds-picture>
+      <rds-picture alt="" circle fallback-icon="user"></rds-picture>
+    </div>
     <h2>Date</h2>
     <div id="dates" style="display: grid; gap: 0.5rem">
       <div><rds-date format="P">1997-08-12</rds-date> (court)</div>

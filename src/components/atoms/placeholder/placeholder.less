@@ -1,0 +1,89 @@
+@import (reference) '../../../core/styles/mixins/base.less';
+
+.rds-base();
+
+:host {
+  --_w: 100%;
+  --_h: 1rem;
+
+  display: block;
+}
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-2);
+  width: var(--_w);
+}
+
+.bone {
+  position: relative;
+  width: 100%;
+  height: var(--_h);
+  overflow: hidden;
+  background: var(--ds-background-placeholder);
+  border-radius: var(--ds-radius-xs);
+  isolation: isolate;
+
+  // Reflet : traverse la forme en `transform` seul.
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--ds-background-placeholder-shine) 50%,
+      transparent 100%
+    );
+    transform: translateX(-100%);
+    animation: rds-placeholder-shine var(--ds-duration-loop) var(--_ease) infinite;
+  }
+}
+
+:host([shape='text']) .bone {
+  height: 0.75em;
+  border-radius: var(--ds-radius-full);
+}
+
+// La dernière ligne d'un texte est plus courte.
+:host([shape='text']) .bone:last-child:not(:first-child) {
+  width: 60%;
+}
+
+:host([shape='circle']) .wrap {
+  width: var(--_h);
+}
+
+:host([shape='circle']) .bone {
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+:host([shape='pill']) .bone {
+  border-radius: var(--ds-radius-full);
+}
+
+:host([shape='rect']) .bone {
+  border-radius: var(--ds-radius-lg);
+}
+
+@keyframes rds-placeholder-shine {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+// Forme fixe, sans reflet, pour qui a demandé moins d'animations.
+@media (prefers-reduced-motion: reduce) {
+  .bone::after {
+    opacity: 0;
+    animation: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .bone {
+    border: 1px solid canvastext;
+  }
+}
