@@ -66,3 +66,5 @@ export * from './components/molecules/menu/menu';
 export * from './components/molecules/stepper/stepper';
 export * from './components/molecules/skip-links/skip-links';
 export * from './components/molecules/back-to-top/back-to-top';
+export * from './components/organisms/dialog/dialog';
+export * from './components/organisms/drawer/drawer';

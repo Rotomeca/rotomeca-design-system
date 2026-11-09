@@ -1,0 +1,126 @@
+@import (reference) '../../../core/styles/mixins/base.less';
+
+.rds-base();
+
+:host {
+  display: contents;
+}
+
+dialog {
+  --_w: 35rem;
+  width: min(var(--_w), calc(100vw - 2rem));
+  max-height: min(85vh, calc(100dvh - 2rem));
+  padding: 0;
+  border: 0;
+  border-radius: var(--ds-radius-xl);
+  color: var(--ds-text-default);
+  background: var(--ds-background-surface);
+  box-shadow: var(--ds-shadow-3);
+  overflow: hidden;
+  display: none;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(12px) scale(0.97);
+  transition:
+    opacity var(--_d-long) var(--_ease-in),
+    transform var(--_d-long) var(--_ease-in),
+    overlay var(--_d-long) allow-discrete,
+    display var(--_d-long) allow-discrete;
+}
+
+dialog[open] {
+  display: flex;
+  opacity: 1;
+  transform: none;
+}
+
+@starting-style {
+  dialog[open] {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+}
+
+dialog::backdrop {
+  background: var(--ds-background-scrim);
+  opacity: 0;
+  transition:
+    opacity var(--_d-long) var(--_ease),
+    overlay var(--_d-long) allow-discrete,
+    display var(--_d-long) allow-discrete;
+}
+
+dialog[open]::backdrop {
+  opacity: 1;
+}
+
+@starting-style {
+  dialog[open]::backdrop {
+    opacity: 0;
+  }
+}
+
+:host([size='sm']) dialog {
+  --_w: 25rem;
+}
+
+:host([size='lg']) dialog {
+  --_w: 50rem;
+}
+
+:host([size='full']) dialog {
+  --_w: 100vw;
+  width: calc(100vw - 2rem);
+  height: calc(100dvh - 2rem);
+  max-height: none;
+}
+
+header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ds-space-3);
+  padding: var(--ds-space-6) var(--ds-space-4) 0 var(--ds-space-6);
+}
+
+.hicon {
+  --ds-icon-size: 1.5rem;
+  color: var(--ds-text-action-tertiary);
+  margin-top: 0.25rem;
+}
+
+.hicon[hidden] {
+  display: none;
+}
+
+h2 {
+  flex: 1;
+  margin: 0;
+  padding-top: 0.125rem;
+  font-family: var(--ds-font-display);
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 600;
+}
+
+.body {
+  flex: 1;
+  overflow: auto;
+  padding: var(--ds-space-4) var(--ds-space-6);
+  line-height: 1.5rem;
+}
+
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--ds-space-2);
+  padding: var(--ds-space-2) var(--ds-space-6) var(--ds-space-6);
+}
+
+:host(:not(:state(has-actions))) footer {
+  display: none;
+}
+
+:host([persistent]) #close {
+  display: none;
+}

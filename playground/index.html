@@ -440,6 +440,44 @@
     <rds-back-to-top></rds-back-to-top>
     <rds-back-to-top floating></rds-back-to-top>
     <div id="bottom"></div>
+    <!--ORGANISMS-->
+    <h2>Modale</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 0.75rem">
+      <rds-primary-button id="open-d1">Ouvrir la modale</rds-primary-button>
+      <rds-danger-button id="open-d2" icon-before="trash-2">Supprimer…</rds-danger-button>
+    </div>
+    <rds-dialog id="d1" heading="Nouveau motif">
+      <div style="display: grid; gap: 1rem">
+        <rds-input-text name="n">Nom du motif</rds-input-text>
+        <rds-select name="t" label="Teinte"><option>Cuivre</option><option>Ocre</option></rds-select>
+      </div>
+      <rds-tertiary-button slot="actions" data-close="cancel">Annuler</rds-tertiary-button>
+      <rds-primary-button slot="actions" data-close="ok">Créer</rds-primary-button>
+    </rds-dialog>
+    <rds-dialog id="d2" heading="Supprimer ce motif ?" icon="triangle-alert" size="sm" role="alertdialog">
+      Cette action est définitive.
+      <rds-tertiary-button slot="actions" data-close="cancel">Annuler</rds-tertiary-button>
+      <rds-danger-button slot="actions" data-close="delete">Supprimer</rds-danger-button>
+    </rds-dialog>
+    <h2>Tiroir</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 0.75rem">
+      <rds-secondary-button id="open-dr1" icon-before="panel-left">Depuis la gauche</rds-secondary-button>
+      <rds-secondary-button id="open-dr2" icon-before="panel-right">Depuis la droite</rds-secondary-button>
+    </div>
+    <rds-drawer id="dr1" heading="Navigation">
+      <p>Contenu du tiroir de gauche.</p>
+      <rds-tertiary-button slot="actions" data-close="close">Fermer</rds-tertiary-button>
+    </rds-drawer>
+    <rds-drawer id="dr2" heading="Filtres" placement="end" size="lg">
+      <p>Filtres, détails d'un élément…</p>
+      <rds-tertiary-button slot="actions" data-close="reset">Réinitialiser</rds-tertiary-button>
+      <rds-primary-button slot="actions" data-close="ok">Appliquer</rds-primary-button>
+    </rds-drawer>
+    <script>
+      for (const [button, dialog] of [['open-d1', 'd1'], ['open-d2', 'd2'], ['open-dr1', 'dr1'], ['open-dr2', 'dr2']]) {
+        document.getElementById(button).addEventListener('click', () => document.getElementById(dialog).show());
+      }
+    </script>
 <!--MOLECULES-->
     <h2>Champs</h2>
     <form id="inputs" style="display: grid; gap: 1rem; max-width: 32rem">
