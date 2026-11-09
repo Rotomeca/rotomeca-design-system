@@ -1,47 +1,48 @@
-@import '../../../core/styles/tokens/tokens.less';
+@import (reference) '../../../core/styles/mixins/base.less';
 
-// Variation « pleine » : les couleurs viennent des tokens --ds-*, avec repli sur les valeurs par défaut.
-.variant-filled(@name, @bg, @bg-hover, @bg-active, @txt) {
-  :host([variant='@{name}']) button {
-    --_bg: ~'var(--ds-background-action-@{name}, @{bg})';
-    --_bg-hover: ~'var(--ds-background-action-@{name}-hover, @{bg-hover})';
-    --_bg-active: ~'var(--ds-background-action-@{name}-active, @{bg-active})';
-    --_txt: ~'var(--ds-text-action-@{name}, @{txt})';
-    --_border: transparent;
+.rds-base();
+
+// Variation « pleine » : les couleurs viennent uniquement des tokens --ds-*.
+.variant-filled(@name) {
+  button[data-variant='@{name}'] {
+    --_bg: ~'var(--ds-background-action-@{name})';
+    --_bg-hover: ~'var(--ds-background-action-@{name}-hover)';
+    --_bg-active: ~'var(--ds-background-action-@{name}-active)';
+    --_txt: ~'var(--ds-text-action-@{name})';
   }
 }
 
 :host {
   display: inline-flex;
   vertical-align: middle;
-}
-
-:host([hidden]) {
-  display: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 button {
   // primary par défaut
-  --_bg: var(--ds-background-action-primary, @marron-100);
-  --_bg-hover: var(--ds-background-action-primary-hover, @marron-100-hover);
-  --_bg-active: var(--ds-background-action-primary-active, @marron-100-active);
-  --_txt: var(--ds-text-action-primary, @white-100);
+  --_bg: var(--ds-background-action-primary);
+  --_bg-hover: var(--ds-background-action-primary-hover);
+  --_bg-active: var(--ds-background-action-primary-active);
+  --_txt: var(--ds-text-action-primary);
   --_border: transparent;
-
   --_current-bg: var(--_bg);
+  --_h: 2.5rem;
 
+  position: relative;
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--_gap, var(--ds-button-icon-gap, 0.5rem));
+  gap: var(--_gap, var(--ds-space-2));
+  width: 100%;
 
-  // Cible tactile ≥ 24×24 px (RGAA 13.x / WCAG 2.5.8), ici 40 px.
-  min-width: 2.5rem;
-  min-height: 2.5rem;
-  padding: 0.5rem 1rem;
+  // Cible tactile ≥ 24×24 px (RGAA 13.x / WCAG 2.5.8), ici 40 px par défaut.
+  min-width: var(--_h);
+  min-height: var(--_h);
+  padding: 0.5rem var(--ds-space-4);
 
   font: inherit;
+  font-size: 0.9375rem;
   font-weight: 600;
   line-height: 1.25;
   white-space: nowrap;
@@ -50,8 +51,22 @@ button {
   color: var(--_txt);
   background-color: var(--_current-bg);
   border: 2px solid var(--_border);
-  border-radius: var(--ds-button-radius, 5px);
+  // `--_radius` est posé par `rds-button-group` pour arrondir seulement les extrémités.
+  border-radius: var(--_radius, var(--ds-button-radius));
   cursor: pointer;
+  user-select: none;
+
+  // Anneau de focus : l'écart s'anime de 0 à 2 px (RGAA 10.7).
+  outline: 3px solid transparent;
+  outline-offset: 0;
+
+  transition:
+    background-color var(--_d-instant) var(--_ease),
+    color var(--_d-instant) var(--_ease),
+    border-color var(--_d-instant) var(--_ease),
+    transform var(--_d-short) var(--_ease),
+    outline-offset var(--_d-short) var(--_ease),
+    outline-color var(--_d-short) var(--_ease);
 
   &:hover {
     --_current-bg: var(--_bg-hover);
@@ -59,27 +74,32 @@ button {
 
   &:active {
     --_current-bg: var(--_bg-active);
+
+    transform: scale(0.97);
   }
 
-  // Anneau de focus : visible au clavier, contraste ≥ 3:1 (RGAA 10.7).
   &:focus-visible {
-    outline: 3px solid var(--ds-focus-ring-color, @ink-100);
+    outline-color: var(--ds-focus-ring-color);
     outline-offset: 2px;
   }
 
   &:disabled,
   &[aria-busy='true'] {
-    opacity: 0.55;
+    opacity: var(--ds-opacity-disabled);
   }
 
   &:disabled {
+    --_current-bg: var(--_bg);
+
     cursor: not-allowed;
+    transform: none;
   }
 
   &[aria-busy='true'] {
     --_current-bg: var(--_bg);
 
     cursor: progress;
+    transform: none;
   }
 
   rds-icon {
@@ -87,8 +107,70 @@ button {
   }
 
   #spinner {
-    animation: rds-button-spin 1s linear infinite;
+    animation: rds-button-spin 0.9s linear infinite;
   }
+}
+
+.variant-filled(warning);
+.variant-filled(danger);
+.variant-filled(success);
+
+// Secondaire : fond clair, texte et bordure marron (bordure = repère visible du bouton).
+button[data-variant='secondary'] {
+  --_bg: var(--ds-background-action-secondary);
+  --_bg-hover: var(--ds-background-action-secondary-hover);
+  --_bg-active: var(--ds-background-action-secondary-active);
+  --_txt: var(--ds-text-action-secondary-button);
+  --_border: currentcolor;
+}
+
+// Tertiaire : sans fond ni bordure.
+button[data-variant='tertiary'] {
+  --_bg: transparent;
+  --_bg-hover: var(--ds-background-action-tertiary-hover);
+  --_bg-active: var(--ds-background-action-tertiary-active);
+  --_txt: var(--ds-text-action-tertiary);
+}
+
+:host([size='sm']) button {
+  --_h: 2rem;
+
+  padding: 0.25rem var(--ds-space-3);
+  font-size: 0.875rem;
+}
+
+:host([size='lg']) button {
+  --_h: 3rem;
+
+  padding: 0.75rem var(--ds-space-6);
+  font-size: 1rem;
+}
+
+// Bords arrondis : pilule (cercle pour un bouton icône seul).
+:host([rounded]) button {
+  border-radius: var(--ds-radius-full);
+}
+
+// Icône seule : bouton carré, sans marge.
+:host(:state(icon-only)) button {
+  gap: 0;
+  padding: 0;
+  width: var(--_h);
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+}
+
+:host(:state(icon-only)) .label {
+  display: none;
+}
+
+// Bouton icône « bascule » (rds-icon-button) : état sélectionné.
+:host(:state(selected)) button[data-variant='tertiary'] {
+  --_bg: var(--ds-background-surface-strong);
+  --_bg-hover: var(--ds-background-action-tertiary-active);
 }
 
 @keyframes rds-button-spin {
@@ -97,49 +179,19 @@ button {
   }
 }
 
-// Pas de rotation pour qui a demandé moins d'animations (RGAA 13.8).
+// Pas de rotation ni d'enfoncement pour qui a demandé moins d'animations (RGAA 13.8).
 @media (prefers-reduced-motion: reduce) {
   button #spinner {
     animation: none;
   }
-}
 
-.variant-filled(primary, @marron-100, @marron-100-hover, @marron-100-active, @white-100);
-.variant-filled(warning, @warning-100, @warning-100-hover, @warning-100-active, @ink-100);
-.variant-filled(danger, @danger-100, @danger-100-hover, @danger-100-active, @white-100);
-.variant-filled(success, @success-100, @success-100-hover, @success-100-active, @white-100);
-
-// Secondaire : fond clair, texte et bordure marron (bordure = repère visible du bouton).
-:host([variant='secondary']) button {
-  --_bg: var(--ds-background-action-secondary, @white-100);
-  --_bg-hover: var(--ds-background-action-secondary-hover, @white-100-active);
-  --_bg-active: var(--ds-background-action-secondary-active, @white-200);
-  --_txt: var(--ds-text-action-secondary-button, @marron-100);
-  --_border: currentColor;
-}
-
-// Tertiaire : sans fond ni bordure, texte marron.
-:host([variant='tertiary']) button {
-  --_bg: transparent;
-  --_bg-hover: var(--ds-background-action-tertiary-hover, @white-100-active);
-  --_bg-active: var(--ds-background-action-tertiary-active, @white-200);
-  --_txt: var(--ds-text-action-tertiary, @marron-100);
-  --_border: transparent;
-}
-
-// Bords arrondis : pilule (cercle pour un bouton icône seul).
-:host([rounded]) button {
-  border-radius: 999px;
-}
-
-// Icône seule : bouton carré, sans marge.
-:host(:state(icon-only)) button {
-  gap: 0;
-  padding: 0.5rem;
+  button:active {
+    transform: none;
+  }
 }
 
 @media (forced-colors: active) {
   button {
-    border-color: ButtonText;
+    border-color: buttontext;
   }
 }
