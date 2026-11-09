@@ -1,5 +1,5 @@
 {
-  "name": "rotomeca-design-system",
+  "name": "@rotomeca/design-system",
   "version": "1.0.0",
   "description": "Design system de Web Components (custom elements, Shadow DOM) en TypeScript + LESS, palette automnale, thèmes clair et sombre.",
   "keywords": [

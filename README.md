@@ -1,4 +1,4 @@
-# rotomeca-design-system
+# @rotomeca/design-system
 
 Design system de **Web Components** (custom elements, Shadow DOM) écrit en TypeScript + LESS.
 Esthétique Material 3, palette automnale (marron / cuivre / ocre), thème clair et thème sombre « Sous-bois ».
@@ -8,15 +8,15 @@ Esthétique Material 3, palette automnale (marron / cuivre / ocre), thème clair
 ### CSS général (tokens `--ds-*`, polices, styles de base)
 
 ```js
-import 'rotomeca-design-system/css'; // bundler (vite, webpack, esbuild…)
+import '@rotomeca/design-system/css'; // bundler (vite, webpack, esbuild…)
 ```
 
 ```html
-<link rel="stylesheet" href="node_modules/rotomeca-design-system/dist/design-system.css" />
+<link rel="stylesheet" href="node_modules/@rotomeca/design-system/dist/design-system.css" />
 ```
 
 ```less
-@import 'rotomeca-design-system/less'; // dans un projet LESS
+@import '@rotomeca/design-system/less'; // dans un projet LESS
 ```
 
 Version minifiée : `out/rotomeca-design-system.css`.
@@ -24,8 +24,8 @@ Version minifiée : `out/rotomeca-design-system.css`.
 ### Composants
 
 ```js
-import 'rotomeca-design-system'; // enregistre tous les custom elements `rds-*`
-import { toast, setTheme } from 'rotomeca-design-system';
+import '@rotomeca/design-system'; // enregistre tous les custom elements `rds-*`
+import { toast, setTheme } from '@rotomeca/design-system';
 ```
 
 ```html
