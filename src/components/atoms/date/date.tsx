@@ -18,6 +18,9 @@ const ATTRIBUTE_FORMAT = 'format';
 const ATTRIBUTE_LOCALE = 'locale';
 const ATTRIBUTE_START_FORMAT = 'start-format';
 
+/** Période de rafraîchissement d'une date relative (ms). */
+const RELATIVE_REFRESH_MS = 60_000;
+
 const TEMPLATE = (
   <RotomecaFragment>
     <time id="text" part="date-text"></time>
@@ -50,7 +53,8 @@ type DateInput = string | Date | null;
  * La valeur `now` donne la date courante.
  *
  * Tokens de `format` : `P` (court), `PP` (moyen), `PPP` (long), `PPPP` (complet), `yyyy`, `yy`,
- * `M`, `MM`, `MMM`, `MMMM`, `d`, `dd`, `E`, `EEEE`, `H`, `HH`, `m`, `mm`, `s`, `ss`.
+ * `M`, `MM`, `MMM`, `MMMM`, `d`, `dd`, `E`, `EEEE`, `H`, `HH`, `m`, `mm`, `s`, `ss`, texte littéral
+ * entre `'…'`. Le format `relative` affiche « il y a 3 jours » et se rafraîchit chaque minute.
  * `locale` accepte les codes `Intl` (`fr`, `en`, `fr_FR`...).
  *
  * États : `:state(invalid)` quand la date est absente ou invalide.
@@ -62,6 +66,7 @@ type DateInput = string | Date | null;
  * <rds-date format="PPPP" start-format="dd/MM/yyyy">12/08/1997</rds-date>
  * <rds-date format="dd/MM/yyyy HH:mm" date="1997-08-12T15:30:00"></rds-date>
  * <rds-date format="PPPP" locale="en" date="now"></rds-date>
+ * <rds-date format="relative" date="2026-11-01"></rds-date>
  * ```
  */
 @Define({ tag: TAG_DATE, template: TEMPLATE, styles: style })
@@ -77,6 +82,8 @@ class RotomecaDate extends BaseElementInternal {
   /** Source de la date, conservée pour la relire si `start-format` change. */
   #_source: DateInput = null;
   #_date: Date | null = null;
+  /** Minuteur de rafraîchissement du format `relative` (0 : arrêté). */
+  #_timer = 0;
 
   /** Date affichée, ou `null`. */
   get date(): Date | null {
@@ -116,6 +123,10 @@ class RotomecaDate extends BaseElementInternal {
     else if (attributes.has(ATTRIBUTE_START_FORMAT) && typeof this.#_source === 'string')
       this.#_apply(this.#_source);
     this.#_render();
+  }
+
+  protected onDisconnect(): void {
+    this.#_stopTimer();
   }
 
   protected slotChanged(): void {
@@ -189,6 +200,7 @@ class RotomecaDate extends BaseElementInternal {
       output.textContent = '';
       output.removeAttribute('datetime');
       this._p_addState('invalid');
+      this.#_stopTimer();
       return;
     }
 
@@ -204,6 +216,20 @@ class RotomecaDate extends BaseElementInternal {
       output.textContent = 'Date invalide';
       this._p_addState('invalid');
     }
+    this.#_syncTimer();
+  }
+
+  /** Une date relative se rafraîchit chaque minute ; tout autre format n'a pas besoin de minuteur. */
+  #_syncTimer(): void {
+    if (this.format === DateUtils.RELATIVE_FORMAT) {
+      if (!this.#_timer)
+        this.#_timer = window.setInterval(() => this.requestUpdate('tick'), RELATIVE_REFRESH_MS);
+    } else this.#_stopTimer();
+  }
+
+  #_stopTimer(): void {
+    clearInterval(this.#_timer);
+    this.#_timer = 0;
   }
 
   /**

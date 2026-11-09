@@ -4,8 +4,18 @@ export type { DateLocale };
 /** Locale d'affichage : code `Intl` (`fr`, `en`, `fr-FR`, ou `fr_FR`). */
 type DateLocale = string;
 
-/** Découpe un format en tokens ; tout le reste est du texte littéral. */
-const TOKEN_REGEX = /P{1,4}|y{4}|y{2}|M{1,4}|d{1,2}|E{1,4}|H{1,2}|m{1,2}|s{1,2}/g;
+/** Découpe un format en tokens ; un texte entre `'…'` ou tout autre caractère est littéral. */
+const TOKEN_REGEX = /'([^']*)'|P{1,4}|y{4}|y{2}|M{1,4}|d{1,2}|E{1,4}|H{1,2}|m{1,2}|s{1,2}/g;
+
+/** Unités de la date relative, de la plus grande à la plus petite (durée en secondes). */
+const RELATIVE_UNITS: readonly [Intl.RelativeTimeFormatUnit, number][] = [
+  ['year', 31536000],
+  ['month', 2592000],
+  ['week', 604800],
+  ['day', 86400],
+  ['hour', 3600],
+  ['minute', 60],
+];
 
 const DATE_STYLES: Record<string, Intl.DateTimeFormatOptions['dateStyle']> = {
   P: 'short',
@@ -35,6 +45,24 @@ abstract class DateUtils {
   static readonly DEFAULT_LOCALE: DateLocale = 'fr';
   /** Format utilisé quand aucun n'est fourni. */
   static readonly DEFAULT_FORMAT = 'P';
+  /** Format spécial : date relative à maintenant (« il y a 3 jours »). */
+  static readonly RELATIVE_FORMAT = 'relative';
+
+  /**
+   * Date relative à maintenant, avec `Intl.RelativeTimeFormat` (`numeric: 'auto'` : « hier », « demain »).
+   *
+   * @param date - Date à situer.
+   * @param locale - Locale `Intl` (déjà normalisée ou non).
+   * @returns Le texte, ex. « il y a 3 jours », « dans 2 heures ».
+   */
+  static relative(date: Date, locale: DateLocale = DateUtils.DEFAULT_LOCALE): string {
+    const rtf = new Intl.RelativeTimeFormat(DateUtils.normalizeLocale(locale), { numeric: 'auto' });
+    const diff = (date.getTime() - Date.now()) / 1000;
+    for (const [unit, seconds] of RELATIVE_UNITS) {
+      if (Math.abs(diff) >= seconds) return rtf.format(Math.round(diff / seconds), unit);
+    }
+    return rtf.format(Math.round(diff), 'second');
+  }
 
   /** Convertit `fr_FR` en `fr-FR` et vérifie la locale.
    * @throws {RangeError} Si la locale n'est pas valide. */
@@ -60,10 +88,12 @@ abstract class DateUtils {
   static format(date: Date, format: string, locale: DateLocale = DateUtils.DEFAULT_LOCALE): string {
     if (!DateUtils.isValid(date)) throw new RangeError('Date invalide');
     const tag = DateUtils.normalizeLocale(locale);
+    if (format === DateUtils.RELATIVE_FORMAT) return DateUtils.relative(date, tag);
     const intl = (options: Intl.DateTimeFormatOptions): string =>
       new Intl.DateTimeFormat(tag, options).format(date);
 
-    return format.replace(TOKEN_REGEX, (token) => {
+    return format.replace(TOKEN_REGEX, (token, literal?: string) => {
+      if (literal !== undefined) return literal;
       if (token[0] === 'P') return intl({ dateStyle: DATE_STYLES[token] });
       switch (token) {
         case 'yyyy':
