@@ -29,3 +29,4 @@ export * from './components/atoms/primary-button/primary-button';
 export * from './components/atoms/secondary-button/secondary-button';
 export * from './components/atoms/tertiary-button/tertiary-button';
 export * from './components/atoms/danger-button/danger-button';
+export * from './components/atoms/icon-button/icon-button';
