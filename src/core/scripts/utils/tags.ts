@@ -41,3 +41,7 @@ export const TAG_SEGMENTED_CONTROL = `${base}segmented-control`;
 export const TAG_INPUT_FILE = `${base}input-file`;
 export const TAG_TOOLTIP = `${base}tooltip`;
 export const TAG_HELPER = `${base}helper`;
+export const TAG_ALERT = `${base}alert`;
+export const TAG_CALLOUT = `${base}callout`;
+export const TAG_QUOTE = `${base}quote`;
+export const TAG_CARD = `${base}card`;

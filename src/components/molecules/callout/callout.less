@@ -1,0 +1,81 @@
+@import (reference) '../../../core/styles/mixins/base.less';
+
+.rds-base();
+
+:host {
+  display: block;
+}
+
+.callout {
+  --_bg: var(--ds-background-tone-brand);
+  --_fg: var(--ds-text-tone-brand);
+  display: grid;
+  gap: var(--ds-space-3);
+  padding: var(--ds-space-6);
+  border-radius: var(--ds-radius-xl);
+  background: var(--_bg);
+  color: var(--ds-text-default);
+}
+
+@tones: accent, neutral, success, warning, danger;
+
+each(@tones, {
+  .callout[data-tone='@{value}'] {
+    --_bg: ~'var(--ds-background-tone-@{value})';
+    --_fg: ~'var(--ds-text-tone-@{value})';
+  }
+});
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-3);
+}
+
+.badge {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: none;
+  border-radius: 50%;
+  background: var(--_fg);
+  color: var(--_bg);
+}
+
+.badge rds-icon {
+  --ds-icon-size: 1.25rem;
+}
+
+:host(:not([icon])) .badge {
+  display: none;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--ds-font-display);
+  font-size: 1.375rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  color: var(--_fg);
+}
+
+:host(:not(:state(has-title))) .title {
+  display: none;
+}
+
+.text {
+  line-height: 1.5rem;
+  font-size: 1.0625rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-space-2);
+  margin-top: var(--ds-space-1);
+}
+
+:host(:not(:state(has-actions))) .actions {
+  display: none;
+}

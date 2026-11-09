@@ -1,0 +1,200 @@
+@import (reference) '../../../core/styles/mixins/base.less';
+
+.rds-base();
+
+:host {
+  display: block;
+}
+
+.card {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--ds-radius-lg);
+  background: var(--ds-background-surface);
+  color: var(--ds-text-default);
+  box-shadow: inset 0 0 0 1px var(--ds-border-subtle);
+  transition:
+    transform var(--_d-medium) var(--_ease),
+    box-shadow var(--_d-medium) var(--_ease),
+    background-color var(--_d-medium) var(--_ease);
+}
+
+:host([variant='filled']) .card {
+  background: var(--ds-background-surface-variant);
+  box-shadow: none;
+}
+
+:host([variant='elevated']) .card {
+  box-shadow: var(--ds-shadow-1);
+}
+
+:host(:state(link)) .card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    var(--ds-shadow-2),
+    inset 0 0 0 1px var(--ds-border-subtle);
+}
+
+:host(:state(link)) .card:active {
+  transform: translateY(0) scale(0.995);
+}
+
+:host(:state(link)) .card:focus-within {
+  outline: 3px solid var(--ds-focus-ring-color);
+  outline-offset: 2px;
+}
+
+.media {
+  position: relative;
+  overflow: hidden;
+}
+
+:host(:not(:state(has-media))) .media {
+  display: none;
+}
+
+::slotted([slot='media']) {
+  display: block;
+  width: 100%;
+  transition: transform 600ms var(--_ease);
+}
+
+:host(:state(link)) .card:hover ::slotted([slot='media']) {
+  transform: scale(1.03);
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-space-2);
+  padding: var(--ds-space-6);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ds-space-2);
+}
+
+:host(:not(:state(has-tags))) .tags {
+  display: none;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--ds-font-display);
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+}
+
+.title a {
+  color: inherit;
+  text-decoration: none;
+  outline: none;
+}
+
+// Zone cliquable : toute la carte.
+.title a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+:host(:state(link)) .card:hover .title a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.desc {
+  color: var(--ds-text-muted);
+  line-height: 1.5rem;
+}
+
+.meta {
+  font-size: 0.875rem;
+  color: var(--ds-text-muted);
+}
+
+:host(:not(:state(has-meta))) .meta {
+  display: none;
+}
+
+.footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--ds-space-2);
+  padding: 0 var(--ds-space-6) var(--ds-space-6);
+  margin-top: auto;
+}
+
+:host(:not(:state(has-footer))) .footer {
+  display: none;
+}
+
+.arrow {
+  position: absolute;
+  right: var(--ds-space-6);
+  bottom: var(--ds-space-6);
+  color: var(--ds-text-action-tertiary);
+  transition: transform var(--_d-medium) var(--_ease);
+}
+
+:host(:not(:state(link))) .arrow,
+:host(:state(has-footer)) .arrow {
+  display: none;
+}
+
+:host(:state(link)) .card:hover .arrow {
+  transform: translateX(4px);
+}
+
+:host(:state(link)) .content {
+  padding-bottom: calc(var(--ds-space-6) + 1.75rem);
+}
+
+:host([orientation='horizontal']) .card {
+  flex-direction: row;
+}
+
+:host([orientation='horizontal']) .media {
+  flex: 0 0 40%;
+}
+
+:host([orientation='horizontal']) ::slotted([slot='media']) {
+  height: 100%;
+}
+
+:host([size='sm']) .content {
+  padding: var(--ds-space-4);
+}
+
+:host([size='sm']) .title {
+  font-size: 1.0625rem;
+  line-height: 1.5rem;
+}
+
+:host([variant='tile']) .card {
+  text-align: center;
+  align-items: center;
+}
+
+:host([variant='tile']) .content {
+  align-items: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host(:state(link)) .card:hover,
+  :host(:state(link)) .card:hover ::slotted([slot='media']),
+  :host(:state(link)) .card:hover .arrow {
+    transform: none;
+  }
+}

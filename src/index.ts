@@ -50,3 +50,7 @@ export * from './components/atoms/segmented-control/segmented-control';
 export * from './components/atoms/input-file/input-file';
 export * from './components/atoms/tooltip/tooltip';
 export * from './components/atoms/helper/helper';
+export * from './components/molecules/alert/alert';
+export * from './components/molecules/callout/callout';
+export * from './components/molecules/quote/quote';
+export * from './components/molecules/card/card';

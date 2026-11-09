@@ -276,6 +276,54 @@
         <rds-helper size="lg" text="Grand"></rds-helper>
       </div>
     </div>
+    <h2>Alerte</h2>
+    <div style="display: grid; gap: 0.75rem; max-width: 40rem">
+      <rds-alert type="info" heading="Information">Votre session expire dans 10 minutes.</rds-alert>
+      <rds-alert type="success" heading="Motif enregistré" dismissible>Il apparaît dans la galerie.</rds-alert>
+      <rds-alert type="warning" heading="Espace presque plein" dismissible>
+        Il reste 5 % de stockage.
+        <rds-secondary-button slot="actions" size="sm">Gérer l'espace</rds-secondary-button>
+      </rds-alert>
+      <rds-alert type="error" heading="Échec de l'envoi" dismissible>
+        Le fichier n'a pas pu être transmis.
+        <rds-primary-button slot="actions" size="sm">Réessayer</rds-primary-button>
+      </rds-alert>
+      <rds-alert type="info" size="sm">Alerte compacte, sur une ligne.</rds-alert>
+      <rds-alert type="warning" variant="banner">Maintenance programmée samedi à 22 h.</rds-alert>
+    </div>
+    <h2>Mise en avant</h2>
+    <div style="display: grid; gap: 0.75rem; max-width: 40rem">
+      <rds-callout icon="leaf" heading="Pensez au thème sombre">
+        Testez vos assemblages dans les deux thèmes.
+        <rds-secondary-button slot="actions" size="sm">En savoir plus</rds-secondary-button>
+      </rds-callout>
+      <rds-callout tone="accent" icon="sparkles" heading="Nouveau">Tons ocre pour les mises en valeur.</rds-callout>
+      <rds-callout tone="neutral">Sans titre ni icône.</rds-callout>
+    </div>
+    <h2>Citation</h2>
+    <div style="display: grid; gap: 1.5rem; max-width: 40rem">
+      <rds-quote author="Équipe Rotomeca" source="Charte de conception" cite="https://example.com">
+        Des couches simples, posées avec soin.
+        <rds-avatar slot="avatar" name="Équipe Rotomeca"></rds-avatar>
+      </rds-quote>
+      <rds-quote size="sm" author="Anonyme">Version compacte.</rds-quote>
+    </div>
+    <h2>Carte</h2>
+    <div class="grid" style="margin-bottom: 1rem">
+      <rds-card href="#chene" heading="Feuille de chêne">Motif vectoriel aux tons cuivre et ocre.</rds-card>
+      <rds-card variant="elevated" heading="Châtaigne">
+        <rds-tag slot="tags">Nouveau</rds-tag>
+        Carte surélevée avec actions.
+        <rds-primary-button slot="actions" size="sm">Ouvrir</rds-primary-button>
+      </rds-card>
+      <rds-card variant="filled" size="sm" heading="Compacte">Fond teinté.</rds-card>
+      <rds-card variant="tile" heading="Tuile">
+        <rds-icon slot="media" name="leaf"></rds-icon>
+        Contenu centré.
+      </rds-card>
+    </div>
+    <rds-card orientation="horizontal" heading="Horizontale" style="max-width: 36rem">Média à gauche, texte à droite.</rds-card>
+<!--MOLECULES-->
     <h2>Champs</h2>
     <form id="inputs" style="display: grid; gap: 1rem; max-width: 32rem">
       <rds-input name="nom" required placeholder="Jean Dupont">

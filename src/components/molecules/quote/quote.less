@@ -1,0 +1,59 @@
+@import (reference) '../../../core/styles/mixins/base.less';
+
+.rds-base();
+
+:host {
+  display: block;
+}
+
+figure {
+  margin: 0;
+  display: grid;
+  gap: var(--ds-space-4);
+}
+
+.mark {
+  --ds-icon-size: 2rem;
+  color: var(--ds-text-action-secondary-button);
+}
+
+blockquote {
+  margin: 0;
+  font-family: var(--ds-font-display);
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 500;
+  color: var(--ds-text-default);
+}
+
+:host([size='sm']) blockquote {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+figcaption {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-3);
+}
+
+.who {
+  display: grid;
+}
+
+.author {
+  font-weight: 700;
+}
+
+.source {
+  font-size: 0.875rem;
+  color: var(--ds-text-muted);
+}
+
+.source a {
+  color: inherit;
+}
+
+:host(:not(:state(has-caption))) figcaption {
+  display: none;
+}
