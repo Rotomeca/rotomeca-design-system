@@ -1,0 +1,99 @@
+@import (reference) '../../../core/styles/mixins/base.less';
+
+.rds-base();
+
+:host {
+  display: block;
+}
+
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.page,
+.nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  padding: 0 0.75rem;
+  font: inherit;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+  color: var(--ds-text-default);
+  background: transparent;
+  border: 0;
+  border-radius: var(--ds-radius-full);
+  cursor: pointer;
+  transition:
+    background-color var(--_d-instant) var(--_ease),
+    color var(--_d-instant) var(--_ease),
+    transform var(--_d-short) var(--_ease);
+  outline: 3px solid transparent;
+  outline-offset: 0;
+}
+
+.page:hover,
+.nav:hover {
+  background: var(--ds-background-action-tertiary-hover);
+}
+
+.page:active,
+.nav:active {
+  transform: scale(0.94);
+}
+
+.page:focus-visible,
+.nav:focus-visible {
+  outline-color: var(--ds-focus-ring-color);
+  outline-offset: 2px;
+}
+
+.page[aria-current='page'] {
+  color: var(--ds-text-action-primary);
+  background: var(--ds-background-action-primary);
+}
+
+.nav[aria-disabled='true'] {
+  opacity: var(--ds-opacity-disabled);
+  pointer-events: none;
+}
+
+.nav {
+  color: var(--ds-text-action-tertiary);
+}
+
+.ellipsis {
+  min-width: 2rem;
+  text-align: center;
+  color: var(--ds-text-muted);
+}
+
+rds-icon {
+  --ds-icon-size: 1.25rem;
+}
+
+:host([size='sm']) .page,
+:host([size='sm']) .nav {
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0 0.5rem;
+  font-size: 0.875rem;
+}
+
+.label-text {
+  display: inline;
+}
+
+:host([compact]) .label-text {
+  display: none;
+}

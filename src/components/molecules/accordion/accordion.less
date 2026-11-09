@@ -1,0 +1,13 @@
+@import (reference) '../../../core/styles/mixins/base.less';
+
+.rds-base();
+
+:host {
+  display: block;
+  border-radius: var(--ds-radius-lg);
+}
+
+:host([variant='contained']) {
+  background: var(--ds-background-surface-variant);
+  padding: var(--ds-space-2);
+}

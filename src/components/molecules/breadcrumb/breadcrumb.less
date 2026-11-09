@@ -1,0 +1,82 @@
+// Feuille globale (light DOM) : sélecteurs préfixés par le tag.
+rds-breadcrumb {
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--ds-text-muted);
+}
+
+rds-breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+rds-breadcrumb li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+rds-breadcrumb li > rds-icon {
+  --ds-icon-size: 1rem;
+  color: var(--ds-text-muted);
+}
+
+rds-breadcrumb a {
+  color: var(--ds-text-muted);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+  border-radius: 2px;
+  transition:
+    color var(--ds-duration-instant) var(--ds-ease-standard),
+    text-decoration-color var(--ds-duration-short) var(--ds-ease-standard);
+}
+
+rds-breadcrumb a:hover {
+  color: var(--ds-text-default);
+  text-decoration-color: currentcolor;
+}
+
+rds-breadcrumb a:focus-visible {
+  outline: 3px solid var(--ds-focus-ring-color);
+  outline-offset: 2px;
+}
+
+rds-breadcrumb [aria-current='page'] {
+  color: var(--ds-text-default);
+  font-weight: 600;
+  text-decoration: none;
+  pointer-events: none;
+}
+
+rds-breadcrumb .rds-bc-more {
+  font: inherit;
+  color: var(--ds-text-muted);
+  background: none;
+  border: 0;
+  padding: 0 0.25rem;
+  border-radius: var(--ds-radius-xs);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+rds-breadcrumb .rds-bc-more:focus-visible {
+  outline: 3px solid var(--ds-focus-ring-color);
+}
+
+rds-breadcrumb li.rds-bc-hidden {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  rds-breadcrumb a {
+    transition-duration: 1ms;
+  }
+}

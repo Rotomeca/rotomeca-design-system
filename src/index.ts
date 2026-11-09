@@ -54,3 +54,7 @@ export * from './components/molecules/alert/alert';
 export * from './components/molecules/callout/callout';
 export * from './components/molecules/quote/quote';
 export * from './components/molecules/card/card';
+export * from './components/molecules/breadcrumb/breadcrumb';
+export * from './components/molecules/pagination/pagination';
+export * from './components/molecules/tabs/tabs';
+export * from './components/molecules/accordion/accordion';

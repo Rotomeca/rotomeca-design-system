@@ -323,6 +323,44 @@
       </rds-card>
     </div>
     <rds-card orientation="horizontal" heading="Horizontale" style="max-width: 36rem">Média à gauche, texte à droite.</rds-card>
+    <h2>Fil d'Ariane</h2>
+    <div style="display: grid; gap: 1rem">
+      <rds-breadcrumb><a href="#">Accueil</a><a href="#">Palettes</a><span>Automne</span></rds-breadcrumb>
+      <rds-breadcrumb max="3">
+        <a href="#">Accueil</a><a href="#">Palettes</a><a href="#">Saisons</a><a href="#">Chaudes</a><span>Automne</span>
+      </rds-breadcrumb>
+    </div>
+    <h2>Pagination</h2>
+    <div style="display: grid; gap: 1rem">
+      <rds-pagination total="24" page="7"></rds-pagination>
+      <rds-pagination total="9" page="1" size="sm" compact no-ends></rds-pagination>
+      <rds-pagination total="5" page="2" href="?page={page}"></rds-pagination>
+    </div>
+    <h2>Onglets</h2>
+    <div style="display: grid; gap: 1.5rem; max-width: 40rem">
+      <rds-tabs>
+        <rds-tab-panel label="Couleurs" icon="palette">Palette automnale : marron, cuivre, ocre.</rds-tab-panel>
+        <rds-tab-panel label="Typographie" icon="type">Fraunces pour les titres, Figtree pour le texte.</rds-tab-panel>
+        <rds-tab-panel label="Désactivé" disabled>Inaccessible.</rds-tab-panel>
+        <rds-tab-panel label="Mouvement">Courtes transitions sur transform et opacity.</rds-tab-panel>
+      </rds-tabs>
+      <rds-tabs variant="pills" full>
+        <rds-tab-panel label="Jour">Thème clair.</rds-tab-panel>
+        <rds-tab-panel label="Nuit" selected>Thème « Sous-bois ».</rds-tab-panel>
+      </rds-tabs>
+    </div>
+    <h2>Accordéon</h2>
+    <div style="display: grid; gap: 1.5rem; max-width: 40rem">
+      <rds-accordion single>
+        <rds-accordion-item label="Qu'est-ce qu'un token ?" icon="circle-help" open>Une valeur de design nommée, lue par les composants.</rds-accordion-item>
+        <rds-accordion-item label="Pourquoi Shadow DOM ?">Pour isoler les styles de chaque brique.</rds-accordion-item>
+        <rds-accordion-item label="Désactivée" disabled>Contenu masqué.</rds-accordion-item>
+      </rds-accordion>
+      <rds-accordion variant="contained">
+        <rds-accordion-item label="Groupe teinté">Plusieurs sections peuvent rester ouvertes.</rds-accordion-item>
+        <rds-accordion-item label="Autre section" open>Contenu.</rds-accordion-item>
+      </rds-accordion>
+    </div>
 <!--MOLECULES-->
     <h2>Champs</h2>
     <form id="inputs" style="display: grid; gap: 1rem; max-width: 32rem">

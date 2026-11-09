@@ -1,0 +1,117 @@
+@import (reference) '../../../core/styles/mixins/base.less';
+
+.rds-base();
+
+:host {
+  display: block;
+}
+
+.bar {
+  position: relative;
+  display: flex;
+  gap: 0.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  box-shadow: inset 0 -1px 0 var(--ds-border-subtle);
+}
+
+:host([full]) .bar button {
+  flex: 1;
+}
+
+button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3rem;
+  padding: 0 var(--ds-space-4);
+  font: inherit;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--ds-text-muted);
+  background: transparent;
+  border: 0;
+  border-radius: var(--ds-input-radius) var(--ds-input-radius) 0 0;
+  cursor: pointer;
+  outline: 3px solid transparent;
+  outline-offset: -3px;
+  transition:
+    color var(--_d-instant) var(--_ease),
+    background-color var(--_d-instant) var(--_ease);
+}
+
+button:hover {
+  color: var(--ds-text-default);
+  background: var(--ds-background-action-tertiary-hover);
+}
+
+button[aria-selected='true'] {
+  color: var(--ds-text-action-tertiary);
+}
+
+button:focus-visible {
+  outline-color: var(--ds-focus-ring-color);
+}
+
+button:disabled {
+  opacity: var(--ds-opacity-disabled);
+  cursor: not-allowed;
+}
+
+button rds-icon {
+  --ds-icon-size: 1.25rem;
+}
+
+// Élément de 1 px mis à l'échelle : seul `transform` est animé.
+.indicator {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 1px;
+  background: var(--ds-control-checked);
+  border-radius: 3px 3px 0 0;
+  transform-origin: left center;
+  transform: translateX(var(--_x, 0)) scaleX(var(--_w, 0));
+  transition: transform var(--_d-long) var(--_ease);
+}
+
+.panels {
+  padding-top: var(--ds-space-4);
+}
+
+::slotted(rds-tab-panel) {
+  display: block;
+  outline: none;
+}
+
+::slotted(rds-tab-panel[hidden]) {
+  display: none;
+}
+
+::slotted(rds-tab-panel:focus-visible) {
+  outline: 3px solid var(--ds-focus-ring-color);
+  outline-offset: 4px;
+  border-radius: var(--ds-radius-xs);
+}
+
+:host([variant='pills']) .bar {
+  box-shadow: none;
+  gap: 0.5rem;
+}
+
+:host([variant='pills']) button {
+  min-height: 2.5rem;
+  border-radius: var(--ds-radius-full);
+}
+
+:host([variant='pills']) button[aria-selected='true'] {
+  color: var(--ds-text-action-primary);
+  background: var(--ds-background-action-primary);
+}
+
+:host([variant='pills']) .indicator {
+  display: none;
+}
