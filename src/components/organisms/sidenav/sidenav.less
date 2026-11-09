@@ -1,0 +1,112 @@
+// Feuille globale (light DOM) : sélecteurs préfixés par le tag.
+rds-sidenav {
+  display: block;
+  font-size: 0.9375rem;
+}
+
+rds-sidenav > .rds-sn-title {
+  margin: 0 0 0.5rem;
+  padding: 0 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ds-text-muted);
+}
+
+rds-sidenav a,
+rds-sidenav summary {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 2.5rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--ds-radius-full);
+  color: var(--ds-text-default);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--ds-duration-instant) var(--ds-ease-standard),
+    color var(--ds-duration-instant) var(--ds-ease-standard);
+}
+
+rds-sidenav a:hover,
+rds-sidenav summary:hover {
+  background: var(--ds-background-action-tertiary-hover);
+}
+
+rds-sidenav a:focus-visible,
+rds-sidenav summary:focus-visible {
+  outline: 3px solid var(--ds-focus-ring-color);
+  outline-offset: 0;
+}
+
+rds-sidenav a[aria-current='page'] {
+  font-weight: 700;
+  color: var(--ds-text-action-tertiary);
+  background: var(--ds-background-surface-strong);
+}
+
+rds-sidenav details {
+  margin: 0;
+}
+
+rds-sidenav summary {
+  list-style: none;
+  font-weight: 600;
+}
+
+rds-sidenav summary::-webkit-details-marker {
+  display: none;
+}
+
+rds-sidenav summary::after {
+  content: '';
+  margin-left: auto;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-right: 2px solid currentcolor;
+  border-bottom: 2px solid currentcolor;
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform var(--ds-duration-medium) var(--ds-ease-standard);
+}
+
+rds-sidenav details[open] > summary::after {
+  transform: rotate(-135deg) translateY(-2px);
+}
+
+rds-sidenav details > :not(summary) {
+  margin-left: 1rem;
+}
+
+rds-sidenav details[open] > :not(summary) {
+  animation: rds-sn-in 250ms var(--ds-ease-emphasized-decelerate);
+}
+
+rds-sidenav rds-icon {
+  --ds-icon-size: 1.25rem;
+}
+
+rds-sidenav .rds-sn-list {
+  display: grid;
+  gap: 0.125rem;
+}
+
+@keyframes rds-sn-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  rds-sidenav a,
+  rds-sidenav summary,
+  rds-sidenav summary::after {
+    transition-duration: 1ms;
+  }
+
+  rds-sidenav details[open] > :not(summary) {
+    animation: none;
+  }
+}

@@ -1,0 +1,145 @@
+// Feuille globale (light DOM) : sélecteurs préfixés par le tag.
+rds-table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-radius: var(--ds-radius-lg);
+  box-shadow: inset 0 0 0 1px var(--ds-border-subtle);
+  background: var(--ds-background-surface);
+}
+
+rds-table:focus-visible {
+  outline: 3px solid var(--ds-focus-ring-color);
+  outline-offset: 2px;
+}
+
+rds-table table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.9375rem;
+  line-height: 1.375rem;
+  color: var(--ds-text-default);
+}
+
+rds-table caption {
+  caption-side: top;
+  text-align: left;
+  padding: 1rem 1rem 0.5rem;
+  font-family: var(--ds-font-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+rds-table th,
+rds-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--ds-border-subtle);
+}
+
+rds-table thead th {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--ds-text-muted);
+  background: var(--ds-background-surface-variant);
+  white-space: nowrap;
+}
+
+rds-table[sticky] {
+  max-height: var(--rds-table-max, 24rem);
+}
+
+rds-table[sticky] thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+rds-table tbody tr:last-child > * {
+  border-bottom: 0;
+}
+
+rds-table tfoot td,
+rds-table tfoot th {
+  font-weight: 700;
+  border-top: 1px solid var(--ds-border-strong);
+  border-bottom: 0;
+}
+
+rds-table[striped] tbody tr:nth-child(even) > * {
+  background: color-mix(in srgb, var(--ds-background-surface-variant) 60%, transparent);
+}
+
+rds-table[hover] tbody tr {
+  transition: background-color var(--ds-duration-instant) var(--ds-ease-standard);
+}
+
+rds-table[hover] tbody tr:hover > * {
+  background: var(--ds-background-option-hover);
+}
+
+rds-table[bordered] th + th,
+rds-table[bordered] td + td,
+rds-table[bordered] th + td,
+rds-table[bordered] td + th {
+  border-left: 1px solid var(--ds-border-subtle);
+}
+
+rds-table[compact] th,
+rds-table[compact] td {
+  padding: 0.375rem 0.75rem;
+}
+
+rds-table .rds-num,
+rds-table [data-type='number'] {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+rds-table tr[aria-selected='true'] > * {
+  background: var(--ds-background-option-selected);
+}
+
+rds-table .rds-sort {
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+rds-table .rds-sort:hover {
+  color: var(--ds-text-default);
+}
+
+rds-table .rds-sort:focus-visible {
+  outline: 3px solid var(--ds-focus-ring-color);
+  outline-offset: 2px;
+}
+
+rds-table .rds-sort rds-icon {
+  --ds-icon-size: 1rem;
+  opacity: 0.5;
+  transition:
+    transform var(--ds-duration-medium) var(--ds-ease-standard),
+    opacity var(--ds-duration-instant) var(--ds-ease-standard);
+}
+
+rds-table th[aria-sort] .rds-sort rds-icon {
+  opacity: 1;
+  color: var(--ds-text-action-tertiary);
+}
+
+rds-table th[aria-sort='descending'] .rds-sort rds-icon {
+  transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  rds-table[hover] tbody tr,
+  rds-table .rds-sort rds-icon {
+    transition-duration: 1ms;
+  }
+}

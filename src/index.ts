@@ -70,3 +70,5 @@ export * from './components/organisms/dialog/dialog';
 export * from './components/organisms/drawer/drawer';
 export * from './components/organisms/header/header';
 export * from './components/organisms/footer/footer';
+export * from './components/organisms/sidenav/sidenav';
+export * from './components/organisms/table/table';
