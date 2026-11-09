@@ -1,0 +1,15 @@
+<!-- example: Formats -->
+<!-- layout: stack -->
+<div><rds-date format="P">1997-08-12</rds-date> (court)</div>
+<div><rds-date format="PPPP" start-format="dd/MM/yyyy">12/08/1997</rds-date> (parsing dd/MM/yyyy)</div>
+<div><rds-date format="ddMMyyyy HHmm" date="1997-08-12T15:30:00"></rds-date> (attribut date)</div>
+<div><rds-date format="EEEE d MMMM yyyy" locale="en" date="1997-08-12"></rds-date> (anglais)</div>
+<div><rds-date format="'Le' d MMMM yyyy 'à' HH'h'mm" date="1997-08-12T15:30:00"></rds-date> (texte littéral)</div>
+
+<!-- example: Date relative et invalide -->
+<!-- layout: stack -->
+<div><rds-date id="date-rel" format="relative"></rds-date> (relatif : il y a 3 jours)</div>
+<div><rds-date format="P">pas une date</rds-date> (invalide)</div>
+<script>
+  document.getElementById('date-rel').date = new Date(Date.now() - 3 * 86400000);
+</script>

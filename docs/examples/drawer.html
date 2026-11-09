@@ -1,0 +1,14 @@
+<!-- example: Tiroir latéral -->
+<!-- note: Même API que `rds-dialog`. `placement` choisit le bord, `size` la largeur. -->
+<rds-secondary-button icon-before="panel-left" onclick="document.getElementById('drawer-1').show()">Depuis la gauche</rds-secondary-button>
+<rds-secondary-button icon-before="panel-right" onclick="document.getElementById('drawer-2').show()">Depuis la droite</rds-secondary-button>
+
+<rds-drawer id="drawer-1" heading="Navigation">
+  <p>Contenu du tiroir de gauche.</p>
+  <rds-tertiary-button slot="actions" data-close="close">Fermer</rds-tertiary-button>
+</rds-drawer>
+<rds-drawer id="drawer-2" heading="Filtres" placement="end" size="lg">
+  <p>Filtres, détails d'un élément…</p>
+  <rds-tertiary-button slot="actions" data-close="reset">Réinitialiser</rds-tertiary-button>
+  <rds-primary-button slot="actions" data-close="ok">Appliquer</rds-primary-button>
+</rds-drawer>

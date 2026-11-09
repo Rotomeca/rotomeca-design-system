@@ -1,0 +1,9 @@
+<!-- example: Ajout de fichiers -->
+<!-- layout: stack -->
+<div style="display: grid; gap: 1rem; width: 100%">
+  <rds-input-file name="justificatif" accept="image/*,.pdf" max-size="5" required>
+    Justificatif <span slot="hint">PNG, JPG ou PDF — 5 Mo maximum</span>
+  </rds-input-file>
+  <rds-input-file name="pieces" multiple button-text="Choisir des fichiers">Pièces jointes</rds-input-file>
+  <rds-input-file name="off" disabled>Désactivé</rds-input-file>
+</div>

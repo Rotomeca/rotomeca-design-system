@@ -1,0 +1,45 @@
+<!-- example: Champ de base -->
+<!-- layout: stack -->
+<div style="display: grid; gap: 1rem; width: 100%">
+  <rds-input name="nom" required placeholder="Jean Dupont">
+    Nom <span slot="hint">Obligatoire</span>
+  </rds-input>
+  <rds-input name="icone" icon="user">Avec icône</rds-input>
+  <rds-input name="off" disabled value="Désactivé">Désactivé</rds-input>
+</div>
+
+<!-- example: États de validation -->
+<!-- layout: stack -->
+<div style="display: grid; gap: 1rem; width: 100%">
+  <rds-input name="ok" value="Valide" state="success">Succès forcé</rds-input>
+  <rds-input name="ko" value="Invalide" state="error">
+    Erreur forcée <span slot="error">Ce nom est déjà pris.</span>
+  </rds-input>
+</div>
+
+<!-- example: Bouton intégré -->
+<!-- layout: stack -->
+<div style="display: grid; gap: 1rem; width: 100%">
+  <rds-input name="bouton" button="primary" button-icon="send">
+    Avec bouton <span slot="button">Envoyer</span>
+  </rds-input>
+  <rds-input name="obi" button="" button-icon="plus" button-label="Ajouter">Bouton icône seule</rds-input>
+</div>
+
+<!-- example: Variantes typées -->
+<!-- note: Chaque variante fixe le type natif (`type="…"`) et ses contraintes. -->
+<!-- layout: stack -->
+<div style="display: grid; gap: 1rem; width: 100%">
+  <rds-input-text name="texte">Texte</rds-input-text>
+  <rds-input-number name="nombre" min="0" max="10" step="1" value="3">Nombre</rds-input-number>
+  <rds-input-date name="date">Date</rds-input-date>
+  <rds-input-time name="heure">Heure</rds-input-time>
+  <rds-input-datetime name="datetime">Date et heure</rds-input-datetime>
+  <rds-input-password name="mdp" required minlength="8">Mot de passe</rds-input-password>
+  <rds-input-search name="recherche">Recherche</rds-input-search>
+  <rds-input-email name="email" required>E-mail</rds-input-email>
+  <rds-input-tel name="tel">Téléphone</rds-input-tel>
+  <rds-input-url name="url">Site web</rds-input-url>
+  <rds-input-color name="couleur" value="#6b4226">Couleur</rds-input-color>
+  <rds-input-range name="curseur" min="0" max="100" value="40">Curseur</rds-input-range>
+</div>

@@ -18,6 +18,7 @@ Package manager is pnpm (`pnpm@12.15.0`).
 
 - `pnpm dev` — cleans, runs `test`, then starts the playground (http://localhost:5173, LESS recompilation + live reload; `scripts/dev.mjs`)
 - `pnpm test` — `typecheck` + `lint` + `build` (there is no unit-test runner; this is the validation gate — à lancer avant de conclure toute modification)
+- `pnpm docs:dev` / `pnpm docs:build` — site de documentation (`scripts/docs.mjs`, sortie `site/`, déployé par `.github/workflows/docs.yml`). Sources : `docs/examples/<nom>.html` (blocs `<!-- example: Titre -->`), `docs/guide/`, `docs/site.config.mjs`. L'API est extraite du TSDoc des composants.
 - `pnpm typecheck` / `pnpm lint` / `pnpm lint:fix` / `pnpm format` / `pnpm format:check`
 - `pnpm build` — `dist/` (tsc output + `design-system.css` via lessc), `out/` (esbuild-minified ESM bundle + minified CSS), then copies lucide icons (`scripts/copy-icons.mjs`)
 
@@ -53,7 +54,8 @@ Chemin : `src/components/{atoms,molecules,organisms}/<name>/<name>.{ts,tsx,less}
 3. Déclaration via `@Define` + décorateurs (`@Attr`, `@Listen`…), TSDoc en français.
 4. Styles uniquement via tokens `--ds-*` ; états hover/focus/active/disabled.
 5. Accessibilité (voir plus bas), animation sobre.
-6. `pnpm test` vert.
+6. Exemples dans `docs/examples/<nom>.html` + page dans `docs/site.config.mjs` (le build de la doc échoue sinon).
+7. `pnpm test` vert.
 
 ## Tokens & thème
 

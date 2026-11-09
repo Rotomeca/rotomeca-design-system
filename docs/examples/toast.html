@@ -1,0 +1,5 @@
+<!-- example: Notifications -->
+<!-- note: `toast()` est exposé ici sous `window.rds` pour la démonstration. Dans votre code : `import { toast } from '@rotomeca/design-system'`. -->
+<rds-secondary-button onclick="rds.toast('Enregistré')">Simple</rds-secondary-button>
+<rds-secondary-button onclick="rds.toast({ message: 'Motif supprimé.', type: 'success', action: 'Annuler' })">Succès + action</rds-secondary-button>
+<rds-secondary-button onclick="rds.toast({ message: 'Échec de l\'envoi.', type: 'error', duration: 0 })">Erreur persistante</rds-secondary-button>

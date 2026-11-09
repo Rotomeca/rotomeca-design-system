@@ -1,0 +1,17 @@
+<!-- example: Variantes -->
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr)); gap: 1rem; width: 100%">
+  <rds-card href="#chene" heading="Feuille de chêne">Motif vectoriel aux tons cuivre et ocre.</rds-card>
+  <rds-card variant="elevated" heading="Châtaigne">
+    <rds-tag slot="tags">Nouveau</rds-tag>
+    Carte surélevée avec actions.
+    <rds-primary-button slot="actions" size="sm">Ouvrir</rds-primary-button>
+  </rds-card>
+  <rds-card variant="filled" size="sm" heading="Compacte">Fond teinté.</rds-card>
+  <rds-card variant="tile" heading="Tuile">
+    <rds-icon slot="media" name="leaf"></rds-icon>
+    Contenu centré.
+  </rds-card>
+</div>
+
+<!-- example: Horizontale -->
+<rds-card orientation="horizontal" heading="Horizontale" style="width: 100%">Média à gauche, texte à droite.</rds-card>

@@ -1,0 +1,283 @@
+// Feuille du site de documentation : design system + mise en page. Uniquement des tokens `--ds-*`.
+@import '../../src/core/styles/design-system.less';
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  margin: 0;
+  font-family: var(--ds-font-sans);
+  line-height: var(--ds-line-height-body);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--ds-font-display);
+  color: var(--ds-text-default);
+  line-height: 1.2;
+}
+
+h1 {
+  margin: var(--ds-space-2) 0 var(--ds-space-3);
+  font-size: var(--ds-font-size-display);
+}
+
+h2 {
+  margin: var(--ds-space-8) 0 var(--ds-space-3);
+  font-size: var(--ds-font-size-headline);
+}
+
+h3 {
+  margin: var(--ds-space-6) 0 var(--ds-space-2);
+  font-size: var(--ds-font-size-title);
+}
+
+h4 {
+  margin: var(--ds-space-4) 0 var(--ds-space-2);
+  font-size: var(--ds-font-size-label);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ds-text-muted);
+}
+
+code {
+  padding: 0.1em 0.35em;
+  border-radius: var(--ds-radius-xs);
+  background: var(--ds-background-surface-variant);
+  font-family: var(--ds-font-mono);
+  font-size: 0.875em;
+}
+
+a {
+  color: var(--ds-text-link);
+}
+
+// ── Mise en page ──
+.layout {
+  display: grid;
+  grid-template-columns: 17rem minmax(0, 1fr);
+  gap: var(--ds-space-6);
+  max-width: var(--ds-header-max);
+  margin: 0 auto;
+  padding: 0 var(--ds-space-4);
+}
+
+.aside {
+  position: sticky;
+  top: 4rem;
+  align-self: start;
+  display: grid;
+  gap: var(--ds-space-3);
+  max-height: calc(100vh - 4rem);
+  padding: var(--ds-space-4) 0;
+  overflow-y: auto;
+}
+
+.main {
+  min-width: 0;
+  padding: var(--ds-space-4) 0 var(--ds-space-8);
+}
+
+.main-narrow {
+  max-width: 52rem;
+}
+
+.page-head .lead,
+.hero .lead {
+  max-width: 44rem;
+  font-size: var(--ds-font-size-body-lg);
+  color: var(--ds-text-muted);
+}
+
+.eyebrow {
+  margin: var(--ds-space-3) 0 0;
+}
+
+.hero {
+  display: grid;
+  gap: var(--ds-space-3);
+  justify-items: start;
+  padding: var(--ds-space-8) 0 var(--ds-space-4);
+}
+
+.features,
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: var(--ds-space-4);
+}
+
+.features {
+  margin: var(--ds-space-6) 0;
+}
+
+.cards {
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: var(--ds-space-3);
+}
+
+.footer-brand {
+  font-family: var(--ds-font-display);
+  font-size: 1.25rem;
+  color: var(--ds-text-default);
+}
+
+// ── Exemples : rendu | code ──
+.example {
+  margin-bottom: var(--ds-space-6);
+}
+
+.example-note {
+  margin: 0 0 var(--ds-space-2);
+  color: var(--ds-text-muted);
+}
+
+.example-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  border: 1px solid var(--ds-border-subtle);
+  border-radius: var(--ds-radius-lg);
+  overflow: hidden;
+}
+
+.demo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-space-3);
+  min-width: 0;
+  padding: var(--ds-space-6) var(--ds-space-4);
+  background: var(--ds-background-surface);
+  overflow: auto;
+}
+
+.demo-stack {
+  display: grid;
+  align-items: start;
+  justify-items: start;
+}
+
+.demo-block {
+  display: block;
+}
+
+.code-wrap {
+  position: relative;
+  min-width: 0;
+  border-left: 1px solid var(--ds-border-subtle);
+  background: var(--ds-background-surface-variant);
+}
+
+.copy {
+  position: absolute;
+  top: var(--ds-space-2);
+  right: var(--ds-space-2);
+  z-index: 1;
+}
+
+.code {
+  height: 100%;
+
+  pre {
+    margin: 0;
+    padding: var(--ds-space-4);
+    padding-right: 3rem;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: auto;
+    font-family: var(--ds-font-mono);
+    font-size: var(--ds-font-size-code);
+    line-height: var(--ds-line-height-code);
+    color: var(--ds-text-default);
+    tab-size: 2;
+  }
+
+  code {
+    padding: 0;
+    background: none;
+    font-size: inherit;
+  }
+}
+
+.tk-t {
+  color: var(--ds-text-action-tertiary);
+}
+
+.tk-a {
+  color: var(--ds-text-tone-accent);
+}
+
+.tk-s {
+  color: var(--ds-text-success);
+}
+
+.tk-c {
+  color: var(--ds-text-muted);
+  font-style: italic;
+}
+
+// ── Page tokens ──
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  gap: var(--ds-space-3);
+}
+
+.swatch {
+  border: 1px solid var(--ds-border-subtle);
+  border-radius: var(--ds-radius-lg);
+  overflow: hidden;
+  font-size: var(--ds-font-size-caption);
+
+  .states {
+    display: flex;
+    height: 4rem;
+
+    div {
+      flex: 1;
+    }
+  }
+
+  p {
+    margin: 0;
+    padding: var(--ds-space-2);
+  }
+}
+
+// ── Responsive ──
+@media (max-width: 62rem) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .aside {
+    display: none;
+  }
+}
+
+@media (max-width: 48rem) {
+  .example-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .code-wrap {
+    border-left: 0;
+    border-top: 1px solid var(--ds-border-subtle);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@media (max-width: 36rem) {
+  rds-header rds-link {
+    display: none;
+  }
+}

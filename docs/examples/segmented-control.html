@@ -1,0 +1,19 @@
+<!-- example: Contrôle segmenté -->
+<!-- note: Les segments se déclarent avec des `<option>` ; `data-icon` ajoute une icône, `data-icon-only` masque le texte. -->
+<!-- layout: stack -->
+<div style="display: grid; gap: 1rem; justify-items: start; width: 100%">
+  <rds-segmented-control name="vue" label="Affichage">
+    <option value="grille" data-icon="layout-grid" selected>Grille</option>
+    <option value="liste" data-icon="list">Liste</option>
+    <option value="carte">Carte</option>
+  </rds-segmented-control>
+  <rds-segmented-control name="periode" label="Période" size="lg">
+    <option value="jour">Jour</option>
+    <option value="semaine" selected>Semaine</option>
+    <option value="mois" disabled>Mois</option>
+  </rds-segmented-control>
+  <rds-segmented-control name="theme" label="Thème" full style="width: 100%">
+    <option value="clair" data-icon="sun" data-icon-only label="Clair" selected></option>
+    <option value="sombre" data-icon="moon" data-icon-only label="Sombre"></option>
+  </rds-segmented-control>
+</div>

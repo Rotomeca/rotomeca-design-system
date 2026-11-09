@@ -1,0 +1,32 @@
+<!-- example: Variantes -->
+<rds-button variant="primary">Primaire</rds-button>
+<rds-button variant="secondary">Secondaire</rds-button>
+<rds-button variant="tertiary">Tertiaire</rds-button>
+<rds-button variant="warning">Attention</rds-button>
+<rds-button variant="danger">Danger</rds-button>
+<rds-button variant="success">Succès</rds-button>
+
+<!-- example: Tailles -->
+<rds-button size="sm">Petit</rds-button>
+<rds-button size="md">Moyen</rds-button>
+<rds-button size="lg">Grand</rds-button>
+<rds-button rounded>Arrondi</rds-button>
+
+<!-- example: Icônes -->
+<!-- note: Les icônes sont des noms [Lucide](https://lucide.dev). Sans texte, `label` donne le nom accessible. -->
+<rds-button icon-before="house">Accueil</rds-button>
+<rds-button icon-after="arrow-right" variant="secondary">Suivant</rds-button>
+<rds-button icon-before="settings" label="Réglages"></rds-button>
+<rds-button icon-before="x" rounded variant="tertiary" label="Fermer"></rds-button>
+
+<!-- example: États -->
+<rds-button disabled>Désactivé</rds-button>
+<rds-button loading>Chargement</rds-button>
+<rds-button loading variant="secondary" label="Envoi"></rds-button>
+
+<!-- example: Dans un formulaire -->
+<form onsubmit="event.preventDefault(); this.querySelector('output').textContent = 'Envoyé !'" style="display: flex; gap: 0.5rem; align-items: center">
+  <rds-button type="submit">Envoyer</rds-button>
+  <rds-button type="reset" variant="secondary">Réinitialiser</rds-button>
+  <output></output>
+</form>

@@ -1,0 +1,18 @@
+<!-- example: Liste déroulante -->
+<!-- layout: stack -->
+<div style="display: grid; gap: 1rem; width: 100%">
+  <rds-select name="saison" label="Saison" placeholder="Choisir">
+    <span slot="hint">Choisissez une saison</span>
+    <option value="automne">Automne</option>
+    <option value="hiver">Hiver</option>
+    <optgroup label="Autres">
+      <option value="printemps">Printemps</option>
+      <option value="ete" disabled>Été (indisponible)</option>
+    </optgroup>
+  </rds-select>
+  <rds-select name="essence" label="Essence" required state="error">
+    <span slot="error">Choix obligatoire.</span>
+    <option value="chene" selected>Chêne</option>
+    <option value="hetre">Hêtre</option>
+  </rds-select>
+</div>

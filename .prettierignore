@@ -4,3 +4,6 @@ node_modules
 pnpm-lock.yaml
 design-system-handoff
 rotomeca-ds-handoff
+site
+docs/examples
+docs/guide

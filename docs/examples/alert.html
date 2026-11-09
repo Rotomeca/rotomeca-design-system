@@ -1,0 +1,21 @@
+<!-- example: Types -->
+<!-- layout: stack -->
+<div style="display: grid; gap: 0.75rem; width: 100%">
+  <rds-alert type="info" heading="Information">Votre session expire dans 10 minutes.</rds-alert>
+  <rds-alert type="success" heading="Motif enregistré" dismissible>Il apparaît dans la galerie.</rds-alert>
+  <rds-alert type="warning" heading="Espace presque plein" dismissible>
+    Il reste 5 % de stockage.
+    <rds-secondary-button slot="actions" size="sm">Gérer l'espace</rds-secondary-button>
+  </rds-alert>
+  <rds-alert type="error" heading="Échec de l'envoi" dismissible>
+    Le fichier n'a pas pu être transmis.
+    <rds-primary-button slot="actions" size="sm">Réessayer</rds-primary-button>
+  </rds-alert>
+</div>
+
+<!-- example: Compacte et bannière -->
+<!-- layout: stack -->
+<div style="display: grid; gap: 0.75rem; width: 100%">
+  <rds-alert type="info" size="sm">Alerte compacte, sur une ligne.</rds-alert>
+  <rds-alert type="warning" variant="banner">Maintenance programmée samedi à 22 h.</rds-alert>
+</div>

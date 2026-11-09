@@ -60,9 +60,16 @@ Le thème se personnalise uniquement en redéfinissant des propriétés `--ds-*`
 Les tags sont définis dans `src/core/scripts/utils/tags.ts`. Les attributs, slots, `part`, états `:state()` et
 événements de chaque brique sont documentés en TSDoc dans son fichier source.
 
+## Documentation
+
+Le site (un exemple vivant + son code HTML pour chacune des briques, API extraite du TSDoc) est construit avec le design system lui-même et publié sur GitHub Pages par `.github/workflows/docs.yml` à chaque push sur `main`.
+Activer une fois : Settings → Pages → Source « GitHub Actions ». Pour ajouter une brique : `docs/examples/<nom>.html` + entrée dans `docs/site.config.mjs` (le build échoue si une brique n'est pas documentée).
+
 ## Développement
 
 - `pnpm dev` : playground sur http://localhost:5173 (recompilation LESS + live reload), une section par brique
+- `pnpm docs:dev` : site de documentation sur http://localhost:5174 (live reload)
+- `pnpm docs:build` : génère le site de documentation dans `site/` (variable `DOCS_BASE` = préfixe d'URL)
 - `pnpm build` : génère `dist/` et `out/` (JS + CSS + icônes)
 - `pnpm test` : typecheck + lint + build (porte de validation)
 - `pnpm format` / `pnpm format:check` : Prettier

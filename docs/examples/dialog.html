@@ -1,0 +1,18 @@
+<!-- example: Modale -->
+<!-- note: `show()` ouvre la modale ; un bouton portant `data-close="…"` la ferme avec cette valeur. -->
+<rds-primary-button onclick="document.getElementById('dialog-1').show()">Ouvrir la modale</rds-primary-button>
+<rds-danger-button icon-before="trash-2" onclick="document.getElementById('dialog-2').show()">Supprimer…</rds-danger-button>
+
+<rds-dialog id="dialog-1" heading="Nouveau motif">
+  <div style="display: grid; gap: 1rem">
+    <rds-input-text name="n">Nom du motif</rds-input-text>
+    <rds-select name="t" label="Teinte"><option>Cuivre</option><option>Ocre</option></rds-select>
+  </div>
+  <rds-tertiary-button slot="actions" data-close="cancel">Annuler</rds-tertiary-button>
+  <rds-primary-button slot="actions" data-close="ok">Créer</rds-primary-button>
+</rds-dialog>
+<rds-dialog id="dialog-2" heading="Supprimer ce motif ?" icon="triangle-alert" size="sm" role="alertdialog">
+  Cette action est définitive.
+  <rds-tertiary-button slot="actions" data-close="cancel">Annuler</rds-tertiary-button>
+  <rds-danger-button slot="actions" data-close="delete">Supprimer</rds-danger-button>
+</rds-dialog>

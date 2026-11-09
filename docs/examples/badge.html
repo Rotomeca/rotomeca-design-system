@@ -1,0 +1,13 @@
+<!-- example: Tons -->
+<rds-badge>Neutre</rds-badge>
+<rds-badge tone="brand">Brand</rds-badge>
+<rds-badge tone="accent">Accent</rds-badge>
+<rds-badge tone="success" dot>En ligne</rds-badge>
+<rds-badge tone="warning" icon="triangle-alert">Attention</rds-badge>
+<rds-badge tone="danger" appearance="bold">Erreur</rds-badge>
+<rds-badge tone="brand" appearance="bold" size="sm">Petit</rds-badge>
+
+<!-- example: Compteur -->
+<!-- note: `count` affiche un nombre, plafonné par `max` (« 99+ »). -->
+<rds-badge id="badge-counter" tone="danger" appearance="bold" count="8" max="99"></rds-badge>
+<rds-button size="sm" variant="secondary" onclick="const b = document.getElementById('badge-counter'); b.count = Number(b.count) + 40">+ 40</rds-button>

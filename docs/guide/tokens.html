@@ -1,0 +1,71 @@
+<header class="page-head">
+  <h1>Tokens &amp; thème</h1>
+  <div class="lead">
+    <p>
+      Deux couches : des variables LESS de palette, et des propriétés CSS sémantiques
+      <code>--ds-*</code> que les composants consomment.
+    </p>
+  </div>
+</header>
+
+<h2 id="palette">Palette automnale</h2>
+<rds-table striped>
+  <table>
+    <thead>
+      <tr><th>Nom</th><th>Hex</th><th>Rôle</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Marron</td><td><code>#6b4226</code></td><td>Action primaire</td></tr>
+      <tr><td>Châtaigne</td><td><code>#8b5e3c</code></td><td>Hover du marron</td></tr>
+      <tr><td>Écorce</td><td><code>#3e2723</code></td><td>Active du marron</td></tr>
+      <tr><td>Cuivre</td><td><code>#b85c38</code></td><td>Accent, texte d’action secondaire</td></tr>
+      <tr><td>Terracotta</td><td><code>#c87552</code></td><td>Accent doux</td></tr>
+      <tr><td>Ocre</td><td><code>#d6a23d</code></td><td>Accent chaud, mise en avant</td></tr>
+      <tr><td>Bordeaux</td><td><code>#7a3545</code></td><td>Accent profond</td></tr>
+      <tr><td>Olive</td><td><code>#77794e</code></td><td>Accent naturel / succès doux</td></tr>
+      <tr><td>Crème</td><td><code>#f5ebdd</code></td><td>Surfaces, fond des champs</td></tr>
+      <tr><td>Lin</td><td><code>#e7d5be</code></td><td>Surfaces secondaires, bordures</td></tr>
+      <tr><td>Encre brune</td><td><code>#2d211b</code></td><td>Texte principal</td></tr>
+    </tbody>
+  </table>
+</rds-table>
+
+<h2 id="semantiques">Tokens sémantiques</h2>
+<p>
+  Chaque token existe en trois états : <code>--ds-&lt;nom&gt;</code>, <code>-hover</code> et
+  <code>-active</code>. Les pastilles ci-dessous sont lues en direct depuis le thème courant : basculez
+  le thème pour les voir changer.
+</p>
+<div class="swatches" id="swatches"></div>
+
+<h2 id="familles">Familles de tokens</h2>
+<rds-table striped>
+  <table>
+    <thead>
+      <tr><th>Famille</th><th>Préfixe</th><th>Exemples</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Couleurs de fond</td><td><code>--ds-background-*</code></td><td><code>--ds-background-surface</code>, <code>--ds-background-action-primary</code></td></tr>
+      <tr><td>Couleurs de texte</td><td><code>--ds-text-*</code></td><td><code>--ds-text-default</code>, <code>--ds-text-muted</code></td></tr>
+      <tr><td>Bordures</td><td><code>--ds-border-*</code></td><td><code>--ds-border-subtle</code>, <code>--ds-border-strong</code></td></tr>
+      <tr><td>Rayons</td><td><code>--ds-radius-*</code></td><td><code>--ds-radius-lg</code>, <code>--ds-radius-full</code></td></tr>
+      <tr><td>Espacements</td><td><code>--ds-space-*</code></td><td><code>--ds-space-2</code>, <code>--ds-space-4</code></td></tr>
+      <tr><td>Ombres</td><td><code>--ds-shadow-*</code></td><td><code>--ds-shadow-1</code> à <code>--ds-shadow-3</code></td></tr>
+      <tr><td>Durées et courbes</td><td><code>--ds-duration-*</code>, <code>--ds-ease-*</code></td><td><code>--ds-duration-short</code>, <code>--ds-ease-standard</code></td></tr>
+      <tr><td>Typographie</td><td><code>--ds-font-*</code></td><td><code>--ds-font-display</code> (Fraunces), <code>--ds-font-sans</code> (Figtree), <code>--ds-font-mono</code></td></tr>
+      <tr><td>Champs de formulaire</td><td><code>--ds-input-*</code></td><td><code>--ds-input-border</code>, <code>--ds-input-ring-1</code></td></tr>
+      <tr><td>Focus</td><td><code>--ds-focus-ring-color</code></td><td>Anneau de focus visible</td></tr>
+    </tbody>
+  </table>
+</rds-table>
+
+<h2 id="sombre">Thème sombre « Sous-bois »</h2>
+<p>
+  Il s’active avec <code>data-theme="dark"</code> sur <code>&lt;html&gt;</code> : il redéfinit uniquement des
+  tokens sémantiques. Tout composant est vérifié dans les deux thèmes.
+</p>
+<div class="code"><pre><code>&lt;html data-theme="dark"&gt;</code></pre></div>
+<rds-callout icon="palette" heading="Respecter l’ambiance">
+  Palette chaude et naturelle : pas de couleurs froides ou saturées en dehors des états sémantiques
+  (<code>warning</code>, <code>danger</code>, <code>success</code>).
+</rds-callout>

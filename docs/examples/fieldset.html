@@ -1,0 +1,20 @@
+<!-- example: Groupes de champs -->
+<!-- layout: stack -->
+<div style="display: grid; gap: 1.5rem; width: 100%">
+  <rds-fieldset legend="Format d'export" inline state="error" required>
+    <rds-helper slot="helper" title="Choisissez le format du fichier exporté."></rds-helper>
+    <span slot="hint">Un seul choix possible.</span>
+    <rds-radio name="fmt" value="svg">SVG</rds-radio>
+    <rds-radio name="fmt" value="png">PNG</rds-radio>
+    <span slot="error">Choisissez un format.</span>
+  </rds-fieldset>
+  <rds-fieldset legend="Notifications" state="success">
+    <rds-checkbox name="n1" checked>Par e-mail</rds-checkbox>
+    <rds-checkbox name="n2">Par SMS</rds-checkbox>
+    <span slot="success">Préférences enregistrées.</span>
+  </rds-fieldset>
+  <rds-fieldset legend="Désactivé" disabled>
+    <rds-switch name="s1">Option A</rds-switch>
+    <rds-switch name="s2">Option B</rds-switch>
+  </rds-fieldset>
+</div>

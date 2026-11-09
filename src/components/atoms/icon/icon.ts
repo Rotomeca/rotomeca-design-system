@@ -72,6 +72,24 @@ function registerIcons(icons: Record<string, string>): void {
   for (const icon of document.querySelectorAll<RotomecaIcon>(TAG_ICON)) icon.requestUpdate('icons');
 }
 
+/**
+ * Icône SVG, chargée par nom depuis le dossier `icons/` (jeu Lucide) puis mise en cache.
+ *
+ * @remarks
+ * Elle hérite de `currentColor` : sa couleur suit celle du texte. Sans `label`, elle est
+ * décorative (`aria-hidden`).
+ *
+ * | Attribut | Valeurs | Rôle |
+ * | --- | --- | --- |
+ * | `name` | nom Lucide (`leaf`, `house`…) | Icône à afficher. |
+ * | `size` | `sm` · `md` (défaut) · `lg` ou longueur CSS | Taille. |
+ * | `label` | texte | Nom accessible ; absent = décorative. |
+ *
+ * @example
+ * ```html
+ * <rds-icon name="leaf" size="lg" label="Feuille"></rds-icon>
+ * ```
+ */
 @Define({ tag: TAG_ICON, styles: style })
 class RotomecaIcon extends BaseElementInternal {
   /** Nom de l'icône enregistrée. */

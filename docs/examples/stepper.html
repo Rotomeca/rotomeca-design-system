@@ -1,0 +1,9 @@
+<!-- example: Indicateur d'étapes -->
+<!-- layout: stack -->
+<div style="display: grid; gap: 1.5rem; width: 100%">
+  <rds-stepper id="stepper-demo" current="2" steps="Informations|Teintes|Motifs|Validation"></rds-stepper>
+  <rds-button-group>
+    <rds-secondary-button onclick="const s = document.getElementById('stepper-demo'); s.current = Math.max(1, s.current - 1)">Précédent</rds-secondary-button>
+    <rds-primary-button onclick="const s = document.getElementById('stepper-demo'); s.current = s.current + 1">Suivant</rds-primary-button>
+  </rds-button-group>
+</div>

@@ -1,0 +1,23 @@
+<!-- example: Menu déroulant -->
+<!-- height: 18rem -->
+<!-- layout: stack -->
+<rds-menu>
+  <rds-secondary-button slot="trigger" icon-after="chevron-down">Actions</rds-secondary-button>
+  <span slot="header">Motif</span>
+  <rds-menu-item icon="pencil" shortcut="Ctrl+E">Modifier</rds-menu-item>
+  <rds-menu-item icon="copy" shortcut="Ctrl+D">Dupliquer</rds-menu-item>
+  <rds-menu-item icon="archive" disabled>Archiver</rds-menu-item>
+  <rds-divider></rds-divider>
+  <rds-menu-item checkable checked>Afficher la grille</rds-menu-item>
+  <rds-divider></rds-divider>
+  <rds-menu-item icon="trash-2" danger>Supprimer</rds-menu-item>
+</rds-menu>
+
+<!-- example: Menu d'un bouton icône -->
+<!-- height: 12rem -->
+<!-- layout: stack -->
+<rds-menu placement="bottom-end">
+  <rds-icon-button slot="trigger" icon="ellipsis" label="Plus d'actions"></rds-icon-button>
+  <rds-menu-item icon="share-2">Partager</rds-menu-item>
+  <rds-menu-item icon="download">Télécharger</rds-menu-item>
+</rds-menu>

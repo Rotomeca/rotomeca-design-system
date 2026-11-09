@@ -76,7 +76,9 @@
     "build:css:dist": "lessc src/core/styles/design-system.less dist/design-system.css",
     "build:css:out": "esbuild dist/design-system.css --minify --outfile=out/rotomeca-design-system.css",
     "dev": "pnpm run clean && pnpm run test && node scripts/dev.mjs",
-    "build:icons": "node scripts/copy-icons.mjs"
+    "build:icons": "node scripts/copy-icons.mjs",
+    "docs:build": "node scripts/docs.mjs",
+    "docs:dev": "node scripts/docs.mjs --watch"
   },
   "devEngines": {
     "packageManager": {

@@ -1,0 +1,12 @@
+<!-- example: Barre de progression -->
+<!-- layout: stack -->
+<div style="display: grid; gap: 1rem; width: 100%">
+  <rds-progress value="64" show-value>Import des motifs</rds-progress>
+  <rds-progress value="100" tone="success" size="sm" label="Terminé"></rds-progress>
+  <rds-progress value="30" tone="warning" size="lg" label="Espace disque"></rds-progress>
+  <rds-progress value="85" tone="danger" label="Quota"></rds-progress>
+</div>
+
+<!-- example: Indéterminée -->
+<!-- layout: block -->
+<rds-progress label="Chargement">Indéterminée</rds-progress>

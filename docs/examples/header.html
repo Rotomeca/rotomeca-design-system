@@ -1,0 +1,15 @@
+<!-- example: En-tête de site -->
+<!-- note: Sous 768 px de large, la navigation se replie derrière un bouton menu. Redimensionnez le cadre pour le constater. -->
+<!-- layout: block -->
+<div style="resize: horizontal; overflow: auto; border: 1px dashed var(--ds-border-subtle)">
+  <rds-header>
+    <a slot="brand" href="#"><rds-icon name="leaf" style="color: var(--ds-text-action-tertiary)"></rds-icon>Rotomeca</a>
+    <nav slot="nav">
+      <a href="#" aria-current="page">Accueil</a><a href="#">Palettes</a><a href="#">Motifs</a><a href="#">Documentation</a>
+    </nav>
+    <rds-flexbox slot="actions" gap="2" align="center">
+      <rds-icon-button icon="search" label="Rechercher"></rds-icon-button>
+      <rds-avatar name="Tommy Delphin" size="sm"></rds-avatar>
+    </rds-flexbox>
+  </rds-header>
+</div>

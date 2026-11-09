@@ -1,0 +1,23 @@
+<!-- example: Groupes de boutons -->
+<!-- layout: stack -->
+<div style="display: grid; gap: 1rem; width: 100%">
+  <rds-button-group align="end" label="Actions du formulaire">
+    <rds-tertiary-button>Annuler</rds-tertiary-button>
+    <rds-primary-button>Enregistrer</rds-primary-button>
+  </rds-button-group>
+  <rds-button-group attached label="Vue">
+    <rds-secondary-button>Jour</rds-secondary-button>
+    <rds-secondary-button>Semaine</rds-secondary-button>
+    <rds-secondary-button>Mois</rds-secondary-button>
+  </rds-button-group>
+  <rds-button-group full>
+    <rds-secondary-button>Un</rds-secondary-button>
+    <rds-secondary-button>Deux</rds-secondary-button>
+  </rds-button-group>
+</div>
+
+<!-- example: Groupe vertical collé -->
+<rds-button-group attached orientation="vertical" label="Pile">
+  <rds-secondary-button>Haut</rds-secondary-button>
+  <rds-secondary-button>Bas</rds-secondary-button>
+</rds-button-group>

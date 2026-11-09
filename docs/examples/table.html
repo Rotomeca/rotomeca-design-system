@@ -1,0 +1,16 @@
+<!-- example: Tableau triable -->
+<!-- note: `sortable` rend les en-têtes cliquables ; `data-type="number"` et `data-value` pilotent le tri numérique. -->
+<!-- layout: block -->
+<rds-table striped hover sortable>
+  <table>
+    <caption>Palette automnale</caption>
+    <thead><tr><th>Nom</th><th>Hex</th><th>Rôle</th><th data-type="number">Contraste / blanc</th></tr></thead>
+    <tbody>
+      <tr><td>Marron</td><td><code>#6b4226</code></td><td>Action primaire</td><td class="rds-num" data-value="8.63">8.63:1</td></tr>
+      <tr><td>Cuivre</td><td><code>#b85c38</code></td><td>Accent</td><td class="rds-num" data-value="4.54">4.54:1</td></tr>
+      <tr><td>Ocre</td><td><code>#d6a23d</code></td><td>Mise en avant</td><td class="rds-num" data-value="2.31">2.31:1</td></tr>
+      <tr><td>Bordeaux</td><td><code>#7a3545</code></td><td>Accent profond</td><td class="rds-num" data-value="8.67">8.67:1</td></tr>
+      <tr><td>Olive</td><td><code>#77794e</code></td><td>Succès doux</td><td class="rds-num" data-value="4.54">4.54:1</td></tr>
+    </tbody>
+  </table>
+</rds-table>

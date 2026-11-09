@@ -1,0 +1,63 @@
+<header class="page-head">
+  <h1>Démarrage</h1>
+  <div class="lead">
+    <p>Installer le paquet, charger les styles et les composants, puis utiliser les balises <code>rds-*</code>.</p>
+  </div>
+</header>
+
+<h2 id="installation">Installation</h2>
+<div class="code"><pre><code>pnpm add {{npm}}
+# ou : npm install {{npm}}</code></pre></div>
+
+<h2 id="styles">Styles généraux</h2>
+<p>
+  Tokens <code>--ds-*</code>, polices et styles de base. À charger une fois, avant les composants.
+</p>
+<div class="code"><pre><code>// Avec un bundler (vite, webpack, esbuild…)
+import '{{npm}}/css';</code></pre></div>
+<div class="code"><pre><code>&lt;!-- Sans bundler --&gt;
+&lt;link rel="stylesheet" href="node_modules/{{npm}}/dist/design-system.css" /&gt;</code></pre></div>
+<div class="code"><pre><code>// Dans un projet LESS
+@import '{{npm}}/less';</code></pre></div>
+<p>Version minifiée : <code>{{npm}}/css/min</code>.</p>
+
+<h2 id="composants">Composants</h2>
+<div class="code"><pre><code>import '{{npm}}'; // enregistre tous les custom elements rds-*
+import { toast, setTheme } from '{{npm}}';</code></pre></div>
+<div class="code"><pre><code>&lt;rds-primary-button icon-before="house"&gt;Accueil&lt;/rds-primary-button&gt;
+&lt;rds-input name="nom" required&gt;Nom &lt;span slot="hint"&gt;Obligatoire&lt;/span&gt;&lt;/rds-input&gt;</code></pre></div>
+<p>
+  Un bundle ESM minifié est aussi fourni : <code>{{npm}}/bundle</code>. Les icônes
+  (<a href="https://lucide.dev">Lucide</a>, fichiers SVG) sont chargées par nom depuis un dossier
+  <code>icons/</code> placé à côté du module (<code>dist/icons</code> ou <code>out/icons</code>).
+</p>
+<rds-callout icon="info" heading="Icônes et bundlers">
+  Si votre bundler déplace le module, indiquez le dossier des icônes avec la fonction
+  <code>setIconsPath()</code> exportée par le paquet.
+</rds-callout>
+
+<h2 id="theme">Thème clair / sombre</h2>
+<p>
+  Le thème sombre « Sous-bois » s’active avec <code>data-theme="dark"</code> sur <code>&lt;html&gt;</code>,
+  ou avec l’API <code>setTheme('light' | 'dark' | 'system')</code>. Le composant
+  <a href="{{base}}components/theme-switcher.html"><code>rds-theme-switcher</code></a> propose cette
+  bascule à l’utilisateur et mémorise son choix.
+</p>
+
+<h2 id="personnalisation">Personnalisation</h2>
+<p>
+  Les composants ne lisent que des propriétés CSS <code>--ds-*</code> : le thème se surcharge en les
+  redéfinissant, sans toucher aux composants.
+</p>
+<div class="code"><pre><code>:root {
+  --ds-background-action-primary: #2f5d50;
+  --ds-radius-lg: 0.5rem;
+}</code></pre></div>
+<p>La liste des tokens est détaillée dans <a href="{{base}}guide/tokens.html">Tokens &amp; thème</a>.</p>
+
+<h2 id="accessibilite">Accessibilité</h2>
+<ul>
+  <li>Rôles et attributs ARIA, navigation complète au clavier, focus visible.</li>
+  <li>Contrôles de formulaire associés au formulaire (<code>ElementInternals</code>) : valeur, validité, réinitialisation.</li>
+  <li>Les animations respectent <code>prefers-reduced-motion</code>.</li>
+</ul>
