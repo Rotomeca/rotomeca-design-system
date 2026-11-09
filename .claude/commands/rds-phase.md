@@ -3,7 +3,7 @@ description: Enchaîne toutes les briques d'une phase du kit Rotomeca (ex. /rds-
 argument-hint: <0-6>
 ---
 
-Réalise la **phase $ARGUMENTS** du brief `design-system-handoff/docs/HANDOFF.md`.
+Réalise la **phase $ARGUMENTS** du brief `rotomeca-ds-handoff/docs/HANDOFF.md`.
 
 1. Lis la section 3 du brief pour la phase $ARGUMENTS, puis `docs/INVENTORY.md` pour la liste et l'ordre des briques de cette phase (colonne « Phase »).
 2. Phase 0 : applique directement les étapes de fondation (tokens, utilitaires et mixins partagés, bascule de thème dans le playground), puis `pnpm test`.

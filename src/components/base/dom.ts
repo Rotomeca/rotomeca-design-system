@@ -63,3 +63,34 @@ export function trustedTemplate(
   template.innerHTML = html;
   return template;
 }
+
+/**
+ * Exécute `fn` une fois les enfants de `element` analysés.
+ *
+ * @remarks
+ * Un composant light DOM connecté pendant le parsing du HTML n'a pas encore ses enfants :
+ * le travail est différé à `DOMContentLoaded` tant que le document charge et que l'élément est le dernier nœud.
+ *
+ * @param element - Élément connecté.
+ * @param fn - Travail à exécuter sur les enfants.
+ */
+export function whenParsed(element: Element, fn: () => void): void {
+  if (document.readyState === 'loading' && !element.nextSibling) {
+    document.addEventListener('DOMContentLoaded', fn, { once: true });
+  } else fn();
+}
+
+/**
+ * Indique si un slot reçoit du contenu (élément ou texte non vide).
+ *
+ * @param slot - Slot testé ; `null` renvoie `false`.
+ * @returns `true` si au moins un nœud significatif est assigné.
+ */
+export function hasContent(slot: HTMLSlotElement | null | undefined): boolean {
+  return (
+    !!slot &&
+    slot
+      .assignedNodes({ flatten: true })
+      .some((n) => n.nodeType === Node.ELEMENT_NODE || !!n.textContent?.trim())
+  );
+}

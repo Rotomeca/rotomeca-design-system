@@ -1,5 +1,10 @@
+// Rotomeca Design System — tokens sémantiques --ds-*.
+// Généré depuis tokens.json. Thème « Automne » sur :root, thème « Sous-bois » sur [data-theme='dark'].
+// Un thème ne fait que redéfinir des --ds-* : aucun composant ne change.
+
 @import './tokens.less';
 
+// Mixins historiques conservés pour compatibilité.
 .create-token(@token, @variable) {
   @hover-variable: ~'@{variable}-hover';
   @active-variable: ~'@{variable}-active';
@@ -9,42 +14,338 @@
   --ds-@{token}-active: @@active-variable;
 }
 
-.create-complexe-token(@token, @variable, @active, @hover) {
-  @hover-variable: ~'@{active}-hover';
-  @active-variable: ~'@{hover}-active';
-
-  --ds-@{token}: @@variable;
-  --ds-@{token}-hover: @@hover-variable;
-  --ds-@{token}-active: @@active-variable;
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+  --ds-body-background-color: @white-100; // Fond de la page.
+  --ds-body-text-color: @ink-100; // Texte courant sur ds-body-background-color (13.2:1 clair, 15.2:1 sombre).
+  --ds-background-surface: @white-100; // Surface par défaut (cartes, panneaux).
+  --ds-background-surface-variant: @creme-100; // Surface douce : fond des champs, survols légers.
+  --ds-background-surface-strong: @lin-100; // Surface marquée : sélection, piste de switch.
+  --ds-background-overlay: @white-100; // Menus et listes flottantes (liste du select).
+  --ds-text-default: @ink-100; // Texte principal sur toutes les surfaces ds-background-*.
+  --ds-text-muted: @ink-100-hover; // Texte secondaire, indices, légendes ; sur surface et surface-variant (≥ 7:1).
+  --ds-border-subtle: @lin-100; // Séparateurs décoratifs uniquement (ne porte pas de sens).
+  --ds-border-strong: @marron-100-hover; // Bordure des contrôles au repos (≥ 3:1 sur surface et surface-variant).
+  --ds-focus-ring-color: @ink-100; // Anneau de focus clavier : 3px plein, décalé de 2px (≥ 13:1 dans les deux thèmes).
+  --ds-background-action-primary: @marron-100; // Fond de l'action primaire.
+  --ds-background-action-primary-hover: @marron-100-hover; // Survol de l'action primaire.
+  --ds-background-action-primary-active: @marron-100-active; // Pression de l'action primaire.
+  --ds-text-action-primary: @white-100; // Texte sur ds-background-action-primary (8.6:1 clair, 5.2:1 sombre).
+  --ds-background-action-secondary: @white-100; // Fond de l'action secondaire.
+  --ds-background-action-secondary-hover: @creme-100; // Survol de l'action secondaire (crème — repli du code, le gris #c5c3c3 est écarté).
+  --ds-background-action-secondary-active: @lin-100; // Pression de l'action secondaire.
+  --ds-text-action-secondary: @cuivre-100; // Lien / texte d'action cuivre, sur fond blanc uniquement en clair (4.54:1).
+  --ds-text-action-secondary-button: @marron-100; // Texte et bordure du bouton secondaire (≥ 6:1 sur ses trois fonds).
+  --ds-text-action-tertiary: @marron-100; // Texte du bouton tertiaire et du bouton icône.
+  --ds-background-action-tertiary-hover: @creme-100; // Survol du bouton tertiaire.
+  --ds-background-action-tertiary-active: @lin-100; // Pression du bouton tertiaire.
+  --ds-background-action-warning: @warning-100; // Fond de l'action d'avertissement.
+  --ds-background-action-warning-hover: @warning-100-hover; // Survol avertissement.
+  --ds-background-action-warning-active: @warning-100-active; // Pression avertissement.
+  --ds-text-action-warning: @ink-100; // Texte sur fond d'avertissement (7.2:1).
+  --ds-background-action-danger: @danger-100; // Fond de l'action destructrice.
+  --ds-background-action-danger-hover: @danger-100-hover; // Survol danger.
+  --ds-background-action-danger-active: @danger-100-active; // Pression danger.
+  --ds-text-action-danger: @white-100; // Texte sur fond danger (6.5:1).
+  --ds-background-action-success: @success-100; // Fond de l'action de validation.
+  --ds-background-action-success-hover: @success-100-hover; // Survol succès.
+  --ds-background-action-success-active: @success-100-active; // Pression succès.
+  --ds-text-action-success: @white-100; // Texte sur fond succès (5.1:1).
+  --ds-text-success: @success-100; // Message de succès sur les surfaces (5.1:1 clair, 9.9:1 sombre). Toujours doublé d'une icône.
+  --ds-text-warning: @warning-200; // Message d'avertissement sur les surfaces (5.9:1 clair, 9.4:1 sombre).
+  --ds-text-danger: @danger-100; // Message d'erreur sur les surfaces (6.5:1 clair, 10.5:1 sombre).
+  --ds-date-color-invalid: var(--ds-text-danger); // Date absente ou invalide (rds-date).
+  --ds-input-background: @creme-100; // Fond des champs.
+  --ds-input-text: @ink-100; // Texte saisi, sur ds-input-background.
+  --ds-input-hint: @ink-100-hover; // Libellé flottant, placeholder, indice (7.7:1 / 7.1:1).
+  --ds-input-border: @marron-100-hover; // Bordure 1px du champ au repos (≥ 3:1).
+  --ds-input-ring-1: @marron-100; // Anneau animé du focus — couleur 1, aussi libellé focalisé.
+  --ds-input-ring-2: @cuivre-100; // Anneau animé du focus — couleur 2.
+  --ds-input-ring-3: @ocre-100; // Anneau animé du focus — couleur 3.
+  --ds-input-ring-4: @terracota-100; // Anneau animé du focus — couleur 4.
+  --ds-input-border-success: @success-100; // Bordure et anneau d'un champ valide.
+  --ds-input-border-error: @danger-100; // Bordure et anneau d'un champ en erreur.
+  --ds-control-border: @marron-100-hover; // Contour d'un radio / switch non coché (≥ 3:1).
+  --ds-control-checked: @marron-100; // Radio coché, piste de switch active.
+  --ds-control-checked-hover: @marron-100-hover; // Survol d'un contrôle coché.
+  --ds-control-state-layer: @marron-100; // Halo de survol / pression (appliqué à 8–12 % d'opacité).
+  --ds-switch-track: @creme-100; // Piste du switch inactif.
+  --ds-switch-thumb: @marron-100-hover; // Pouce du switch inactif.
+  --ds-switch-thumb-checked: @white-100; // Pouce du switch actif, sur ds-control-checked.
+  --ds-switch-icon-checked: @marron-100; // Icône dans le pouce actif.
+  --ds-background-option-hover: @creme-100; // Option survolée ou active au clavier.
+  --ds-background-option-selected: @lin-100; // Option sélectionnée.
+  --ds-text-link: @marron-100; // Liens dans le texte, sur toutes les surfaces (8.6:1 blanc, 7.3:1 crème ; 7.2:1 sombre).
+  --ds-text-link-hover: @marron-100-active; // Lien survolé (13.8:1 / 9.4:1).
+  --ds-text-link-visited: @bordeaux-100; // Lien déjà visité (8.7:1 / 8.6:1).
+  --ds-background-inverse: @ink-100; // Surface inversée : infobulles, toasts, liens d'évitement.
+  --ds-text-inverse: @creme-100; // Texte sur ds-background-inverse (13.2:1).
+  --ds-text-action-inverse: @ocre-100-hover; // Action dans une surface inversée (bouton d'un toast) : 8.2:1 / 7.3:1.
+  --ds-background-scrim: @scrim-100; // Voile derrière une modale ou un tiroir.
+  --ds-background-placeholder: @lin-100; // Squelette de chargement.
+  --ds-background-placeholder-shine: @creme-100; // Reflet animé du squelette.
+  --ds-background-tone-neutral: @lin-100; // Badge Neutre discret : fond.
+  --ds-text-tone-neutral: @ink-100; // Badge Neutre discret : texte sur ds-background-tone-neutral (≥ 4.5:1).
+  --ds-background-tone-neutral-bold: @ink-100; // Badge Neutre affirmé : fond.
+  --ds-text-tone-neutral-bold: @creme-100; // Badge Neutre affirmé : texte sur ds-background-tone-neutral-bold (≥ 4.5:1).
+  --ds-background-tone-brand: @creme-100; // Badge Marque discret : fond.
+  --ds-text-tone-brand: @marron-100; // Badge Marque discret : texte sur ds-background-tone-brand (≥ 4.5:1).
+  --ds-background-tone-brand-bold: @marron-100; // Badge Marque affirmé : fond.
+  --ds-text-tone-brand-bold: @white-100; // Badge Marque affirmé : texte sur ds-background-tone-brand-bold (≥ 4.5:1).
+  --ds-background-tone-accent: @ocre-050; // Badge Ocre discret : fond.
+  --ds-text-tone-accent: @ocre-300; // Badge Ocre discret : texte sur ds-background-tone-accent (≥ 4.5:1).
+  --ds-background-tone-accent-bold: @ocre-100; // Badge Ocre affirmé : fond.
+  --ds-text-tone-accent-bold: @ink-100; // Badge Ocre affirmé : texte sur ds-background-tone-accent-bold (≥ 4.5:1).
+  --ds-background-tone-success: @success-050; // Badge Succès discret : fond.
+  --ds-text-tone-success: @success-100-active; // Badge Succès discret : texte sur ds-background-tone-success (≥ 4.5:1).
+  --ds-background-tone-success-bold: @success-100; // Badge Succès affirmé : fond.
+  --ds-text-tone-success-bold: @white-100; // Badge Succès affirmé : texte sur ds-background-tone-success-bold (≥ 4.5:1).
+  --ds-background-tone-warning: @warning-050; // Badge Avertissement discret : fond.
+  --ds-text-tone-warning: @warning-300; // Badge Avertissement discret : texte sur ds-background-tone-warning (≥ 4.5:1).
+  --ds-background-tone-warning-bold: @warning-100; // Badge Avertissement affirmé : fond.
+  --ds-text-tone-warning-bold: @ink-100; // Badge Avertissement affirmé : texte sur ds-background-tone-warning-bold (≥ 4.5:1).
+  --ds-background-tone-danger: @danger-050; // Badge Danger discret : fond.
+  --ds-text-tone-danger: @danger-100-active; // Badge Danger discret : texte sur ds-background-tone-danger (≥ 4.5:1).
+  --ds-background-tone-danger-bold: @danger-100; // Badge Danger affirmé : fond.
+  --ds-text-tone-danger-bold: @white-100; // Badge Danger affirmé : texte sur ds-background-tone-danger-bold (≥ 4.5:1).
+  --ds-shadow-1:
+    0 1px 2px rgba(45, 33, 27, 0.12), 0 1px 3px 1px rgba(45, 33, 27, 0.08); // Pouce du switch, éléments légèrement surélevés.
+  --ds-shadow-2:
+    0 2px 6px 2px rgba(45, 33, 27, 0.1), 0 1px 2px rgba(45, 33, 27, 0.14); // Cartes au survol.
+  --ds-shadow-3:
+    0 8px 24px -4px rgba(45, 33, 27, 0.18), 0 2px 6px rgba(45, 33, 27, 0.1); // Menus flottants (liste du select).
 }
 
-:root {
-  .create-token(background-action-primary, marron-100);
-  .create-token(background-action-secondary, white-100);
-
-  .create-token(background-action-warning, warning-100);
-  .create-token(background-action-danger, danger-100);
-  .create-token(background-action-success, success-100);
-
-  .create-token(text-action-primary, white-100);
-  .create-token(text-action-secondary, cuivre-100);
-  .create-token(text-action-warning, ink-100);
-  .create-token(text-action-danger, white-100);
-  .create-token(text-action-success, white-100);
-
-  // Champs de saisie
-  --ds-input-background: @creme-100;
-  --ds-input-text: @ink-100;
-  --ds-input-hint: @ink-100-hover;
-  --ds-input-border: @marron-100-hover;
-  --ds-input-ring-1: @marron-100;
-  --ds-input-ring-2: @cuivre-100;
-  --ds-input-ring-3: @ocre-100;
+[data-theme='dark'] {
+  color-scheme: dark;
+  --ds-body-background-color: @ink-100-active;
+  --ds-body-text-color: @creme-100;
+  --ds-background-surface: @ink-100-active;
+  --ds-background-surface-variant: @ink-100;
+  --ds-background-surface-strong: @marron-100-active;
+  --ds-background-overlay: @ink-100;
+  --ds-text-default: @creme-100;
+  --ds-text-muted: @white-200-active;
+  --ds-border-subtle: @marron-100-active;
+  --ds-border-strong: @chataigne-200;
+  --ds-focus-ring-color: @creme-100;
+  --ds-background-action-primary: @terracota-100;
+  --ds-background-action-primary-hover: @terracota-100-hover;
+  --ds-background-action-primary-active: @terracota-100-active;
+  --ds-text-action-primary: @ink-100-active;
+  --ds-background-action-secondary: @ink-100-active;
+  --ds-background-action-secondary-hover: @ink-100;
+  --ds-background-action-secondary-active: @marron-100-active;
+  --ds-text-action-secondary: @terracota-100-hover;
+  --ds-text-action-secondary-button: @terracota-100-hover;
+  --ds-text-action-tertiary: @terracota-100-hover;
+  --ds-background-action-tertiary-hover: @ink-100;
+  --ds-background-action-tertiary-active: @marron-100-active;
+  --ds-background-action-warning: @warning-100;
+  --ds-background-action-warning-hover: @warning-100-hover;
+  --ds-background-action-warning-active: @warning-100-active;
+  --ds-text-action-warning: @ink-100;
+  --ds-background-action-danger: @danger-100;
+  --ds-background-action-danger-hover: @danger-100-hover;
+  --ds-background-action-danger-active: @danger-100-active;
+  --ds-text-action-danger: @white-100;
+  --ds-background-action-success: @success-100;
+  --ds-background-action-success-hover: @success-100-hover;
+  --ds-background-action-success-active: @success-100-active;
+  --ds-text-action-success: @white-100;
+  --ds-text-success: @success-300;
+  --ds-text-warning: @ocre-100-hover;
+  --ds-text-danger: @danger-200;
+  --ds-date-color-invalid: var(--ds-text-danger);
+  --ds-input-background: @ink-100;
+  --ds-input-text: @creme-100;
+  --ds-input-hint: @white-200-active;
+  --ds-input-border: @chataigne-200;
+  --ds-input-ring-1: @terracota-100-hover;
+  --ds-input-ring-2: @ocre-100;
+  --ds-input-ring-3: @cuivre-100;
   --ds-input-ring-4: @terracota-100;
-  --ds-input-border-success: @success-100;
-  --ds-input-border-error: @danger-100;
-  --ds-input-radius: 0.625rem;
+  --ds-input-border-success: @success-300;
+  --ds-input-border-error: @danger-200;
+  --ds-control-border: @chataigne-200;
+  --ds-control-checked: @terracota-100;
+  --ds-control-checked-hover: @terracota-100-hover;
+  --ds-control-state-layer: @terracota-100-hover;
+  --ds-switch-track: @ink-100;
+  --ds-switch-thumb: @white-200-active;
+  --ds-switch-thumb-checked: @ink-100-active;
+  --ds-switch-icon-checked: @terracota-100;
+  --ds-background-option-hover: @marron-100-active;
+  --ds-background-option-selected: @ecorce-200;
+  --ds-text-link: @terracota-100-hover;
+  --ds-text-link-hover: @ocre-100-hover;
+  --ds-text-link-visited: @bordeaux-200;
+  --ds-background-inverse: @creme-100;
+  --ds-text-inverse: @ink-100;
+  --ds-text-action-inverse: @marron-100;
+  --ds-background-scrim: @scrim-200;
+  --ds-background-placeholder: @marron-100-active;
+  --ds-background-placeholder-shine: @ecorce-200;
+  --ds-background-tone-neutral: @marron-100-active;
+  --ds-text-tone-neutral: @creme-100;
+  --ds-background-tone-neutral-bold: @creme-100;
+  --ds-text-tone-neutral-bold: @ink-100-active;
+  --ds-background-tone-brand: @marron-900;
+  --ds-text-tone-brand: @terracota-100-hover;
+  --ds-background-tone-brand-bold: @terracota-100;
+  --ds-text-tone-brand-bold: @ink-100-active;
+  --ds-background-tone-accent: @ocre-900;
+  --ds-text-tone-accent: @ocre-100-hover;
+  --ds-background-tone-accent-bold: @ocre-100;
+  --ds-text-tone-accent-bold: @ink-100-active;
+  --ds-background-tone-success: @success-900;
+  --ds-text-tone-success: @success-200;
+  --ds-background-tone-success-bold: @success-300;
+  --ds-text-tone-success-bold: @ink-100-active;
+  --ds-background-tone-warning: @warning-900;
+  --ds-text-tone-warning: @warning-100-hover;
+  --ds-background-tone-warning-bold: @warning-100;
+  --ds-text-tone-warning-bold: @ink-100-active;
+  --ds-background-tone-danger: @danger-900;
+  --ds-text-tone-danger: @danger-200;
+  --ds-background-tone-danger-bold: @danger-200;
+  --ds-text-tone-danger-bold: @ink-100-active;
+  --ds-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.5), 0 1px 3px 1px rgba(0, 0, 0, 0.3);
+  --ds-shadow-2: 0 2px 6px 2px rgba(0, 0, 0, 0.45), 0 1px 2px rgba(0, 0, 0, 0.5);
+  --ds-shadow-3: 0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.4);
+}
 
-  --ds-body-background-color: @white-100;
-  --ds-body-text-color: @ink-100;
+// Familles non colorées (identiques dans les deux thèmes).
+:root {
+  // spacing
+  --ds-space-1: 0.25rem; // Espace minimal (padding interne des badges).
+  --ds-space-1-5: 0.375rem; // Écart icône ↔ message, marge au-dessus des indices.
+  --ds-space-2: 0.5rem; // Écart icône ↔ texte des boutons, entre bouton et champ.
+  --ds-space-3: 0.75rem; // Padding vertical des champs.
+  --ds-space-4: 1rem; // Padding horizontal des boutons et champs ; gouttière par défaut.
+  --ds-space-6: 1.5rem; // Séparation entre groupes de contrôles.
+  --ds-space-8: 2rem; // Séparation entre sections.
+  --ds-space-12: 3rem; // Grandes marges de page.
+  // radius
+  --ds-radius-xs: 0.25rem; // Petits éléments (pastilles, focus interne).
+  --ds-button-radius: 5px; // Boutons (valeur du code).
+  --ds-input-radius: 0.625rem; // Champs, select, bouton interne d'un champ.
+  --ds-radius-lg: 1rem; // Images (rds-picture), cartes, liste du select.
+  --ds-radius-xl: 1.75rem; // Grandes surfaces, dialogues.
+  --ds-radius-full: 999px; // Pilules : badges, switch, boutons « rounded ».
+  // duration
+  --ds-duration-instant: 100ms; // Changement de couleur au survol.
+  --ds-duration-short: 150ms; // Pression, apparition d'un message.
+  --ds-duration-medium: 200ms; // Libellé flottant, pouce du switch, coche du radio.
+  --ds-duration-long: 300ms; // Ouverture d'une liste, fondu d'une image.
+  --ds-duration-loop: 1500ms; // Boucles : reflet du squelette.
+  // easing
+  --ds-ease-standard: cubic-bezier(
+    0.2,
+    0,
+    0,
+    1
+  ); // Par défaut : survol, focus, déplacements courts.
+  --ds-ease-emphasized-decelerate: cubic-bezier(
+    0.05,
+    0.7,
+    0.1,
+    1
+  ); // Entrées : apparition d'un menu, d'un message.
+  --ds-ease-emphasized-accelerate: cubic-bezier(
+    0.3,
+    0,
+    0.8,
+    0.15
+  ); // Sorties : fermeture d'un menu.
+  // opacity
+  --ds-opacity-disabled: 0.55; // Contrôle désactivé ou en chargement.
+  --ds-opacity-state-hover: 0.08; // Halo de survol (ds-control-state-layer).
+  --ds-opacity-state-pressed: 0.12; // Halo de pression.
+  // zIndex
+  --ds-z-sticky: 100; // En-tête collant, bouton retour en haut flottant.
+  --ds-z-overlay: 1000; // Menus sans support popover (repli).
+  --ds-z-toast: 1100; // Toasts, liens d'évitement.
+  // typographie (référence : --font-<clé> dans l'artifact → ici --ds-font-<clé>)
+  --ds-font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --ds-font-sans: 'Figtree', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ds-font-mono: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, monospace;
+  --ds-font-size-display: 3.5rem;
+  --ds-line-height-display: 1.05;
+  --ds-font-size-headline: 2rem;
+  --ds-line-height-headline: 2.5rem;
+  --ds-font-size-title: 1.375rem;
+  --ds-line-height-title: 1.75rem;
+  --ds-font-size-body-lg: 1.125rem;
+  --ds-line-height-body-lg: 1.75rem;
+  --ds-font-size-body: 1rem;
+  --ds-line-height-body: 1.5rem;
+  --ds-font-size-label: 0.875rem;
+  --ds-line-height-label: 1.25rem;
+  --ds-font-size-helper: 0.875rem;
+  --ds-line-height-helper: 1.25rem;
+  --ds-font-size-caption: 0.75rem;
+  --ds-line-height-caption: 1rem;
+  --ds-font-size-code: 0.875rem;
+  --ds-line-height-code: 1.25rem;
+}
+
+// Classes typographiques utilitaires.
+.ds-text-display {
+  font-family: var(--ds-font-display);
+  font-size: var(--ds-font-size-display);
+  line-height: var(--ds-line-height-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.ds-text-headline {
+  font-family: var(--ds-font-display);
+  font-size: var(--ds-font-size-headline);
+  line-height: var(--ds-line-height-headline);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.ds-text-title {
+  font-family: var(--ds-font-display);
+  font-size: var(--ds-font-size-title);
+  line-height: var(--ds-line-height-title);
+  font-weight: 600;
+}
+.ds-text-body-lg {
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-font-size-body-lg);
+  line-height: var(--ds-line-height-body-lg);
+  font-weight: 400;
+}
+.ds-text-body {
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-font-size-body);
+  line-height: var(--ds-line-height-body);
+  font-weight: 400;
+}
+.ds-text-label {
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-font-size-label);
+  line-height: var(--ds-line-height-label);
+  font-weight: 600;
+}
+.ds-text-helper {
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-font-size-helper);
+  line-height: var(--ds-line-height-helper);
+  font-weight: 400;
+}
+.ds-text-caption {
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-font-size-caption);
+  line-height: var(--ds-line-height-caption);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.ds-text-code {
+  font-family: var(--ds-font-mono);
+  font-size: var(--ds-font-size-code);
+  line-height: var(--ds-line-height-code);
+  font-weight: 400;
 }

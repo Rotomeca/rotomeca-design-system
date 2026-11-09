@@ -5,7 +5,7 @@ argument-hint: <NomDuComposant>
 
 Porte la brique **$ARGUMENTS** du design system Rotomeca dans ce dépôt.
 
-Le kit de référence est dans `design-system-handoff/` (chemins ci-dessous relatifs à ce dossier). Avant d'écrire du code :
+Le kit de référence est dans `rotomeca-ds-handoff/` (chemins ci-dessous relatifs à ce dossier). Avant d'écrire du code :
 
 1. Lis `docs/HANDOFF.md` (sections 2, 4 et 5) si ce n'est pas déjà fait dans cette session, et `docs/MAPPING.md`.
 2. Trouve la ligne `$ARGUMENTS` dans `docs/INVENTORY.md` : dossier cible, classe de base, dépendances, état actuel. Si une dépendance n'est pas encore portée, arrête-toi et dis-le.

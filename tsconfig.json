@@ -21,5 +21,6 @@
       "@rotomeca/ds-jsx/jsx-dev-runtime": ["./src/core/scripts/jsx/jsx-dev-runtime.ts"]
     }
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["rotomeca-ds-handoff", "design-system-handoff"]
 }

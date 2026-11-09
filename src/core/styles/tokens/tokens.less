@@ -1,52 +1,64 @@
-@marron-100: #6b4226;
-@marron-100-hover: #8b5e3c;
-@marron-100-active: #3e2723;
+// Rotomeca Design System — palette brute (tokens bruts).
+// Généré depuis tokens.json. Les composants n'utilisent JAMAIS ces variables : uniquement les --ds-* de design-system-base.less.
 
-@cuivre-100: #b85c38;
-@cuivre-100-hover: #6b4226;
-@cuivre-100-active: #3e2723;
+// ── Palette de référence (valeurs exactes du dépôt d'origine) ──
+@marron-100: #6b4226; // Marron — principal. Base de l'action primaire.
+@marron-100-hover: #8b5e3c; // Châtaigne — survol du marron ; bordures fortes.
+@marron-100-active: #3e2723; // Écorce — pression du marron ; surface forte en sombre.
+@cuivre-100: #b85c38; // Cuivre — accent, texte d'action secondaire (4.54:1 sur blanc, 3.85:1 sur crème : réservé au blanc).
+@cuivre-100-hover: #6b4226; // Survol du cuivre (= marron, valeur du code).
+@cuivre-100-active: #3e2723; // Pression du cuivre (= écorce, valeur du code).
+@terracota-100: #c87552; // Terracotta — accent doux ; action primaire du thème sombre.
+@terracota-100-hover: #d89477; // Survol du terracotta ; texte d'action en sombre.
+@terracota-100-active: #a06851; // Pression du terracotta.
+@ocre-100: #d6a23d; // Ocre — accent chaud, mise en avant (texte encre brune dessus, jamais blanc : 2.31:1).
+@ocre-100-hover: #e0b563; // Survol de l'ocre ; texte d'avertissement en sombre.
+@ocre-100-active: #b3852a; // Pression de l'ocre.
+@bordeaux-100: #7a3545; // Bordeaux — accent profond.
+@bordeaux-100-hover: #94485a; // Survol du bordeaux.
+@bordeaux-100-active: #5c2633; // Pression du bordeaux.
+@olive-100: #77794e; // Olive — accent naturel, succès doux (4.54:1 sur blanc).
+@olive-100-hover: #a4a76b; // Survol de l'olive.
+@olive-100-active: #4e5035; // Pression de l'olive.
+@creme-100: #f5ebdd; // Crème — surfaces, fond des champs.
+@lin-100: #e7d5be; // Lin — surfaces secondaires, séparateurs (décoratif : 1.43:1 sur blanc).
+@ink-100: #2d211b; // Encre brune — texte principal.
+@ink-100-hover: #5c4337; // Encre adoucie — texte secondaire, indices.
+@ink-100-active: #1b1613; // Encre profonde — fond de page du thème sombre.
+@white-100: #ffffff; // Blanc — fond de page, texte sur action pleine.
+@white-100-hover: #c5c3c3; // Gris froid du code (survol du blanc). Non utilisé par les tokens sémantiques : hors ambiance automnale.
+@white-100-active: #f5ebdd; // = Crème (pression du blanc).
+@white-200: #e7d5be; // = Lin.
+@white-200-hover: #ffd9a4; // Survol du lin.
+@white-200-active: #c2ab8d; // Lin foncé — texte secondaire du thème sombre.
+@warning-100: #e8a317; // Avertissement (fond ; texte encre brune dessus, 7.2:1).
+@warning-100-hover: #f0b73e; // Survol avertissement.
+@warning-100-active: #c98a0b; // Pression avertissement.
+@danger-100: #b3261e; // Danger (fond, texte blanc 6.54:1 ; texte sur blanc).
+@danger-100-hover: #c9372c; // Survol danger.
+@danger-100-active: #8c1d18; // Pression danger.
+@success-100: #2e7d32; // Succès (fond, texte blanc 5.13:1 ; texte sur blanc).
+@success-100-hover: #276b2b; // Survol succès.
+@success-100-active: #1b5e20; // Pression succès.
 
-@terracota-100: #c87552;
-@terracota-100-hover: #d89477;
-@terracota-100-active: #a06851;
-
-@ink-100: #2d211b;
-@ink-100-hover: #5c4337;
-@ink-100-active: #1b1613;
-
-@white-100: #fff;
-@white-100-hover: #c5c3c3;
-@white-100-active: #f5ebdd;
-
-@white-200: #e7d5be;
-@white-200-hover: #ffd9a4;
-@white-200-active: #c2ab8d;
-
-@olive-100: #77794e;
-@olive-100-hover: #a4a76b;
-@olive-100-active: #4e5035;
-
-// Palette automnale (référence) : Marron principal #6b4226, Écorce #3e2723 et Châtaigne #8b5e3c
-// sont les états active / hover de @marron-100 ; Crème = @white-100-active ; Lin = @white-200.
-@ocre-100: #d6a23d;
-@ocre-100-hover: #e0b563;
-@ocre-100-active: #b3852a;
-
-@bordeaux-100: #7a3545;
-@bordeaux-100-hover: #94485a;
-@bordeaux-100-active: #5c2633;
-
-@creme-100: #f5ebdd;
-@lin-100: #e7d5be;
-
-@warning-100: #e8a317;
-@warning-100-hover: #f0b73e;
-@warning-100-active: #c98a0b;
-
-@danger-100: #b3261e;
-@danger-100-hover: #c9372c;
-@danger-100-active: #8c1d18;
-
-@success-100: #2e7d32;
-@success-100-hover: #276b2b;
-@success-100-active: #1b5e20;
+// ── Palette étendue (ajoutée par le design system : tons, états et thème Sous-bois) ──
+@chataigne-200: #9c7a5c; // Châtaigne clair — bordures des contrôles en Sous-bois.
+@ecorce-200: #4e352b; // Écorce claire — sélection / reflet en Sous-bois.
+@marron-900: #4a2f1f; // Marron nuit — fond de ton brand en Sous-bois.
+@bordeaux-200: #e0a3b0; // Bordeaux clair — lien visité en Sous-bois.
+@ocre-050: #f6e7c4; // Ocre pâle — fond de ton accent.
+@ocre-300: #7a5410; // Ocre sombre — texte de ton accent.
+@ocre-900: #4a3a14; // Ocre nuit — fond de ton accent en Sous-bois.
+@success-050: #e2eedf; // Succès pâle — fond de ton succès.
+@success-900: #1e3a20; // Succès nuit — fond de ton succès en Sous-bois.
+@success-300: #9ccc9f; // Succès clair — texte / bordure de succès en Sous-bois.
+@success-200: #a5d6a7; // Succès très clair — texte de ton succès en Sous-bois.
+@warning-050: #fbeccc; // Avertissement pâle — fond de ton avertissement.
+@warning-200: #8a5a00; // Avertissement texte — message d'avertissement en clair (5.9:1).
+@warning-300: #7a4e00; // Avertissement sombre — texte de ton avertissement.
+@warning-900: #4a3608; // Avertissement nuit — fond de ton avertissement en Sous-bois.
+@danger-050: #f7e1df; // Danger pâle — fond de ton danger.
+@danger-900: #4d1a17; // Danger nuit — fond de ton danger en Sous-bois.
+@danger-200: #f2b8b5; // Danger clair — texte / bordure d'erreur en Sous-bois.
+@scrim-100: rgba(27, 22, 19, 0.5); // Voile clair (encre profonde 50 %).
+@scrim-200: rgba(0, 0, 0, 0.62); // Voile sombre (noir 62 %).

@@ -3,7 +3,7 @@ description: Vérifie une brique portée contre la référence du kit Rotomeca (
 argument-hint: <NomDuComposant>
 ---
 
-Vérifie la brique **$ARGUMENTS** déjà portée, par rapport au kit `design-system-handoff/`. Ne modifie rien sans le dire.
+Vérifie la brique **$ARGUMENTS** déjà portée, par rapport au kit `rotomeca-ds-handoff/`. Ne modifie rien sans le dire.
 
 Contrôles :
 

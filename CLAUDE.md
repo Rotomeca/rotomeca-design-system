@@ -112,7 +112,7 @@ Deux couches, dans `src/core/styles/tokens/` :
 
 ## Kit de portage du design system
 
-Le dossier `design-system-handoff/` contient la conception validée du design system (64 briques) : specs, implémentation de référence en JS natif, previews, captures et tokens. **Point d'entrée : `design-system-handoff/docs/HANDOFF.md`.**
+Le dossier `rotomeca-ds-handoff/` contient la conception validée du design system (64 briques) : specs, implémentation de référence en JS natif, previews, captures et tokens. **Point d'entrée : `rotomeca-ds-handoff/docs/HANDOFF.md`.**
 
 - Ce dossier est une référence en lecture seule : ne pas l'importer depuis `src/`, ne pas le modifier (sauf la colonne « État » de `docs/INVENTORY.md`). Il est exclu du lint, de Prettier, du typecheck et du paquet publié.
 - Pour porter une brique : `/rds-implement <Nom>` ; une phase entière : `/rds-phase <n>` ; vérifier une brique : `/rds-check <Nom>`.

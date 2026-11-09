@@ -1,0 +1,47 @@
+// Base commune des composants : raccourcis de motion, `hidden`, `.sr-only`, réduction du mouvement.
+// Usage : `@import (reference) '../../../core/styles/mixins/base.less';` puis `.rds-base();`.
+
+.rds-base() {
+  :host {
+    box-sizing: border-box;
+    --_d-instant: var(--ds-duration-instant);
+    --_d-short: var(--ds-duration-short);
+    --_d-medium: var(--ds-duration-medium);
+    --_d-long: var(--ds-duration-long);
+    --_ease: var(--ds-ease-standard);
+    --_ease-in: var(--ds-ease-emphasized-decelerate);
+    --_ease-out: var(--ds-ease-emphasized-accelerate);
+  }
+
+  :host([hidden]) {
+    display: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      transition-duration: 1ms;
+      animation-duration: 1ms;
+      animation-iteration-count: 1;
+    }
+  }
+}

@@ -11,11 +11,26 @@
         grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
         gap: 1rem;
       }
+      body {
+        font-family: var(--ds-font-sans);
+      }
+      .toolbar {
+        position: sticky;
+        top: 0;
+        z-index: var(--ds-z-sticky);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--ds-space-4);
+        padding: var(--ds-space-2) 0;
+        background: var(--ds-body-background-color);
+      }
       .swatch {
-        border: 1px solid #0002;
-        border-radius: 8px;
+        border: 1px solid var(--ds-border-subtle);
+        border-radius: var(--ds-radius-lg);
         overflow: hidden;
-        font: 13px/1.4 sans-serif;
+        font-size: 13px;
+        line-height: 1.4;
       }
       .swatch .states {
         display: flex;
@@ -31,7 +46,12 @@
     </style>
   </head>
   <body class="body">
-    <h1>Rotomeca Design System</h1>
+    <div class="toolbar">
+      <h1>Rotomeca Design System</h1>
+      <rds-button id="theme-toggle" variant="secondary" icon-before="moon" label="Basculer le thème"
+        >Sombre</rds-button
+      >
+    </div>
     <h2>Tokens (--ds-*)</h2>
     <div class="grid" id="tokens"></div>
     <h2>Boutons</h2>
@@ -39,9 +59,15 @@
     <h2>Date</h2>
     <div id="dates" style="display: grid; gap: 0.5rem">
       <div><rds-date format="P">1997-08-12</rds-date> (court)</div>
-      <div><rds-date format="PPPP" start-format="dd/MM/yyyy">12/08/1997</rds-date> (parsing dd/MM/yyyy)</div>
-      <div><rds-date format="ddMMyyyy HHmm" date="1997-08-12T15:30:00"></rds-date> (attribut date)</div>
-      <div><rds-date format="EEEE d MMMM yyyy" locale="en" date="1997-08-12"></rds-date> (anglais)</div>
+      <div>
+        <rds-date format="PPPP" start-format="dd/MM/yyyy">12/08/1997</rds-date> (parsing dd/MM/yyyy)
+      </div>
+      <div>
+        <rds-date format="ddMMyyyy HHmm" date="1997-08-12T15:30:00"></rds-date> (attribut date)
+      </div>
+      <div>
+        <rds-date format="EEEE d MMMM yyyy" locale="en" date="1997-08-12"></rds-date> (anglais)
+      </div>
       <div><rds-date format="PPP HH:mm" date="now"></rds-date> (now)</div>
       <div><rds-date format="P">pas une date</rds-date> (invalide)</div>
     </div>
@@ -58,7 +84,9 @@
       <rds-input name="bouton" button="primary" button-icon="send">
         Avec bouton <span slot="button">Envoyer</span>
       </rds-input>
-      <rds-input name="obi" button="" button-icon="plus" button-label="Ajouter">Bouton icône seule</rds-input>
+      <rds-input name="obi" button="" button-icon="plus" button-label="Ajouter"
+        >Bouton icône seule</rds-input
+      >
       <rds-input name="off" disabled value="Désactivé">Désactivé</rds-input>
       <rds-input-number name="nombre" min="0" max="10" step="1" value="3">Nombre</rds-input-number>
       <rds-input-date name="date">Date</rds-input-date>
@@ -79,6 +107,31 @@
     </form>
     <script type="module">
       import './.build/index.js';
+
+      // Bascule de thème : `data-theme` sur <html>, mémorisé si le stockage est disponible.
+      const root = document.documentElement;
+      const toggle = document.getElementById('theme-toggle');
+      const applyTheme = (theme) => {
+        root.dataset.theme = theme;
+        toggle.textContent = theme === 'dark' ? 'Clair' : 'Sombre';
+        toggle.setAttribute('icon-before', theme === 'dark' ? 'sun' : 'moon');
+        try {
+          localStorage.setItem('rds-playground-theme', theme);
+        } catch {
+          /* stockage indisponible : le thème n'est pas mémorisé */
+        }
+      };
+      let saved = null;
+      try {
+        saved = localStorage.getItem('rds-playground-theme');
+      } catch {
+        /* ignoré */
+      }
+      applyTheme(saved ?? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+      toggle.addEventListener('click', () =>
+        applyTheme(root.dataset.theme === 'dark' ? 'light' : 'dark'),
+      );
+
       document.getElementById('inputs').addEventListener('submit', (e) => {
         e.preventDefault();
         document.getElementById('inputs-result').textContent = JSON.stringify(
@@ -111,6 +164,13 @@
         'background-action-secondary',
         'text-action-primary',
         'text-action-secondary',
+        'background-surface',
+        'background-surface-variant',
+        'background-inverse',
+        'text-default',
+        'text-muted',
+        'border-strong',
+        'focus-ring-color',
       ];
       document.getElementById('tokens').innerHTML = tokens
         .map(
