@@ -109,3 +109,14 @@ Deux couches, dans `src/core/styles/tokens/` :
 - Rôles/ARIA corrects, navigation clavier complète, focus visible (tokens d'anneau `--ds-input-ring-*`).
 - Contrôles de formulaire : `BaseFormElement` / `ElementInternals` (valeur, validité, reset, états).
 - Libellés via attributs/slots, pas de texte codé en dur dans les composants.
+
+## Kit de portage du design system
+
+Le dossier `design-system-handoff/` contient la conception validée du design system (64 briques) : specs, implémentation de référence en JS natif, previews, captures et tokens. **Point d'entrée : `design-system-handoff/docs/HANDOFF.md`.**
+
+- Ce dossier est une référence en lecture seule : ne pas l'importer depuis `src/`, ne pas le modifier (sauf la colonne « État » de `docs/INVENTORY.md`). Il est exclu du lint, de Prettier, du typecheck et du paquet publié.
+- Pour porter une brique : `/rds-implement <Nom>` ; une phase entière : `/rds-phase <n>` ; vérifier une brique : `/rds-check <Nom>`.
+- Ordre de priorité en cas de conflit : ce `CLAUDE.md` > spec du composant (`docs/components/<Nom>.md`) > référence JS > captures.
+- Atomes utilitaires (importables par d'autres atomes) : `fragment`, `icon`, `message`, `button` / `icon-button`.
+- Thème sombre « Sous-bois » : `[data-theme='dark']` sur `<html>` ; tout composant se vérifie dans les deux thèmes.
+- Polices : `--ds-font-display` (Fraunces), `--ds-font-sans` (Figtree), `--ds-font-mono`.

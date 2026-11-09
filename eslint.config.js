@@ -4,7 +4,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist', 'out', 'node_modules', 'playground/.build'] },
+  { ignores: ['dist', 'out', 'node_modules', 'playground/.build', 'design-system-handoff', 'rotomeca-ds-handoff'] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
