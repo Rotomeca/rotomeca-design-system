@@ -68,7 +68,7 @@ class RotomecaToast extends BaseElementInternal {
   /** Durée d'affichage en ms (`0` : jusqu'à fermeture). */
   @Attr() accessor duration: number = 5000;
 
-  static observedAttributes: string[] = ['icon', 'action'];
+  static observedAttributes: string[] = ['type', 'icon', 'action'];
 
   #_timer = 0;
   #_remaining = 0;

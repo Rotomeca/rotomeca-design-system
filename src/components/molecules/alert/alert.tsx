@@ -79,7 +79,7 @@ class RotomecaAlert extends BaseElementInternal {
   /** Affiche le bouton de fermeture. */
   @Attr() accessor dismissible: boolean = false;
 
-  static observedAttributes: string[] = ['heading', 'icon', 'close-label'];
+  static observedAttributes: string[] = ['type', 'dismissible', 'heading', 'icon', 'close-label'];
 
   /** Titre de l'alerte. */
   get heading(): string {

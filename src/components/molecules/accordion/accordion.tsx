@@ -66,7 +66,7 @@ class RotomecaAccordionItem extends BaseElementInternal {
   @Attr() accessor disabled: boolean = false;
 
   static shadowOptions: ShadowRootInit = { mode: 'open', delegatesFocus: true };
-  static observedAttributes: string[] = ['label', 'icon', 'level'];
+  static observedAttributes: string[] = ['open', 'disabled', 'label', 'icon', 'level'];
 
   /** Intitulé de la section. */
   get label(): string {

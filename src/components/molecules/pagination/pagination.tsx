@@ -52,7 +52,15 @@ class RotomecaPagination extends BaseElementInternal {
   /** Taille : `sm` pour la version compacte. */
   @Attr() accessor size: string = '';
 
-  static observedAttributes: string[] = ['page', 'total', 'href', 'label'];
+  static observedAttributes: string[] = [
+    'page',
+    'total',
+    'href',
+    'label',
+    'siblings',
+    'compact',
+    'no-ends',
+  ];
 
   /** Nombre de pages (au moins 1). */
   get total(): number {

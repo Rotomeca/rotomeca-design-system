@@ -59,7 +59,14 @@ class RotomecaMenuItem extends BaseElementInternal {
   /** État coché d'un élément à cocher. */
   @Attr() accessor checked: boolean = false;
 
-  static observedAttributes: string[] = ['icon', 'shortcut'];
+  static observedAttributes: string[] = [
+    'checkable',
+    'checked',
+    'disabled',
+    'danger',
+    'icon',
+    'shortcut',
+  ];
 
   /** Nom de l'icône. */
   get icon(): string {

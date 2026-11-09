@@ -63,7 +63,7 @@ class RotomecaCallout extends BaseElementInternal {
   /** Teinte de la mise en avant. */
   @Attr() accessor tone: CalloutTone = 'brand';
 
-  static observedAttributes: string[] = ['icon', 'heading'];
+  static observedAttributes: string[] = ['tone', 'icon', 'heading'];
 
   /** Nom de l'icône de la pastille. */
   get icon(): string {

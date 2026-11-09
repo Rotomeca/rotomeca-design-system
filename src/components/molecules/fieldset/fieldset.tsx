@@ -102,7 +102,7 @@ class RotomecaFieldset extends BaseElementInternal {
   /** Contrôles côte à côte. */
   @Attr() accessor inline: boolean = false;
 
-  static observedAttributes: string[] = ['legend'];
+  static observedAttributes: string[] = ['legend', 'state', 'required', 'disabled', 'inline'];
 
   /** Intitulé du groupe. */
   get legend(): string {
