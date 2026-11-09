@@ -23,11 +23,20 @@
 
 @keyframes rds-undefined-reveal {
   to {
+    opacity: 1;
     visibility: visible;
   }
 }
 
+// Fondu court à la définition : l'apparition est moins brutale (opacity uniquement).
+@keyframes rds-undefined-in {
+  from {
+    opacity: 0;
+  }
+}
+
 .rds-undefined-hide() {
+  opacity: 0;
   visibility: hidden;
   animation: rds-undefined-reveal 0s 2s forwards;
 }
@@ -54,4 +63,39 @@ each(@rds-undefined-closed, {
 // Hauteur de l'en-tête : évite le saut de mise en page quand il est défini.
 rds-header:not(:defined) {
   min-height: 4rem;
+}
+
+// Les icônes n'ont pas de contenu avant leur définition : on réserve leur taille (évite un décalage).
+rds-icon:not(:defined) {
+  display: inline-block;
+  width: var(--ds-icon-size, 1.5em);
+  height: var(--ds-icon-size, 1.5em);
+}
+
+rds-icon:not(:defined)[size='sm'] {
+  width: 1em;
+  height: 1em;
+}
+
+rds-icon:not(:defined)[size='lg'] {
+  width: 2em;
+  height: 2em;
+}
+
+// Apparition en fondu des grands blocs, une fois définis.
+@rds-undefined-fade: rds-header, rds-footer, rds-sidenav, rds-table, rds-breadcrumb, rds-pagination,
+  rds-tabs;
+
+each(@rds-undefined-fade, {
+  @{value}:defined {
+    animation: rds-undefined-in var(--ds-duration-short, 150ms) var(--ds-ease-standard, ease-out) both;
+  }
+});
+
+@media (prefers-reduced-motion: reduce) {
+  each(@rds-undefined-fade, {
+    @{value}:defined {
+      animation: none;
+    }
+  });
 }
