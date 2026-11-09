@@ -1,0 +1,18 @@
+@import '../../../core/styles/tokens/tokens.less';
+
+:host {
+  display: inline;
+}
+
+:host([hidden]) {
+  display: none;
+}
+
+// Le contenu texte sert uniquement de source : il n'est pas affiché.
+slot {
+  display: none;
+}
+
+:host(:state(invalid)) {
+  color: var(--ds-date-color-invalid, @danger-100);
+}

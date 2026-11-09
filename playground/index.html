@@ -36,6 +36,15 @@
     <div class="grid" id="tokens"></div>
     <h2>Boutons</h2>
     <div id="buttons" style="display: grid; gap: 1rem"></div>
+    <h2>Date</h2>
+    <div id="dates" style="display: grid; gap: 0.5rem">
+      <div><rds-date format="P">1997-08-12</rds-date> (court)</div>
+      <div><rds-date format="PPPP" start-format="dd/MM/yyyy">12/08/1997</rds-date> (parsing dd/MM/yyyy)</div>
+      <div><rds-date format="ddMMyyyy HHmm" date="1997-08-12T15:30:00"></rds-date> (attribut date)</div>
+      <div><rds-date format="EEEE d MMMM yyyy" locale="en" date="1997-08-12"></rds-date> (anglais)</div>
+      <div><rds-date format="PPP HH:mm" date="now"></rds-date> (now)</div>
+      <div><rds-date format="P">pas une date</rds-date> (invalide)</div>
+    </div>
     <h2>Champs</h2>
     <form id="inputs" style="display: grid; gap: 1rem; max-width: 32rem">
       <rds-input name="nom" required placeholder="Jean Dupont">

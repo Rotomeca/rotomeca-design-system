@@ -17,3 +17,5 @@ export * from './components/atoms/fragment/fragment';
 export * from './components/base/BaseElementInternal';
 export * from './components/atoms/input/input';
 export * from './components/atoms/input/variants';
+export * from './components/atoms/date/date';
+export * from './core/scripts/utils/DateUtils';
