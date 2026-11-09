@@ -37,3 +37,4 @@ export const TAG_SELECT = `${base}select`;
 export const TAG_CHECKBOX = `${base}checkbox`;
 export const TAG_RADIO = `${base}radio`;
 export const TAG_SWITCH = `${base}switch`;
+export const TAG_SEGMENTED_CONTROL = `${base}segmented-control`;

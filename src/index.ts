@@ -46,3 +46,4 @@ export * from './components/atoms/select/select';
 export * from './components/atoms/checkbox/checkbox';
 export * from './components/atoms/radio/radio';
 export * from './components/atoms/switch/switch';
+export * from './components/atoms/segmented-control/segmented-control';
