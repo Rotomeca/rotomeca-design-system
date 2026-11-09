@@ -33,3 +33,6 @@ export * from './components/atoms/icon-button/icon-button';
 export * from './components/atoms/link/link';
 export * from './components/atoms/tag/tag';
 export * from './components/atoms/badge/badge';
+export * from './components/atoms/divider/divider';
+export * from './components/atoms/spinner/spinner';
+export * from './components/atoms/progress/progress';

@@ -1,0 +1,85 @@
+@import (reference) '../../../core/styles/mixins/base.less';
+
+.rds-base();
+
+:host {
+  --_s: 1.5rem;
+
+  display: inline-flex;
+  vertical-align: middle;
+  color: var(--ds-control-checked);
+}
+
+:host([size='sm']) {
+  --_s: 1rem;
+}
+
+:host([size='lg']) {
+  --_s: 2.5rem;
+}
+
+:host([size='xl']) {
+  --_s: 4rem;
+}
+
+:host([inherit-color]) {
+  color: inherit;
+}
+
+svg {
+  width: var(--_s);
+  height: var(--_s);
+  animation: rds-spinner-rotate 1.4s linear infinite;
+}
+
+circle {
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 1 150;
+  stroke-dashoffset: 0;
+  animation: rds-spinner-dash 1.4s var(--_ease) infinite;
+}
+
+.track {
+  stroke-dasharray: none;
+  opacity: 0.16;
+  animation: none;
+}
+
+@keyframes rds-spinner-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rds-spinner-dash {
+  0% {
+    stroke-dasharray: 1 150;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 90 150;
+    stroke-dashoffset: -35;
+  }
+
+  100% {
+    stroke-dasharray: 90 150;
+    stroke-dashoffset: -124;
+  }
+}
+
+// Arc fixe qui tourne lentement : l'information « en cours » reste perceptible.
+@media (prefers-reduced-motion: reduce) {
+  svg {
+    animation-duration: 2.8s;
+    animation-iteration-count: infinite;
+  }
+
+  circle:not(.track) {
+    stroke-dasharray: 60 150;
+    animation: none;
+  }
+}

@@ -24,3 +24,6 @@ export const TAG_ICON_BUTTON = `${base}icon-button`;
 export const TAG_LINK = `${base}link`;
 export const TAG_TAG = `${base}tag`;
 export const TAG_BADGE = `${base}badge`;
+export const TAG_DIVIDER = `${base}divider`;
+export const TAG_SPINNER = `${base}spinner`;
+export const TAG_PROGRESS = `${base}progress`;

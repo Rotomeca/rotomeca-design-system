@@ -1,0 +1,61 @@
+@import (reference) '../../../core/styles/mixins/base.less';
+
+.rds-base();
+
+:host {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-space-3);
+  margin-block: var(--_m, var(--ds-space-4));
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ds-text-muted);
+}
+
+.line {
+  flex: 1;
+  height: 1px;
+  background: var(--ds-border-subtle);
+}
+
+:host([strong]) .line {
+  background: var(--ds-border-strong);
+}
+
+// Sans libellé : une seule ligne.
+:host(:not(:state(has-label))) .label,
+:host(:not(:state(has-label))) .line.end {
+  display: none;
+}
+
+:host([orientation='vertical']) {
+  flex-direction: column;
+  align-self: stretch;
+  margin-block: 0;
+  margin-inline: var(--_m, var(--ds-space-2));
+}
+
+:host([orientation='vertical']) .line {
+  width: 1px;
+  height: auto;
+  min-height: 1rem;
+}
+
+:host([spacing='none']) {
+  --_m: 0;
+}
+
+:host([spacing='sm']) {
+  --_m: var(--ds-space-2);
+}
+
+:host([spacing='lg']) {
+  --_m: var(--ds-space-8);
+}
+
+@media (forced-colors: active) {
+  .line {
+    background: canvastext;
+  }
+}

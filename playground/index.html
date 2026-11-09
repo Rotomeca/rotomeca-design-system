@@ -104,6 +104,27 @@
       <rds-badge id="counter" tone="danger" appearance="bold" count="8" max="99"></rds-badge>
       <rds-button size="sm" variant="secondary" id="counter-btn">+ 1</rds-button>
     </div>
+    <h2>Séparateur</h2>
+    <rds-divider>ou</rds-divider>
+    <rds-divider strong></rds-divider>
+    <div style="display: flex; align-items: center; height: 2rem">
+      Gauche <rds-divider orientation="vertical" spacing="sm"></rds-divider> Droite
+    </div>
+    <h2>Spinner</h2>
+    <div style="display: flex; gap: 1rem; align-items: center">
+      <rds-spinner size="sm"></rds-spinner>
+      <rds-spinner></rds-spinner>
+      <rds-spinner size="lg" label="Chargement des motifs"></rds-spinner>
+      <rds-spinner size="xl"></rds-spinner>
+    </div>
+    <h2>Progression</h2>
+    <div style="display: grid; gap: 1rem; max-width: 24rem">
+      <rds-progress value="64" show-value>Import des motifs</rds-progress>
+      <rds-progress value="100" tone="success" size="sm" label="Terminé"></rds-progress>
+      <rds-progress value="30" tone="warning" size="lg" label="Espace disque"></rds-progress>
+      <rds-progress value="85" tone="danger" label="Quota"></rds-progress>
+      <rds-progress label="Chargement">Indéterminée</rds-progress>
+    </div>
     <h2>Date</h2>
     <div id="dates" style="display: grid; gap: 0.5rem">
       <div><rds-date format="P">1997-08-12</rds-date> (court)</div>
