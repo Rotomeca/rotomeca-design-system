@@ -4,3 +4,14 @@
   background-color: var(--ds-body-background-color, @white-100);
   color: var(--ds-body-text-color, @ink-100);
 }
+
+// Éléments pas encore définis : pas de flash de contenu non stylé.
+@import './elements/undefined.less';
+
+// Feuilles « light DOM » des composants : disponibles dès le CSS, avant l'exécution du JS
+// (le JS les adopte aussi, en repli, via `adoptGlobalStyle`).
+@import '../../components/organisms/header/header-global.less';
+@import '../../components/organisms/footer/footer-global.less';
+@import '../../components/organisms/sidenav/sidenav.less';
+@import '../../components/molecules/breadcrumb/breadcrumb.less';
+@import '../../components/organisms/table/table.less';

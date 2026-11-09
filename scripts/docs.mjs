@@ -305,6 +305,7 @@ function layout({
     <meta name="description" content="${esc(description)}" />
     <script>${THEME_BOOT}</script>
     <link rel="stylesheet" href="${url('assets/site.css')}" />
+    <link rel="modulepreload" href="${url('assets/site.js')}" />
     <script type="module" src="${url('assets/site.js')}"></script>
   </head>
   <body class="body">

@@ -1,0 +1,57 @@
+// Éléments pas encore définis (le JS n'a pas encore appelé `customElements.define`).
+//
+// Évite le « flash de contenu non stylé » : on réserve la place et on masque le contenu brut, sans
+// animation ; l'élément apparaît d'un coup dès qu'il est défini. Si le JS ne se charge jamais
+// (réseau, erreur), un délai de secours (2 s) rend le contenu visible malgré tout.
+
+// Composants de structure : la boîte garde son rôle de bloc.
+@rds-undefined-block: rds-header, rds-footer, rds-sidenav, rds-table, rds-tabs, rds-accordion, rds-card,
+  rds-alert, rds-callout, rds-quote, rds-fieldset, rds-breadcrumb, rds-pagination, rds-stepper,
+  rds-button-group, rds-progress, rds-placeholder, rds-picture, rds-divider;
+
+// Composants en ligne ou de formulaire : la place est conservée, le contenu est masqué.
+@rds-undefined-inline: rds-icon, rds-button, rds-primary-button, rds-secondary-button,
+  rds-tertiary-button, rds-danger-button, rds-icon-button, rds-link, rds-tag, rds-badge, rds-spinner,
+  rds-avatar, rds-date, rds-flexbox, rds-message, rds-input, rds-input-text, rds-input-number,
+  rds-input-date, rds-input-time, rds-input-datetime, rds-input-password, rds-input-search,
+  rds-input-email, rds-input-tel, rds-input-url, rds-input-color, rds-input-range, rds-textarea,
+  rds-select, rds-checkbox, rds-radio, rds-switch, rds-segmented-control, rds-input-file,
+  rds-tooltip, rds-helper, rds-menu, rds-theme-switcher, rds-skip-links, rds-back-to-top;
+
+// Fermés par défaut : rien à réserver.
+@rds-undefined-closed: rds-dialog, rds-drawer, rds-toast;
+
+@keyframes rds-undefined-reveal {
+  to {
+    visibility: visible;
+  }
+}
+
+.rds-undefined-hide() {
+  visibility: hidden;
+  animation: rds-undefined-reveal 0s 2s forwards;
+}
+
+each(@rds-undefined-block, {
+  @{value}:not(:defined) {
+    display: block;
+    .rds-undefined-hide();
+  }
+});
+
+each(@rds-undefined-inline, {
+  @{value}:not(:defined) {
+    .rds-undefined-hide();
+  }
+});
+
+each(@rds-undefined-closed, {
+  @{value}:not(:defined) {
+    display: none;
+  }
+});
+
+// Hauteur de l'en-tête : évite le saut de mise en page quand il est défini.
+rds-header:not(:defined) {
+  min-height: 4rem;
+}

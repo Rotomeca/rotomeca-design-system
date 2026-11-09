@@ -36,6 +36,22 @@ import { toast, setTheme } from '{{npm}}';</code></pre></div>
   <code>setIconsPath()</code> exportée par le paquet.
 </rds-callout>
 
+<h2 id="flash">Éviter le flash au chargement</h2>
+<p>
+  Avant l’exécution du JavaScript, les balises <code>rds-*</code> ne sont pas encore définies. Le CSS général
+  les masque (en réservant leur place) jusqu’à leur définition, et fournit déjà les styles des liens de
+  l’en-tête, de la navigation, du pied de page, du fil d’Ariane et des tableaux. Pour que cela fonctionne :
+</p>
+<ul>
+  <li>chargez le <strong>CSS général avant</strong> le script ;</li>
+  <li>placez le <code>&lt;script type="module"&gt;</code> dans le <code>&lt;head&gt;</code> ;</li>
+  <li>ajoutez un <code>&lt;link rel="modulepreload"&gt;</code> vers le bundle pour le récupérer plus tôt.</li>
+</ul>
+<div class="code"><pre><code>&lt;link rel="stylesheet" href="design-system.css" /&gt;
+&lt;link rel="modulepreload" href="rotomeca-design-system.js" /&gt;
+&lt;script type="module" src="rotomeca-design-system.js"&gt;&lt;/script&gt;</code></pre></div>
+<p>Si le script ne se charge pas, le contenu est rendu visible après 2 secondes.</p>
+
 <h2 id="theme">Thème clair / sombre</h2>
 <p>
   Le thème sombre « Sous-bois » s’active avec <code>data-theme="dark"</code> sur <code>&lt;html&gt;</code>,

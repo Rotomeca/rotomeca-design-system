@@ -35,6 +35,10 @@ import { toast, setTheme } from '@rotomeca/design-system';
 
 Bundle ESM minifié : `out/rotomeca-design-system.js`. Les icônes (SVG `lucide-static`) sont copiées dans `out/icons` au build.
 
+### Éviter le flash au chargement
+
+Chargez le CSS général **avant** le script, et placez le `<script type="module">` dans le `<head>` (avec un `<link rel="modulepreload">`). Tant que les composants ne sont pas définis, le CSS les masque en réservant leur place (rendu visible après 2 s si le JS échoue).
+
 ### Thème
 
 Le thème sombre s'active avec `data-theme="dark"` sur `<html>` (ou via `setTheme('light' | 'dark' | 'system')`).
@@ -79,6 +83,6 @@ Activer une fois : Settings → Pages → Source « GitHub Actions ». Pour ajou
 | Fichier | Minifié | Gzip |
 | --- | --- | --- |
 | `rotomeca-design-system.js` (64 briques) | ≈ 269 ko | ≈ 60 ko |
-| `rotomeca-design-system.css` | ≈ 9,9 ko | ≈ 2,1 ko |
+| `rotomeca-design-system.css` | ≈ 23,3 ko | ≈ 4,2 ko |
 
 Les styles des composants sont embarqués dans le JS (constructed stylesheets partagées).
