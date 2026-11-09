@@ -71,6 +71,39 @@
       <rds-icon-button icon="plus" label="Ajouter" variant="primary" square></rds-icon-button>
       <rds-icon-button icon="heart" selected-icon="heart-handshake" label="Favori" toggle></rds-icon-button>
     </div>
+    <h2>Lien</h2>
+    <p>
+      Consultez <rds-link href="#liens">le guide des motifs</rds-link>, ou
+      <rds-link href="https://lucide.dev" external>la bibliothèque d'icônes</rds-link>.
+    </p>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap">
+      <rds-link href="#liens" variant="standalone" icon-after="arrow-right">Autonome</rds-link>
+      <rds-link href="#liens" variant="muted" icon-before="house">Discret</rds-link>
+      <rds-link href="#liens" size="sm">Petit</rds-link>
+      <rds-link href="#liens" size="lg">Grand</rds-link>
+    </div>
+    <h2>Tag</h2>
+    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center">
+      <rds-tag>Statique</rds-tag>
+      <rds-tag icon="leaf" size="sm">Petit</rds-tag>
+      <rds-tag href="#tags">Catégorie</rds-tag>
+      <rds-tag selectable selected>Chaudes</rds-tag>
+      <rds-tag selectable>Profondes</rds-tag>
+      <rds-tag selectable disabled>Désactivé</rds-tag>
+      <rds-tag dismissible>Supprimable</rds-tag>
+    </div>
+    <h2>Badge</h2>
+    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center">
+      <rds-badge>Neutre</rds-badge>
+      <rds-badge tone="brand">Brand</rds-badge>
+      <rds-badge tone="accent">Accent</rds-badge>
+      <rds-badge tone="success" dot>En ligne</rds-badge>
+      <rds-badge tone="warning" icon="triangle-alert">Attention</rds-badge>
+      <rds-badge tone="danger" appearance="bold">Erreur</rds-badge>
+      <rds-badge tone="brand" appearance="bold" size="sm">Petit</rds-badge>
+      <rds-badge id="counter" tone="danger" appearance="bold" count="8" max="99"></rds-badge>
+      <rds-button size="sm" variant="secondary" id="counter-btn">+ 1</rds-button>
+    </div>
     <h2>Date</h2>
     <div id="dates" style="display: grid; gap: 0.5rem">
       <div><rds-date format="P">1997-08-12</rds-date> (court)</div>
@@ -154,6 +187,10 @@
           null,
           2,
         );
+      });
+      document.getElementById('counter-btn').addEventListener('click', () => {
+        const badge = document.getElementById('counter');
+        badge.count = Number(badge.count) + 40;
       });
       const variants = ['primary', 'secondary', 'tertiary', 'warning', 'danger', 'success'];
       const row = (title, attrs, content = (v) => v) =>

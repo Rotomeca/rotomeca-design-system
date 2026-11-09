@@ -30,3 +30,6 @@ export * from './components/atoms/secondary-button/secondary-button';
 export * from './components/atoms/tertiary-button/tertiary-button';
 export * from './components/atoms/danger-button/danger-button';
 export * from './components/atoms/icon-button/icon-button';
+export * from './components/atoms/link/link';
+export * from './components/atoms/tag/tag';
+export * from './components/atoms/badge/badge';

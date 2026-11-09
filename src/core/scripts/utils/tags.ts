@@ -21,3 +21,6 @@ export const TAG_SECONDARY_BUTTON = `${base}secondary-button`;
 export const TAG_TERTIARY_BUTTON = `${base}tertiary-button`;
 export const TAG_DANGER_BUTTON = `${base}danger-button`;
 export const TAG_ICON_BUTTON = `${base}icon-button`;
+export const TAG_LINK = `${base}link`;
+export const TAG_TAG = `${base}tag`;
+export const TAG_BADGE = `${base}badge`;

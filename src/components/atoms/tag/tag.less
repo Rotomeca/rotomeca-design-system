@@ -1,0 +1,144 @@
+@import (reference) '../../../core/styles/mixins/base.less';
+
+.rds-base();
+
+:host {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.tag {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-space-1-5);
+  min-height: 2rem;
+  padding: var(--ds-space-1) var(--ds-space-3);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+  white-space: nowrap;
+  text-decoration: none;
+  color: var(--ds-text-default);
+  background: var(--ds-background-surface-variant);
+  border: 1px solid var(--ds-border-subtle);
+  border-radius: var(--ds-radius-full);
+  outline: 3px solid transparent;
+  outline-offset: 0;
+  transition:
+    background-color var(--_d-instant) var(--_ease),
+    color var(--_d-instant) var(--_ease),
+    border-color var(--_d-instant) var(--_ease),
+    transform var(--_d-short) var(--_ease);
+
+  &:focus-visible {
+    outline-color: var(--ds-focus-ring-color);
+    outline-offset: 2px;
+  }
+}
+
+button.tag,
+a.tag {
+  cursor: pointer;
+
+  &:hover {
+    background: var(--ds-background-surface-strong);
+  }
+
+  &:active {
+    transform: scale(0.96);
+  }
+}
+
+:host([size='sm']) .tag {
+  min-height: 1.5rem;
+  padding: 0.125rem var(--ds-space-2);
+  font-size: 0.75rem;
+}
+
+// Filtre sélectionné.
+:host(:state(selected)) .tag {
+  color: var(--ds-text-action-primary);
+  background: var(--ds-control-checked);
+  border-color: var(--ds-control-checked);
+}
+
+:host(:state(selected)) .tag:hover {
+  background: var(--ds-control-checked-hover);
+}
+
+// La coche apparaît en `transform` / `opacity` ; sa largeur est compensée par une marge négative.
+#check {
+  --ds-icon-size: 1rem;
+
+  width: 0;
+  margin-right: calc(var(--ds-space-1-5) * -1);
+  opacity: 0;
+  transform: scale(0.5);
+  transition:
+    opacity var(--_d-short) var(--_ease),
+    transform var(--_d-medium) var(--_ease-in);
+}
+
+:host(:state(selected)) #check {
+  width: 1rem;
+  margin-right: 0;
+  opacity: 1;
+  transform: none;
+}
+
+#icon {
+  --ds-icon-size: 1rem;
+}
+
+.close {
+  display: none;
+  place-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0 calc(var(--ds-space-1-5) * -1) 0 0;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--ds-background-surface-strong);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--ds-focus-ring-color);
+  }
+
+  rds-icon {
+    --ds-icon-size: 0.875rem;
+  }
+}
+
+:host([dismissible]) .close {
+  display: inline-grid;
+}
+
+:host([disabled]) .tag {
+  cursor: not-allowed;
+  opacity: var(--ds-opacity-disabled);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tag:active {
+    transform: none;
+  }
+
+  #check {
+    transform: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .tag {
+    border-color: buttontext;
+  }
+}

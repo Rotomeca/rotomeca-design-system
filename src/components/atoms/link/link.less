@@ -1,0 +1,95 @@
+@import (reference) '../../../core/styles/mixins/base.less';
+
+.rds-base();
+
+:host {
+  display: inline;
+}
+
+a {
+  --_line: 1px;
+
+  display: inline;
+  color: var(--ds-text-link);
+  font: inherit;
+  font-weight: inherit;
+  text-decoration: none;
+  border-radius: 2px;
+
+  // Soulignement dessiné en fond : seule `background-size` varie.
+  background-image: linear-gradient(currentcolor, currentcolor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% var(--_line);
+  transition:
+    background-size var(--_d-short) var(--_ease),
+    color var(--_d-instant) var(--_ease);
+  outline: 3px solid transparent;
+  outline-offset: 2px;
+
+  &:hover {
+    --_line: 2px;
+
+    color: var(--ds-text-link-hover);
+  }
+
+  &:visited {
+    color: var(--ds-text-link-visited);
+  }
+
+  &:focus-visible {
+    outline-color: var(--ds-focus-ring-color);
+  }
+
+  &:hover #after {
+    transform: translateX(2px);
+  }
+
+  &:hover #ext {
+    transform: translate(1px, -1px);
+  }
+}
+
+:host([no-visited]) a:visited {
+  color: var(--ds-text-link);
+}
+
+:host([variant='standalone']) a {
+  font-weight: 600;
+  background-size: 0 2px;
+}
+
+:host([variant='standalone']) a:hover {
+  background-size: 100% 2px;
+}
+
+:host([variant='muted']) a {
+  color: var(--ds-text-muted);
+}
+
+:host([variant='muted']) a:hover {
+  color: var(--ds-text-default);
+}
+
+:host([size='sm']) a {
+  font-size: 0.875rem;
+}
+
+:host([size='lg']) a {
+  font-size: 1.125rem;
+}
+
+rds-icon {
+  --ds-icon-size: 1em;
+
+  margin-inline: 0.125em;
+  vertical-align: -0.125em;
+  transition: transform var(--_d-short) var(--_ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a:hover #after,
+  a:hover #ext {
+    transform: none;
+  }
+}

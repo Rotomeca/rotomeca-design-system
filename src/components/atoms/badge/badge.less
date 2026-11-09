@@ -1,0 +1,81 @@
+@import (reference) '../../../core/styles/mixins/base.less';
+
+.rds-base();
+
+@tones: neutral, brand, accent, success, warning, danger;
+
+:host {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.badge {
+  --_bg: var(--ds-background-tone-neutral);
+  --_fg: var(--ds-text-tone-neutral);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ds-space-1);
+  min-width: 1.5rem;
+  min-height: 1.5rem;
+  padding: 0.125rem 0.625rem;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1rem;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  color: var(--_fg);
+  background: var(--_bg);
+  border-radius: var(--ds-radius-full);
+  transition:
+    background-color var(--_d-short) var(--_ease),
+    color var(--_d-short) var(--_ease);
+}
+
+each(@tones, {
+  .badge[data-tone='@{value}'] {
+    --_bg: ~'var(--ds-background-tone-@{value})';
+    --_fg: ~'var(--ds-text-tone-@{value})';
+  }
+
+  .badge[data-tone='@{value}'][data-appearance='bold'] {
+    --_bg: ~'var(--ds-background-tone-@{value}-bold)';
+    --_fg: ~'var(--ds-text-tone-@{value}-bold)';
+  }
+});
+
+:host([size='sm']) .badge {
+  min-width: 1.25rem;
+  min-height: 1.25rem;
+  padding: 0 var(--ds-space-2);
+  font-size: 0.6875rem;
+}
+
+:host(:state(count)) .badge {
+  padding-inline: var(--ds-space-1-5);
+}
+
+.dot {
+  display: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  background: currentcolor;
+  border-radius: 50%;
+}
+
+:host([dot]) .dot {
+  display: inline-block;
+}
+
+rds-icon {
+  --ds-icon-size: 0.875rem;
+}
+
+@media (forced-colors: active) {
+  .badge {
+    border: 1px solid canvastext;
+  }
+}
