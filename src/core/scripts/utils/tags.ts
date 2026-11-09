@@ -16,3 +16,7 @@ export const TAG_INPUT_TEL = `${base}input-tel`;
 export const TAG_INPUT_URL = `${base}input-url`;
 export const TAG_INPUT_COLOR = `${base}input-color`;
 export const TAG_INPUT_RANGE = `${base}input-range`;
+export const TAG_PRIMARY_BUTTON = `${base}primary-button`;
+export const TAG_SECONDARY_BUTTON = `${base}secondary-button`;
+export const TAG_TERTIARY_BUTTON = `${base}tertiary-button`;
+export const TAG_DANGER_BUTTON = `${base}danger-button`;

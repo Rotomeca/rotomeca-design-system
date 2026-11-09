@@ -25,3 +25,7 @@ export * from './core/scripts/utils/layer';
 export * from './core/scripts/utils/tip';
 export * from './core/scripts/utils/format';
 export * from './core/scripts/utils/motion';
+export * from './components/atoms/primary-button/primary-button';
+export * from './components/atoms/secondary-button/secondary-button';
+export * from './components/atoms/tertiary-button/tertiary-button';
+export * from './components/atoms/danger-button/danger-button';
