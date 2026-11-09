@@ -1,0 +1,50 @@
+// Feuille globale : contenu slotté (light DOM) de `rds-footer`.
+rds-footer h2,
+rds-footer h3,
+rds-footer .rds-footer-title {
+  margin: 0 0 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--ds-text-default);
+}
+
+rds-footer ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.375rem;
+}
+
+rds-footer a {
+  color: var(--ds-text-muted);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+  border-radius: 2px;
+  transition:
+    color var(--ds-duration-instant) var(--ds-ease-standard),
+    text-decoration-color var(--ds-duration-short) var(--ds-ease-standard);
+}
+
+rds-footer a:hover {
+  color: var(--ds-text-default);
+  text-decoration-color: currentcolor;
+}
+
+rds-footer a:focus-visible {
+  outline: 3px solid var(--ds-focus-ring-color);
+  outline-offset: 2px;
+}
+
+rds-footer [slot='bottom'] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  rds-footer a {
+    transition-duration: 1ms;
+  }
+}

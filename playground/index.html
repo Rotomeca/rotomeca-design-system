@@ -473,6 +473,30 @@
       <rds-tertiary-button slot="actions" data-close="reset">Réinitialiser</rds-tertiary-button>
       <rds-primary-button slot="actions" data-close="ok">Appliquer</rds-primary-button>
     </rds-drawer>
+    <h2>En-tête</h2>
+    <div style="max-width: 60rem; resize: horizontal; overflow: auto; border: 1px dashed var(--ds-border-subtle)">
+      <rds-header>
+        <a slot="brand" href="#"><rds-icon name="leaf" style="color: var(--ds-text-action-tertiary)"></rds-icon>Rotomeca</a>
+        <nav slot="nav">
+          <a href="#" aria-current="page">Accueil</a><a href="#">Palettes</a><a href="#">Motifs</a><a href="#">Documentation</a>
+        </nav>
+        <rds-flexbox slot="actions" gap="2" align="center">
+          <rds-icon-button icon="search" label="Rechercher"></rds-icon-button>
+          <rds-avatar name="Tommy Delphin" size="sm"></rds-avatar>
+        </rds-flexbox>
+      </rds-header>
+    </div>
+    <h2>Pied de page</h2>
+    <rds-footer style="margin-top: 0">
+      <rds-fragment slot="brand">
+        <strong style="font-family: var(--ds-font-display); font-size: 1.25rem; color: var(--ds-text-default)">Rotomeca</strong>
+        <span>Des briques chaleureuses et sobres, prêtes à assembler.</span>
+      </rds-fragment>
+      <div><p class="rds-footer-title">Système</p><ul><li><a href="#">Tokens</a></li><li><a href="#">Composants</a></li><li><a href="#">Icônes</a></li></ul></div>
+      <div><p class="rds-footer-title">Ressources</p><ul><li><a href="#">Guide</a></li><li><a href="#">Accessibilité</a></li><li><a href="#">Changelog</a></li></ul></div>
+      <div slot="bottom"><a href="#">Mentions légales</a><a href="#">Accessibilité : partiellement conforme</a><a href="#">Plan du site</a></div>
+      <span slot="legal">© 2026 Rotomeca</span>
+    </rds-footer>
     <script>
       for (const [button, dialog] of [['open-d1', 'd1'], ['open-d2', 'd2'], ['open-dr1', 'dr1'], ['open-dr2', 'dr2']]) {
         document.getElementById(button).addEventListener('click', () => document.getElementById(dialog).show());

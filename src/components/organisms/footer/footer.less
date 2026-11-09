@@ -1,0 +1,59 @@
+@import (reference) '../../../core/styles/mixins/base.less';
+
+.rds-base();
+
+:host {
+  display: block;
+  margin-top: var(--ds-space-12);
+}
+
+footer {
+  background: var(--ds-background-surface-variant);
+  color: var(--ds-text-default);
+  border-top: 1px solid var(--ds-border-subtle);
+}
+
+.inner {
+  max-width: var(--ds-header-max);
+  margin: 0 auto;
+  padding: var(--ds-space-8) var(--ds-space-4) var(--ds-space-4);
+}
+
+.top {
+  display: grid;
+  grid-template-columns: minmax(12rem, 1fr) 2fr;
+  gap: var(--ds-space-8);
+}
+
+.brand {
+  display: grid;
+  gap: var(--ds-space-2);
+  align-content: start;
+  font-size: 0.9375rem;
+  color: var(--ds-text-muted);
+}
+
+.cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: var(--ds-space-6);
+}
+
+.bottom {
+  margin-top: var(--ds-space-8);
+  padding-top: var(--ds-space-4);
+  border-top: 1px solid var(--ds-border-subtle);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ds-space-3);
+  font-size: 0.8125rem;
+  color: var(--ds-text-muted);
+}
+
+@media (max-width: 48rem) {
+  .top {
+    grid-template-columns: 1fr;
+  }
+}
