@@ -1,0 +1,15 @@
+@import (reference) '../../../core/styles/mixins/base.less';
+
+.rds-base();
+
+:host {
+  display: inline-flex;
+}
+
+:host([full]) {
+  display: flex;
+}
+
+rds-segmented-control {
+  flex: 1;
+}

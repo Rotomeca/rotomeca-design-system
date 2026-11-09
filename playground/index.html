@@ -526,6 +526,12 @@
         </tbody>
       </table>
     </rds-table>
+    <h2>Paramètres d'affichage</h2>
+    <div style="display: grid; gap: 1rem; max-width: 24rem">
+      <rds-theme-switcher no-apply></rds-theme-switcher>
+      <rds-theme-switcher no-apply icon-only size="lg"></rds-theme-switcher>
+      <rds-theme-switcher no-apply full label="Thème (pleine largeur)"></rds-theme-switcher>
+    </div>
     <script>
       for (const [button, dialog] of [['open-d1', 'd1'], ['open-d2', 'd2'], ['open-dr1', 'dr1'], ['open-dr2', 'dr2']]) {
         document.getElementById(button).addEventListener('click', () => document.getElementById(dialog).show());

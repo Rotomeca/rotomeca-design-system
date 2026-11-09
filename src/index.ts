@@ -72,3 +72,5 @@ export * from './components/organisms/header/header';
 export * from './components/organisms/footer/footer';
 export * from './components/organisms/sidenav/sidenav';
 export * from './components/organisms/table/table';
+export * from './components/organisms/theme-switcher/theme';
+export * from './components/organisms/theme-switcher/theme-switcher';
