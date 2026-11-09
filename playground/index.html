@@ -176,7 +176,22 @@
       </div>
       <div><rds-date format="PPP HH:mm" date="now"></rds-date> (now)</div>
       <div><rds-date format="P">pas une date</rds-date> (invalide)</div>
+      <div><rds-date id="rel-3j" format="relative"></rds-date> (relatif : il y a 3 jours)</div>
+      <div><rds-date id="rel-2h" format="relative"></rds-date> (relatif : dans 2 heures)</div>
+      <div><rds-date format="'Le' d MMMM yyyy 'à' HH'h'mm" date="1997-08-12T15:30:00"></rds-date> (texte littéral)</div>
     </div>
+    <h2>Flexbox</h2>
+    <rds-flexbox justify="space-between" align="center" gap="2" style="max-width: 28rem">
+      <span>Nouveau motif</span>
+      <rds-primary-button size="sm">Créer</rds-primary-button>
+    </rds-flexbox>
+    <rds-flexbox gap="1-5" wrap style="max-width: 16rem; margin-top: 1rem">
+      <rds-tag>Un</rds-tag><rds-tag>Deux</rds-tag><rds-tag>Trois</rds-tag><rds-tag>Quatre</rds-tag>
+      <rds-tag>Cinq</rds-tag><rds-tag>Six</rds-tag>
+    </rds-flexbox>
+    <rds-flexbox mode="column" inverted gap="12px" style="margin-top: 1rem">
+      <span>Premier (affiché en bas)</span><span>Second (affiché en haut)</span>
+    </rds-flexbox>
     <h2>Champs</h2>
     <form id="inputs" style="display: grid; gap: 1rem; max-width: 32rem">
       <rds-input name="nom" required placeholder="Jean Dupont">
@@ -246,6 +261,8 @@
           2,
         );
       });
+      document.getElementById('rel-3j').date = new Date(Date.now() - 3 * 86400000);
+      document.getElementById('rel-2h').date = new Date(Date.now() + 2 * 3600000);
       document.getElementById('counter-btn').addEventListener('click', () => {
         const badge = document.getElementById('counter');
         badge.count = Number(badge.count) + 40;

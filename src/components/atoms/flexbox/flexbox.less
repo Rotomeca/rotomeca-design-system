@@ -4,9 +4,14 @@ rds-flexbox {
 
   align-items: var(--_align, normal);
   justify-content: var(--_justify, normal);
+  gap: var(--_gap, normal);
 
   &[mode='column'] {
     flex-direction: column;
+  }
+
+  &[wrap] {
+    flex-wrap: wrap;
   }
 
   &:state(inverted-row) {

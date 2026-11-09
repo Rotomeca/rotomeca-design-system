@@ -41,6 +41,35 @@ type JustifyMode =
   | 'safe center'
   | 'unsafe center';
 
+/** Pas de l'échelle `--ds-space-*` acceptés par `gap` (ex. `1-5` → `--ds-space-1-5`). */
+const SPACE_STEP = /^\d+(?:-\d+)?$/;
+
+/**
+ * Conteneur flex déclaratif (light DOM, aucune boîte Shadow) pour assembler les briques sans CSS ad hoc.
+ *
+ * @remarks
+ * | Attribut | Valeurs | Rôle |
+ * | --- | --- | --- |
+ * | `mode` | `row` (défaut) · `column` | Direction. |
+ * | `inverted` | booléen | Inverse l'ordre (`row-reverse` / `column-reverse`). |
+ * | `align` | valeurs de `align-items` | Alignement transversal. |
+ * | `justify` | valeurs de `justify-content` | Répartition. |
+ * | `gap` | `1` `1-5` `2` `3` `4` `6` `8` `12` (→ `--ds-space-*`) ou longueur CSS | Espacement. |
+ * | `wrap` | booléen | Retour à la ligne. |
+ *
+ * Préférer les pas de l'échelle `--ds-space-*` aux longueurs libres.
+ *
+ * @cssstate inverted-row - Ordre inversé en ligne.
+ * @cssstate inverted-column - Ordre inversé en colonne.
+ *
+ * @example
+ * ```html
+ * <rds-flexbox justify="space-between" align="center" gap="2">
+ *   <span>Nouveau motif</span>
+ *   <rds-primary-button size="sm">Créer</rds-primary-button>
+ * </rds-flexbox>
+ * ```
+ */
 @Define({ tag: TAG_FLEX_BOX })
 @Light()
 class RotomecaFlexBox extends BaseElementInternal {
@@ -48,13 +77,24 @@ class RotomecaFlexBox extends BaseElementInternal {
   @Attr() accessor inverted: boolean = false;
   @Attr() accessor align: AlignMode = 'normal';
   @Attr() accessor justify: JustifyMode = 'normal';
+  /** Retour à la ligne des enfants. */
+  @Attr() accessor wrap: boolean = false;
 
-  static observedAttributes: string[] = ['mode', 'inverted', 'align', 'justify'];
+  static observedAttributes: string[] = ['mode', 'inverted', 'align', 'justify', 'gap', 'wrap'];
+
+  /** Espacement : pas de l'échelle `--ds-space-*` (`2`, `1-5`…) ou longueur CSS. */
+  get gap(): string {
+    return this.stringAttribute('gap');
+  }
+  set gap(value: string) {
+    this.setStringAttribute('gap', value || null);
+  }
 
   protected onConnect(): void {
     this.#_invertedAttributeChanged();
     this.#_alignUpdated(this.align);
     this.#_justifyUpdated(this.justify);
+    this.#_gapUpdated(this.gap);
   }
 
   protected attributeChanged(
@@ -76,6 +116,10 @@ class RotomecaFlexBox extends BaseElementInternal {
         this.#_justifyUpdated(_newValue as JustifyMode);
         break;
 
+      case 'gap':
+        this.#_gapUpdated(_newValue ?? '');
+        break;
+
       default:
         break;
     }
@@ -87,6 +131,12 @@ class RotomecaFlexBox extends BaseElementInternal {
 
   #_justifyUpdated(mode: JustifyMode): void {
     this.setCSSProperty('--_justify', mode);
+  }
+
+  #_gapUpdated(gap: string): void {
+    const value = gap.trim();
+    if (!value) this.setCSSProperty('--_gap', null);
+    else this.setCSSProperty('--_gap', SPACE_STEP.test(value) ? `var(--ds-space-${value})` : value);
   }
 
   #_invertedAttributeChanged(): void {
