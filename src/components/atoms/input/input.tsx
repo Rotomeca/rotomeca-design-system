@@ -1,9 +1,12 @@
 import { Define } from '../../../core/scripts/decorators';
 import { TAG_INPUT } from '../../../core/scripts/utils/tags';
-import { BaseFormElement } from '../../base/BaseFormElement';
+import { BaseFieldElement } from '../../base/BaseFieldElement';
+import { FieldMessages } from '../../base/FieldMessages';
+import { hasContent } from '../../base/dom';
 import { RotomecaButton, type ButtonVariant } from '../button/button';
 import { RotomecaFragment } from '../fragment/fragment';
 import { RotomecaIcon } from '../icon/icon';
+import '../message/message';
 import style from './input.less';
 
 export { RotomecaInput };
@@ -31,17 +34,8 @@ type InputCreateOptions = {
   [attribute: string]: string | undefined;
 };
 
-const TEXT_VALID = 'Le champ est valide.';
-const TEXT_INVALID = 'Le champ est invalide.';
-const TEXT_ERROR = 'Ce champ contient une erreur.';
-
-const ICON_SUCCESS = 'circle-check';
-const ICON_ERROR = 'circle-x';
-
 const SLOT_HINT = 'hint';
 const SLOT_BUTTON = 'button';
-const SLOT_SUCCESS = 'success';
-const SLOT_ERROR = 'error';
 
 const BUTTON_VARIANTS: readonly string[] = [
   'primary',
@@ -63,6 +57,7 @@ const SYNCED_ATTRIBUTES = [
   'min',
   'max',
   'step',
+  'list',
 ] as const;
 
 /** Types dont l'interface native est toujours visible : le label ne peut pas rester dans le champ. */
@@ -99,29 +94,14 @@ const TEMPLATE = (
           <label id="label" for="input" class="floating-label">
             <slot id="label-slot"></slot>
           </label>
-          <RotomecaIcon id="input__icon" />
+          <RotomecaIcon id="input__icon" class="trailing-icon" />
           <output id="output" for="input"></output>
         </div>
         <RotomecaButton id="input__button" variant="primary" disabled>
           <slot id="button-slot" name="button"></slot>
         </RotomecaButton>
       </div>
-      <div id="hint" class="hint">
-        <slot id="hint-slot" name="hint"></slot>
-      </div>
-      <div id="state" class="state" part="state-container" aria-live="polite">
-        <RotomecaIcon id="state__icon" />
-        <span id="success-text" class="state__text success">
-          <slot name="success">
-            <span id="success-fallback">{TEXT_VALID}</span>
-          </slot>
-        </span>
-        <span id="error-text" class="state__text error">
-          <slot name="error">
-            <span id="error-fallback">{TEXT_INVALID}</span>
-          </slot>
-        </span>
-      </div>
+      <FieldMessages />
     </div>
   </RotomecaFragment>
 );
@@ -144,10 +124,10 @@ const TEMPLATE = (
  * @slot button - Texte du bouton interne.
  *
  * @csspart input - L'`<input>` natif.
- * @csspart state-container - Zone du message de validation.
  *
  * @fires input - Saisie (événement natif, composé).
  * @fires change - Valeur validée.
+ * @fires {CustomEvent<{value: string}>} rds-input:value - Valeur modifiée.
  * @fires {CustomEvent<{innerEvent: Event}>} rds-input:button-click - Clic sur le bouton interne.
  *
  * @cssstate value - Le champ contient une valeur.
@@ -156,6 +136,8 @@ const TEMPLATE = (
  * @cssstate obi - Le bouton interne n'a qu'une icône.
  * @cssstate success - Message de succès affiché.
  * @cssstate error - Message d'erreur affiché.
+ * @cssstate has-label - Un libellé est fourni (libellé flottant).
+ * @cssstate button-inline - Bouton « en ligne » (variantes password / search).
  *
  * @example
  * ```html
@@ -166,15 +148,16 @@ const TEMPLATE = (
  * ```
  */
 @Define({ tag: TAG_INPUT, template: TEMPLATE, styles: style })
-class RotomecaInput extends BaseFormElement {
+class RotomecaInput extends BaseFieldElement {
   /** Type imposé par une variante (`null` : l'attribut `type` est utilisé). */
   static inputType: string | null = null;
   /** Icône affichée par défaut dans le champ (vide : aucune). */
   static defaultIcon = '';
 
-  static shadowOptions: ShadowRootInit = { mode: 'open', delegatesFocus: true };
+  static upgradeProperties = ['value'];
   static observedAttributes: string[] = [
-    ...BaseFormElement.observedAttributes,
+    ...BaseFieldElement.observedAttributes,
+    'aria-label',
     'type',
     'placeholder',
     'value',
@@ -191,8 +174,6 @@ class RotomecaInput extends BaseFormElement {
   #_initial = '';
   /** `true` dès que la valeur a été modifiée (saisie ou propriété `value`). */
   #_dirty = false;
-  /** `true` après une interaction : autorise l'affichage des erreurs natives. */
-  #_touched = false;
 
   //#region Propriétés
   /** Valeur courante. */
@@ -262,6 +243,10 @@ class RotomecaInput extends BaseFormElement {
   protected get inputElement(): HTMLInputElement {
     return this.#_input;
   }
+
+  protected get control(): HTMLInputElement {
+    return this.#_input;
+  }
   //#endregion
 
   //#region Points d'extension pour les variantes
@@ -306,6 +291,7 @@ class RotomecaInput extends BaseFormElement {
   }
 
   protected onConnect(): void {
+    super.onConnect();
     const input = this.#_input;
 
     this.resources.listen(input, 'input', () => {
@@ -313,19 +299,14 @@ class RotomecaInput extends BaseFormElement {
       this.#_afterValueChange();
     });
     this.resources.listen(input, 'change', () => {
-      this.#_touched = true;
+      this.touched = true;
       this.#_afterValueChange();
       // `change` n'est pas composé : on le relaie depuis l'hôte.
       this.dispatchEvent(new Event('change', { bubbles: true }));
     });
     this.resources.listen(input, 'focusout', () => {
-      this.#_touched = true;
-      this.#_syncValidity();
-    });
-    // Soumission d'un formulaire invalide : le navigateur notifie l'hôte.
-    this.resources.listen(this, 'invalid', () => {
-      this.#_touched = true;
-      this.#_syncValidity();
+      this.touched = true;
+      this.#_afterValueChange(false);
     });
     this.resources.listen(this.#_button, 'click', (event) => {
       this.emit('rds-input:button-click', { innerEvent: event });
@@ -337,7 +318,7 @@ class RotomecaInput extends BaseFormElement {
     const input = this.#_input;
 
     input.type = this.resolveType();
-    this.#_setState('always-float', ALWAYS_FLOAT_TYPES.includes(input.type));
+    this.setState('always-float', ALWAYS_FLOAT_TYPES.includes(input.type));
     input.placeholder = this.stringAttribute('placeholder');
     input.disabled = this.effectivelyDisabled;
     input.readOnly = this.hasAttribute('readonly');
@@ -351,7 +332,7 @@ class RotomecaInput extends BaseFormElement {
     if (ariaLabel) input.setAttribute('aria-label', ariaLabel);
     else input.removeAttribute('aria-label');
     this.configureInput(input);
-    this.#_setState('disabled', input.disabled);
+    this.setState('disabled', input.disabled);
 
     this.#_syncIcon();
     this.#_syncButton();
@@ -369,20 +350,15 @@ class RotomecaInput extends BaseFormElement {
   }
 
   protected slotChanged(slot: HTMLSlotElement): void {
-    if (slot.id === 'label-slot' || slot.id === 'hint-slot') {
-      this.#_setState('has-label', this.#_hasSlotted('label-slot'));
-      this.#_setState('has-hint', this.#_hasSlotted('hint-slot'));
-    } else if (slot.id === 'button-slot') {
-      void this.requestUpdate('button-slot');
-    } else {
-      this.#_syncValidity();
-    }
+    if (slot.id === 'button-slot') this.#_syncButton();
+    this.syncLabelStates();
+    this.syncStates();
   }
 
   protected onFormReset(): void {
     this.#_input.value = this.#_initial;
     this.#_dirty = false;
-    this.#_touched = false;
+    this.touched = false;
     this.#_afterValueChange(false);
   }
 
@@ -390,11 +366,6 @@ class RotomecaInput extends BaseFormElement {
     this.#_input.value = typeof state === 'string' ? state : '';
     this.#_dirty = true;
     this.#_afterValueChange(false);
-  }
-
-  protected beforeValidate(): void {
-    this.#_touched = true;
-    this.#_syncValidity();
   }
   //#endregion
 
@@ -416,7 +387,7 @@ class RotomecaInput extends BaseFormElement {
     variation = 'primary',
   }: { text?: string; icon?: string; label?: string; variation?: ButtonVariant } = {}): this {
     this.setAttribute('button', variation);
-    if (text !== undefined) this.#_setSlotText(SLOT_BUTTON, text);
+    if (text !== undefined) this.setSlotText(SLOT_BUTTON, text);
     if (icon !== undefined) this.setAttribute('button-icon', icon);
     if (label !== undefined) this.setAttribute('button-label', label);
     return this;
@@ -424,7 +395,7 @@ class RotomecaInput extends BaseFormElement {
 
   /** Active un bouton interne qui ne contient qu'une icône. */
   enableButtonIconOnly(icon: string, label: string): this {
-    this.#_setSlotText(SLOT_BUTTON, null);
+    this.setSlotText(SLOT_BUTTON, null);
     this.setAttribute('button', '');
     this.setAttribute('button-icon', icon);
     this.setAttribute('button-label', label);
@@ -433,26 +404,8 @@ class RotomecaInput extends BaseFormElement {
 
   /** Masque le bouton interne. */
   hideButton(): this {
-    this.#_setSlotText(SLOT_BUTTON, null);
+    this.setSlotText(SLOT_BUTTON, null);
     for (const name of ['button', 'button-icon', 'button-label']) this.removeAttribute(name);
-    return this;
-  }
-
-  /** Passe le champ en succès, avec un message optionnel. */
-  setSuccessState(message?: string): this {
-    return this.#_forceState('success', SLOT_SUCCESS, message);
-  }
-
-  /** Passe le champ en erreur, avec un message optionnel. */
-  setErrorState(message?: string): this {
-    return this.#_forceState('error', SLOT_ERROR, message);
-  }
-
-  /** Retire l'état forcé (succès ou erreur) et ses messages. */
-  clearState(): this {
-    this.removeAttribute('state');
-    this.#_setSlotText(SLOT_SUCCESS, null);
-    this.#_setSlotText(SLOT_ERROR, null);
     return this;
   }
 
@@ -466,16 +419,6 @@ class RotomecaInput extends BaseFormElement {
   removeIcon(): this {
     this.removeAttribute('icon');
     return this;
-  }
-
-  /** Définit l'indice d'utilisation. */
-  setHint(hint: string): this {
-    return this.#_setSlotText(SLOT_HINT, hint);
-  }
-
-  /** Retire l'indice d'utilisation. */
-  removeHint(): this {
-    return this.#_setSlotText(SLOT_HINT, null);
   }
 
   /** Définit le libellé (texte ou élément). */
@@ -501,133 +444,64 @@ class RotomecaInput extends BaseFormElement {
     return this.require<RotomecaButton>('#input__button');
   }
 
-  #_setState(name: string, on: boolean): void {
-    if (on) this.internals.states.add(name);
-    else this.internals.states.delete(name);
-  }
-
-  #_hasSlotted(slotId: string): boolean {
-    const slot = this.query<HTMLSlotElement>(`#${slotId}`);
-    return (
-      slot
-        ?.assignedNodes()
-        .some((node) => node.nodeType === Node.ELEMENT_NODE || !!node.textContent?.trim()) ?? false
-    );
-  }
-
-  /** Remplace (ou supprime si `text` est `null`) le contenu d'un slot nommé. */
-  #_setSlotText(name: string, text: string | null): this {
-    for (const child of [...this.children]) {
-      if (child.getAttribute('slot') === name) child.remove();
-    }
-    if (text) {
-      const span = document.createElement('span');
-      span.slot = name;
-      span.textContent = text;
-      this.append(span);
-    }
-    return this;
-  }
-
-  #_forceState(state: InputState, slot: string, message?: string): this {
-    this.setAttribute('state', state);
-    if (message) this.#_setSlotText(slot, message);
-    return this;
-  }
-
-  #_afterValueChange(requestUpdate = true): void {
+  #_afterValueChange(emit = true): void {
     const input = this.#_input;
     this.setFormValue(input.value);
-    this.#_setState('value', input.value !== '');
+    this.setState('value', input.value !== '');
     this.#_syncOutput();
-    this.#_syncValidity();
-    if (requestUpdate) void this.requestUpdate('value');
+    this.#_syncButton();
+    this.syncStates();
+    this.syncLabelStates();
+    if (emit) this.emit('rds-input:value', { value: input.value });
   }
 
   #_syncIcon(): void {
-    const name = this.getAttribute('icon') || this.resolveIcon();
+    const name = this.getAttribute('icon') ?? this.resolveIcon();
     const icon = this.require<RotomecaIcon>('#input__icon');
     if (name) icon.setAttribute('name', name);
     else icon.removeAttribute('name');
-    this.#_setState('have-icon', !!name);
+    this.setState('have-icon', !!name);
   }
 
   #_syncButton(): void {
-    const explicit = this.hasAttribute('button') || this.hasAttribute('button-icon');
-    const fallback = explicit ? null : this.resolveButton();
-    const enabled = explicit || fallback !== null;
-
     const button = this.#_button;
-    const icon = this.getAttribute('button-icon') ?? fallback?.icon ?? '';
-    const label = this.getAttribute('button-label') ?? fallback?.label ?? '';
-    const requested = this.getAttribute('button') ?? fallback?.variant ?? '';
-    const variant = BUTTON_VARIANTS.includes(requested) ? requested : 'primary';
+    const requested = this.getAttribute('button');
+    let config: InputButtonConfig | null;
+    let inline = false;
+    if (requested !== null || this.hasAttribute('button-icon')) {
+      config = {
+        variant: BUTTON_VARIANTS.includes(requested ?? '')
+          ? (requested as ButtonVariant)
+          : 'primary',
+        icon: this.getAttribute('button-icon') ?? '',
+        label: this.getAttribute('button-label') ?? '',
+      };
+    } else {
+      config = this.resolveButton();
+      inline = config !== null;
+    }
+    this.setState('have-button', config !== null);
+    this.setState('button-inline', inline);
+    if (!config) return;
 
+    const variant = config.variant ?? 'primary';
     button.setAttribute('variant', variant);
-    if (icon) button.setAttribute('icon-before', icon);
+    if (config.icon) button.setAttribute('icon-before', config.icon);
     else button.removeAttribute('icon-before');
-    if (label) button.setAttribute('label', label);
+    if (config.label) button.setAttribute('label', config.label);
     else button.removeAttribute('label');
-    button.disabled = !enabled || this.effectivelyDisabled || this.hasAttribute('readonly');
-
-    this.#_setState('have-button', enabled);
-    this.#_setState('button-flat', enabled && variant === 'tertiary');
-    this.#_setState('obi', enabled && !!icon && !this.#_hasSlotted('button-slot'));
+    button.toggleAttribute('rounded', inline);
+    button.setAttribute('size', inline ? 'sm' : 'md');
+    button.disabled = this.effectivelyDisabled || this.hasAttribute('readonly');
+    this.setState('button-flat', !inline && variant === 'tertiary');
+    this.setState('obi', !hasContent(this.query<HTMLSlotElement>('#button-slot')) && !!config.icon);
   }
 
   #_syncOutput(): void {
     const text = this.resolveOutput();
     const output = this.require<HTMLOutputElement>('#output');
     output.textContent = text ?? '';
-    this.#_setState('has-output', text !== null);
-  }
-
-  /** Synchronise validité du formulaire, états visuels et attributs ARIA. */
-  #_syncValidity(): void {
-    const input = this.#_inputOrNull;
-    if (!input) return;
-
-    const forced = this.getAttribute('state');
-    const nativeError = this.#_touched && !input.validity.valid;
-    const isError = forced === 'error' || (forced !== 'success' && nativeError);
-    const isSuccess = !isError && forced === 'success';
-
-    const errorFallback = this.require('#error-fallback');
-    errorFallback.textContent =
-      forced === 'error'
-        ? TEXT_ERROR
-        : input.validationMessage || TEXT_INVALID;
-
-    // Validité exposée au formulaire (indépendante de l'affichage différé).
-    if (forced === 'error') {
-      this.setValidity({ customError: true }, this.#_errorMessage(input), input);
-    } else if (!input.validity.valid) {
-      this.setValidity(flagsOf(input.validity), input.validationMessage, input);
-    } else {
-      this.setValidity();
-    }
-
-    this.#_setState('state', isError || isSuccess);
-    this.#_setState('error', isError);
-    this.#_setState('success', isSuccess);
-
-    const stateIcon = this.require<RotomecaIcon>('#state__icon');
-    if (isError) stateIcon.setAttribute('name', ICON_ERROR);
-    else if (isSuccess) stateIcon.setAttribute('name', ICON_SUCCESS);
-    else stateIcon.removeAttribute('name');
-
-    if (isError || isSuccess) {
-      input.setAttribute('aria-invalid', String(isError));
-      input.setAttribute('aria-describedby', isError ? 'error-text' : 'success-text');
-    } else {
-      input.removeAttribute('aria-invalid');
-      input.removeAttribute('aria-describedby');
-    }
-  }
-
-  #_errorMessage(input: HTMLInputElement): string {
-    const slotted = this.assignedElements(SLOT_ERROR)[0]?.textContent?.trim();
-    return slotted || input.validationMessage || TEXT_ERROR;
+    this.setState('has-output', text !== null);
   }
   //#endregion
 
@@ -644,8 +518,8 @@ class RotomecaInput extends BaseFormElement {
   ): T {
     const slots: Record<string, string> = {
       hint: SLOT_HINT,
-      success: SLOT_SUCCESS,
-      error: SLOT_ERROR,
+      success: 'success',
+      error: 'error',
       buttonText: SLOT_BUTTON,
     };
     const element = document.createElement(this.tagName) as T;
@@ -663,20 +537,4 @@ class RotomecaInput extends BaseFormElement {
     }
     return element;
   }
-}
-
-/** Copie une `ValidityState` (non itérable) en `ValidityStateFlags`. */
-function flagsOf(validity: ValidityState): ValidityStateFlags {
-  return {
-    badInput: validity.badInput,
-    customError: validity.customError,
-    patternMismatch: validity.patternMismatch,
-    rangeOverflow: validity.rangeOverflow,
-    rangeUnderflow: validity.rangeUnderflow,
-    stepMismatch: validity.stepMismatch,
-    tooLong: validity.tooLong,
-    tooShort: validity.tooShort,
-    typeMismatch: validity.typeMismatch,
-    valueMissing: validity.valueMissing,
-  };
 }

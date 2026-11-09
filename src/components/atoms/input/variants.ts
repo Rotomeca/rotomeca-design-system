@@ -9,6 +9,7 @@ import {
   TAG_INPUT_RANGE,
   TAG_INPUT_SEARCH,
   TAG_INPUT_TEL,
+  TAG_INPUT_TEXT,
   TAG_INPUT_TIME,
   TAG_INPUT_URL,
 } from '../../../core/scripts/utils/tags';
@@ -24,6 +25,7 @@ export {
   RotomecaInputRange,
   RotomecaInputSearch,
   RotomecaInputTel,
+  RotomecaInputText,
   RotomecaInputTime,
   RotomecaInputUrl,
 };
@@ -32,6 +34,19 @@ export {
 function defaultAttribute(host: HTMLElement, input: HTMLInputElement, name: string, value: string) {
   if (host.hasAttribute(name)) return;
   if (input.getAttribute(name) !== value) input.setAttribute(name, value);
+}
+
+/**
+ * Champ texte sur une ligne (`type="text"` figé).
+ *
+ * @example
+ * ```html
+ * <rds-input-text name="nom" required>Nom</rds-input-text>
+ * ```
+ */
+@Define({ tag: TAG_INPUT_TEXT })
+class RotomecaInputText extends RotomecaInput {
+  static inputType = 'text';
 }
 
 /**
@@ -82,7 +97,7 @@ class RotomecaInputDateTime extends RotomecaInput {
 }
 
 /**
- * Champ mot de passe, avec un bouton pour afficher ou masquer la saisie.
+ * Champ mot de passe, avec un bouton « en ligne » pour afficher ou masquer la saisie.
  *
  * @fires {CustomEvent<{visible: boolean}>} rds-input-password:toggle - Affichage basculé.
  */
@@ -122,7 +137,7 @@ class RotomecaInputPassword extends RotomecaInput {
 }
 
 /**
- * Champ de recherche, avec un bouton pour effacer la saisie.
+ * Champ de recherche, avec un bouton « en ligne » pour effacer la saisie (Échap l'efface aussi).
  *
  * @fires {CustomEvent<{value: string}>} rds-input-search:submit - Touche Entrée.
  * @fires {Event} rds-input-search:clear - Saisie effacée par le bouton.
@@ -137,6 +152,10 @@ class RotomecaInputSearch extends RotomecaInput {
     this.resources.listen(this.inputElement, 'keydown', (event) => {
       if ((event as KeyboardEvent).key === 'Enter')
         this.emit('rds-input-search:submit', { value: this.value });
+      if ((event as KeyboardEvent).key === 'Escape' && this.value) {
+        this.value = '';
+        this.emit('rds-input-search:clear', null);
+      }
     });
   }
 
@@ -195,12 +214,20 @@ class RotomecaInputColor extends RotomecaInput {
   static inputType = 'color';
 }
 
-/** Curseur (`min`, `max`, `step`) qui affiche sa valeur courante. */
+/** Curseur (`min`, `max`, `step`) à piste stylée, qui affiche sa valeur courante. */
 @Define({ tag: TAG_INPUT_RANGE })
 class RotomecaInputRange extends RotomecaInput {
   static inputType = 'range';
 
   protected resolveOutput(): string {
-    return this.value;
+    const input = this.inputElement;
+    const min = Number(input.min || 0);
+    const max = Number(input.max || 100);
+    // Piste remplie jusqu'à la valeur (lue par input.less).
+    this.inputElement.style.setProperty(
+      '--_pct',
+      `${((Number(input.value) - min) / (max - min || 1)) * 100}%`,
+    );
+    return input.value;
   }
 }

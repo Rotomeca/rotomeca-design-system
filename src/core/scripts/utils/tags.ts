@@ -5,6 +5,7 @@ export const TAG_ICON = `${base}icon`;
 export const TAG_FRAGMENT = `${base}fragment`;
 export const TAG_DATE = `${base}date`;
 export const TAG_INPUT =`${base}input`;
+export const TAG_INPUT_TEXT = `${base}input-text`;
 export const TAG_INPUT_NUMBER = `${base}input-number`;
 export const TAG_INPUT_DATE = `${base}input-date`;
 export const TAG_INPUT_TIME = `${base}input-time`;
