@@ -1,3 +1,5 @@
+import { RotomecaMessage } from '../atoms/message/message';
+
 export { FieldMessages };
 
 /**
@@ -5,17 +7,17 @@ export { FieldMessages };
  *
  * @remarks
  * Partagé par `rds-input`, `rds-select` et `rds-textarea` ; piloté par {@link BaseFieldElement}.
- * Les composants qui l'utilisent importent `RotomecaMessage` pour que `rds-message` soit défini.
+ * Référencer `RotomecaMessage` ici garantit (contre le tree-shaking) que `rds-message` est défini.
  *
  * @returns Le HTML des messages.
  */
 function FieldMessages(): string {
   return (
     <div class="messages">
-      <rds-message id="hint" hidden>
+      <RotomecaMessage id="hint" hidden>
         <slot name="hint" id="hint-slot"></slot>
-      </rds-message>
-      <rds-message id="state-msg" hidden>
+      </RotomecaMessage>
+      <RotomecaMessage id="state-msg" hidden>
         <span id="success-text" hidden>
           <slot name="success">
             <span id="success-fallback">Le champ est valide.</span>
@@ -26,7 +28,7 @@ function FieldMessages(): string {
             <span id="error-fallback">Le champ est invalide.</span>
           </slot>
         </span>
-      </rds-message>
+      </RotomecaMessage>
     </div>
   );
 }

@@ -32,3 +32,4 @@ export const TAG_PLACEHOLDER = `${base}placeholder`;
 export const TAG_AVATAR = `${base}avatar`;
 export const TAG_PICTURE = `${base}picture`;
 export const TAG_MESSAGE = `${base}message`;
+export const TAG_TEXTAREA = `${base}textarea`;

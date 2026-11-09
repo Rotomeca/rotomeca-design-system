@@ -1,0 +1,52 @@
+@import (reference) '../../../core/styles/mixins/base.less';
+@import (reference) '../../../core/styles/mixins/field.less';
+
+.rds-base();
+.rds-field();
+
+textarea.input-like {
+  min-height: calc(var(--_rows, 3) * 1.5rem + 1.5rem);
+  max-height: var(--_max, 20rem);
+  resize: vertical;
+  field-sizing: content;
+}
+
+:host([resize='none']) textarea.input-like {
+  resize: none;
+}
+
+:host(:state(has-label)) textarea.input-like {
+  min-height: calc(var(--_rows, 3) * 1.5rem + 2.25rem);
+  padding-top: 1.625rem;
+}
+
+.counter {
+  position: absolute;
+  right: var(--ds-space-4);
+  bottom: -1.5rem;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1rem;
+  color: var(--ds-text-muted);
+}
+
+.counter:empty {
+  display: none;
+}
+
+:host(:state(over)) .counter {
+  font-weight: 600;
+  color: var(--ds-text-danger);
+}
+
+:host(:state(has-counter)) .messages {
+  padding-right: 4.5rem;
+}
+
+:host(:state(has-counter)) .container {
+  padding-bottom: 0.25rem;
+}
+
+:host(:state(has-counter):not(:has(.messages rds-message:not([hidden])))) .container {
+  padding-bottom: 1.25rem;
+}

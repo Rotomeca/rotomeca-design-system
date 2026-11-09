@@ -40,3 +40,5 @@ export * from './components/atoms/placeholder/placeholder';
 export * from './components/atoms/avatar/avatar';
 export * from './components/atoms/picture/picture';
 export * from './components/atoms/message/message';
+export * from './components/base/BaseFieldElement';
+export * from './components/atoms/textarea/textarea';

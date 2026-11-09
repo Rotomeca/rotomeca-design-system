@@ -230,6 +230,10 @@
       <rds-input-url name="url">Site web</rds-input-url>
       <rds-input-color name="couleur" value="#6b4226">Couleur</rds-input-color>
       <rds-input-range name="curseur" min="0" max="100" value="40">Curseur</rds-input-range>
+      <rds-textarea name="description" maxlength="200" rows="3">
+        Description <span slot="hint">Visible dans la galerie</span>
+      </rds-textarea>
+      <rds-textarea name="notes" required resize="none" max-rows="6">Notes (obligatoire)</rds-textarea>
       <fieldset style="display: flex; gap: 0.5rem; border: 0; padding: 0">
         <rds-button type="submit">Envoyer</rds-button>
         <rds-button type="reset" variant="secondary">Réinitialiser</rds-button>

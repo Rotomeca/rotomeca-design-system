@@ -6,7 +6,6 @@ import { hasContent } from '../../base/dom';
 import { RotomecaButton, type ButtonVariant } from '../button/button';
 import { RotomecaFragment } from '../fragment/fragment';
 import { RotomecaIcon } from '../icon/icon';
-import '../message/message';
 import style from './input.less';
 
 export { RotomecaInput };
