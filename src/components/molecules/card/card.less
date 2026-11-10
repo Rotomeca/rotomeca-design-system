@@ -191,6 +191,17 @@
   align-items: center;
 }
 
+// Média de la tuile (icône) : centré, avec de l'air au-dessus.
+:host([variant='tile']:state(has-media)) .media {
+  display: flex;
+  justify-content: center;
+  padding-top: var(--ds-space-8);
+}
+
+:host([variant='tile']) ::slotted([slot='media']) {
+  width: auto;
+}
+
 @media (prefers-reduced-motion: reduce) {
   :host(:state(link)) .card:hover,
   :host(:state(link)) .card:hover ::slotted([slot='media']),
