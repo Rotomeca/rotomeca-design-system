@@ -57,6 +57,37 @@ p {
   transform: scaleX(1);
 }
 
+// Étape en cours : dégradé des champs de saisie qui défile de gauche à droite (boucle sans raccord :
+// la dernière couleur reprend la première, et le décalage vaut exactement une largeur de motif).
+.bar[data-current]::after {
+  background: linear-gradient(
+    90deg,
+    var(--ds-input-ring-1),
+    var(--ds-input-ring-2),
+    var(--ds-input-ring-3),
+    var(--ds-input-ring-4),
+    var(--ds-input-ring-1)
+  );
+  background-size: 200% 100%;
+  animation: rds-stepper-flow 2.4s linear infinite;
+}
+
+@keyframes rds-stepper-flow {
+  from {
+    background-position-x: 200%;
+  }
+
+  to {
+    background-position-x: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar[data-current]::after {
+    animation: none;
+  }
+}
+
 .next {
   margin-top: var(--ds-space-2);
   font-size: 0.875rem;

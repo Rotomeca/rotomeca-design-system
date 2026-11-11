@@ -67,6 +67,11 @@ header {
     flex-wrap: wrap;
   }
 
+  .brand {
+    // La 1re ligne garde 4rem quel que soit l'état du menu (sinon l'espace haut disparaît à l'ouverture).
+    min-height: 4rem;
+  }
+
   #burger {
     display: inline-flex;
     order: 3;
